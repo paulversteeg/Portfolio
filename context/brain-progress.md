@@ -10,7 +10,7 @@ Last session: 2026-10-21, by Paul, stopped at context/project/links.md
 | README.md | done | 2026-10-21 | Paul | |
 | context/project/brief.md | done | 2026-10-21 | Paul | |
 | context/project/stakeholders.md | todo | | | |
-| context/project/links.md | todo | | | |
+| context/project/links.md | partial | 2026-10-21 | Paul | Figma, Storybook, ClickUp, shared drive still open |
 | context/platform/brand/brand-guidelines.md | todo | | | |
 | context/platform/brand/voice-and-terminology.md | todo | | | |
 | context/platform/tech/tech-constraints.md | todo | | | Mentioned: own self-built CMS, keep it; PHP script derives each story's colour from its title |
