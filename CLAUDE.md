@@ -1,6 +1,6 @@
 # Front door
 
-You are working on **[project name]** for **[client]**. Read this file first. Then load only what the task needs.
+You are working on **Portfolio** for **Paul Versteeg**. Read this file first. Then load only what the task needs.
 
 ## What lives where
 

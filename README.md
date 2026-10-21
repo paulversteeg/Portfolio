@@ -1,6 +1,6 @@
-# Project name
+# Portfolio
 
-One or two sentences: who this project is for and what it should achieve.
+The existing portfolio site of Paul Versteeg, designer: CV, selected projects, publications, talks and stories seen through a designer's eye. Paul is leaving Fresk Digital, the company he co-founded, so the site is being checked on content and sharpened in form for the next step in his career.
 
 ## How this repo works
 
