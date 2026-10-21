@@ -1,7 +1,7 @@
 ---
-status: draft            # draft | active | outdated
-owner:                   # who keeps this file current
-last-reviewed:           # YYYY-MM-DD
+status: active            # draft | active | outdated
+owner: Paul Versteeg                  # who keeps this file current
+last-reviewed: 2026-10-21           # YYYY-MM-DD
 ---
 
 # Project brief
