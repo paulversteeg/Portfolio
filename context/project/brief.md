@@ -26,6 +26,16 @@ This kit exists so the site can be maintained well from here on.
 
 ## What is in scope, and what is not?
 
+In scope: the existing sections, checked on content and sharpened in form.
+
+- CV, including a version suited for sending as a PDF or linking to
+- Selected projects: Paul's experience and where his love for the craft lies
+- Publications, with links to read them
+- Talks: the occasion and what each talk was about
+- Stories: things Paul came across as a designer that he wonders about, is surprised by or admires
+
+Not in scope: new sections. The site keeps its current set of sections.
+
 ## How do we know it worked? (success criteria)
 
 ## Timeline and milestones
