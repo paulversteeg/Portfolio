@@ -2,7 +2,7 @@
 
 Maintained by the initiate-project-brain skill. Safe to edit by hand.
 
-Last session: 2026-10-21, by Paul, stopped at context/project/links.md
+Last session: 2026-10-21, by Paul, stopped at context/platform/tech/tech-constraints.md
 
 | File | State | Date | By | Notes |
 |---|---|---|---|---|
@@ -13,7 +13,7 @@ Last session: 2026-10-21, by Paul, stopped at context/project/links.md
 | context/project/links.md | partial | 2026-10-21 | Paul | Figma, Storybook, ClickUp, shared drive still open |
 | context/platform/brand/brand-guidelines.md | todo | | | |
 | context/platform/brand/voice-and-terminology.md | todo | | | |
-| context/platform/tech/tech-constraints.md | todo | | | Mentioned: own self-built CMS, keep it; PHP script derives each story's colour from its title |
+| context/platform/tech/tech-constraints.md | partial | 2026-10-21 | Paul | "Cannot (yet)" still open |
 | context/platform/design-system/DESIGN.md | todo | | | |
 | context/platform/design-system/ui-patterns.md | todo | | | |
 | context/platform/information-architecture.md | todo | | | |
