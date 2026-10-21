@@ -48,3 +48,10 @@ The upgrade worked when:
 - **Peers see and feel the care.** It is clear time went into it, and there is an interesting gimmick to discover, such as each story's unique colour derived from its title.
 
 ## Timeline and milestones
+
+As soon as possible; this is the highest priority. Paul wants to respond quickly to an open vacancy.
+
+| Milestone | Date |
+|---|---|
+| First draft version live | Thursday 2026-10-22 (evening) |
+| Fully up-to-date version | End of next week, Friday 2026-10-30 |
