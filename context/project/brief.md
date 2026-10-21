@@ -34,7 +34,9 @@ In scope: the existing sections, checked on content and sharpened in form.
 - Talks: the occasion and what each talk was about
 - Stories: things Paul came across as a designer that he wonders about, is surprised by or admires
 
-Not in scope: new sections. The site keeps its current set of sections.
+Not in scope now: new sections. The site keeps its current set of sections for this upgrade.
+
+Later: **Inspiration**, a section Paul has already started on. It is a curated collection of files, inspiration and links he came across: not work he made, but work he values, has curated and wants to share. It will be added after this upgrade.
 
 ## How do we know it worked? (success criteria)
 
