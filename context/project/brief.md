@@ -40,4 +40,11 @@ Later: **Inspiration**, a section Paul has already started on. It is a curated c
 
 ## How do we know it worked? (success criteria)
 
+The upgrade worked when:
+
+- **Paul trusts the content.** Everything is correct and up to date. The CMS manages all content; that is the starting point (whether it does so today still needs checking).
+- **It shows Paul understands digital.** He will send it to a digital agency, so the readers know the craft. It does not have to be the most beautiful site, but it must work well, feel current and feel like his own.
+- **The details are right.** Elements are aligned and everything scales properly across screen sizes. Nothing sits slightly off anymore.
+- **Peers see and feel the care.** It is clear time went into it, and there is an interesting gimmick to discover, such as each story's unique colour derived from its title.
+
 ## Timeline and milestones
