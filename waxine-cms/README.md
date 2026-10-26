@@ -106,3 +106,14 @@ PHP it can't translate is flagged in the output for a manual look.
   is the safest option.
 * Requires PHP 8.0+ and the `pdo_mysql` extension.
 ```
+
+## Deploying
+
+This folder lives in the Portfolio repository. Every push to `main` is
+picked up by Plesk (Git, repository `portfolio.git` on waxine.nl), which
+pulls the repository into `~/portfolio` on the server and runs
+`waxine-cms/deploy.sh`. That script copies the CMS code into the live
+folder `~/waxine-cms`; the admin area goes to `public/admin`.
+
+`config.php`, uploaded images and downloads are not in the repository,
+so a deploy never touches them.
