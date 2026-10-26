@@ -826,6 +826,15 @@ li {
 	margin-top: 1.35em;
 	}
 
+/* Less empty space at the bottom of the resume: half of what it was
+   (from 240px to 120px between the last entry and the end of the page). */
+.page-resume > :last-child {
+	margin-bottom: 0;
+	}
+.content.page-resume {
+	margin-bottom: 1em;
+	}
+
 /* The highlights list sits a little closer to its "Show all projects" toggle. */
 .content .resume:has(+ .all-projects) {
 	margin-bottom: 1.5em;
