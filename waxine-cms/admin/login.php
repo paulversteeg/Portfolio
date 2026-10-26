@@ -2,16 +2,19 @@
 require __DIR__ . '/_boot.php';
 
 $error = '';
+// Where to go after logging in: a local path only, never another site.
+$next = (string) ($_GET['next'] ?? $_POST['next'] ?? '/admin/');
+if ($next === '' || $next[0] !== '/' || str_starts_with($next, '//') || str_contains($next, '\\')) $next = '/admin/';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
     if (attempt_login($_POST['username'] ?? '', $_POST['password'] ?? '')) {
-        header('Location: /admin/');
+        header('Location: ' . $next);
         exit;
     }
     $error = 'Wrong username or password.';
 }
 
-if (current_user()) { header('Location: /admin/'); exit; }
+if (current_user()) { header('Location: ' . $next); exit; }
 $adminTitle = 'Log in';
 include __DIR__ . '/inc/admin_head.php';
 ?>
@@ -20,6 +23,7 @@ include __DIR__ . '/inc/admin_head.php';
   <?php if ($error): ?><p class="flash" style="background:#f6d9d9;border-color:#e0b4b4"><?= esc($error) ?></p><?php endif; ?>
   <form method="post">
     <?= csrf_field() ?>
+    <input type="hidden" name="next" value="<?= esc($next) ?>">
     <label>Username</label>
     <input type="text" name="username" autofocus required>
     <label>Password</label>

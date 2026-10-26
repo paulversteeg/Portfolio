@@ -117,3 +117,20 @@ folder `~/waxine-cms`; the admin area goes to `public/admin`.
 
 `config.php`, uploaded images and downloads are not in the repository,
 so a deploy never touches them.
+
+## Staging
+
+`staging.waxine.nl` runs the `staging` branch of the Portfolio repository
+(Plesk Git repository `portfolio-staging.git`, deployed to `~/staging-cms`
+with `sh waxine-cms/deploy.sh ../staging-cms`). Only logged-in CMS users can
+see it, and every page shows a staging bar.
+
+- Its database `waxine_staging` is a copy of live, refreshed every night by
+  `bin/refresh_staging.php` (Plesk scheduled task). Edit content on live;
+  content changed on staging is overwritten.
+- Changes to the database structure travel with the code (tables are
+  created by the code itself), so both databases follow the code.
+- Images and downloads are shared with live.
+
+Workflow: push to `staging`, check on staging.waxine.nl, then merge
+`staging` into `main` to go live.

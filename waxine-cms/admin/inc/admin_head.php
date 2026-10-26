@@ -6,7 +6,8 @@ $adminTitle = $adminTitle ?? 'Admin';
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?= esc($adminTitle) ?> - Waxine admin</title>
+<title><?= is_staging() ? 'STAGING · ' : '' ?><?= esc($adminTitle) ?> - Waxine admin</title>
+<?php if (is_staging()): ?><meta name="robots" content="noindex, nofollow"><?php endif; ?>
 <style>
   :root{ --ink:#25282a; --paper:#f4f1ef; --panel:#fff; --line:#e2ddd7; --accent:#3a6ea5; }
   *{box-sizing:border-box}
@@ -39,6 +40,7 @@ $adminTitle = $adminTitle ?? 'Admin';
 </style>
 </head>
 <body>
+<?= staging_banner() ?>
 <header class="adminbar">
   <p class="brand">Waxine admin</p>
   <nav>

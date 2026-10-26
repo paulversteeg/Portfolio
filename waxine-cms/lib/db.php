@@ -34,6 +34,23 @@ function db(): PDO
     return $pdo;
 }
 
+/** True on the staging copy of the site (config: site.env = 'staging'). */
+function is_staging(): bool
+{
+    return (config()['site']['env'] ?? 'live') === 'staging';
+}
+
+/** The fixed bar at the top of every staging page, public and admin. */
+function staging_banner(): string
+{
+    if (!is_staging()) return '';
+    return '<div role="note" style="position:sticky;top:0;z-index:1000;margin:0;padding:.55rem 1rem;'
+         . 'background:#8a3b12;color:#fff;font:600 15px/1.4 -apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif;text-align:center">'
+         . 'Staging: changes to content here are overwritten every night by a copy of the live site. '
+         . 'Edit content on <a href="https://waxine.nl/admin/" style="color:#fff;text-decoration:underline">waxine.nl</a>.'
+         . '</div>';
+}
+
 /** Run a query, return all rows. */
 function q(string $sql, array $params = []): array
 {

@@ -4,6 +4,17 @@
  */
 require_once dirname(__DIR__, 2) . '/lib/db.php';
 require_once dirname(__DIR__, 2) . '/lib/helpers.php';
+require_once dirname(__DIR__, 2) . '/lib/auth.php';
+
+// Staging is private: only a logged-in CMS user can see it, and search
+// engines are told not to index it.
+if (is_staging()) {
+    header('X-Robots-Tag: noindex, nofollow');
+    if (!current_user()) {
+        header('Location: /admin/login.php?next=' . rawurlencode($_SERVER['REQUEST_URI'] ?? '/'));
+        exit;
+    }
+}
 
 /** Fetch nav pages once. */
 function nav_pages(): array

@@ -15,6 +15,7 @@ $pageTitle = $pageTitle ?? $siteTitle;
 <link href="/assets/screen.css?v=<?= @filemtime(__DIR__ . '/../assets/screen.css') ?>" rel="stylesheet" type="text/css" media="screen">
 </head>
 <body>
+<?= staging_banner() ?>
 <div id="wrapper">
 <nav class="nav" aria-label="Primary">
   <ul id="menu">
