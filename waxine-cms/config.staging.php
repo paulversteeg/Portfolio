@@ -9,7 +9,7 @@
  */
 $cfg = require __DIR__ . '/../waxine-cms/config.php';
 
-$cfg['db']['name']       = 'waxine_staging';
+$cfg['db']['name']       = 'ywefbduf_waxine_staging';
 $cfg['site']['env']      = 'staging';
 $cfg['site']['base_url'] = 'https://staging.waxine.nl';
 

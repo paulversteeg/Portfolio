@@ -125,7 +125,7 @@ so a deploy never touches them.
 with `sh waxine-cms/deploy.sh ../staging-cms`). Only logged-in CMS users can
 see it, and every page shows a staging bar.
 
-- Its database `waxine_staging` is a copy of live, refreshed every night by
+- Its database `ywefbduf_waxine_staging` is a copy of live, refreshed every night by
   `bin/refresh_staging.php` (Plesk scheduled task). Edit content on live;
   content changed on staging is overwritten.
 - Changes to the database structure travel with the code (tables are
