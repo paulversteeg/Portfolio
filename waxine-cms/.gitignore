@@ -1,5 +1,6 @@
 # Secrets & environment
 config.php
+config.local.php
 
 # Uploaded content (keep the folder, ignore its contents)
 public/images/*
