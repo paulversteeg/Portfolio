@@ -1,0 +1,28 @@
+# Waxine CMS - pretty URLs
+# Point your domain's document root at this /public folder.
+
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Old inbound links: /thoughts/20180101_come_work_in_ATL.php
+  RewriteRule ^thoughts/([^/]+)\.php$ post.php?legacy=$1.php [L,QSA]
+
+  # New post URLs: /thoughts/come_work_in_ATL
+  RewriteRule ^thoughts/([^/]+)/?$ post.php?slug=$1 [L,QSA]
+
+  # Anything that is a real file or directory: serve as-is.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Otherwise treat a single-segment path as a static page: /about -> page.php?slug=about
+  RewriteRule ^([a-zA-Z0-9_-]+)/?$ page.php?slug=$1 [L,QSA]
+</IfModule>
+
+# Never serve the config or library files even if misplaced.
+<FilesMatch "^(config\.php|.*\.sql)$">
+  Require all denied
+</FilesMatch>

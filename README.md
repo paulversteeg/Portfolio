@@ -12,6 +12,7 @@ Figma, ClickUp and Storybook stay the place where the work happens. This repo ex
 - `context/platform/`: everything that holds for the whole product
 - `context/features/`: one folder per feature, all with the same structure
 - `context/research/`: research that is broader than a single feature
+- `waxine-cms/`: the code of the live site waxine.nl. Every push to `main` is deployed by Plesk Git; see `waxine-cms/deploy.sh`
 
 ## Starting a new feature
 

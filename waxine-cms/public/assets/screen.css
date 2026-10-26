@@ -1,0 +1,1018 @@
+/* Colors:
+	Antracite normal:		rgba(37,40,42,1)
+	Antracite light:		#6A6B6C   (was rgba(37,40,42,0.5); opaque so it passes WCAG AA, 4.7:1 on the page)
+	White normal:			rgba(249,248,247,1)
+	White light:			no longer used for text: on the title gradients only full white passes WCAG AA
+	
+	body background-color:	#F4F1EF;
+	menu background-color: #FCFAFA;
+	*/
+
+
+/* Typography -------------------------------------------------------------  */
+
+@font-face {
+    font-family: Brando Sans;
+    src:
+        url('fonts/BrandoSans-Light.woff2') format('woff2'),
+        url('fonts/BrandoSans-Light.woff') format('woff'),
+        url('fonts/BrandoSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal
+	}
+
+@font-face {
+    font-family: Brando Sans;
+    src:
+        url('fonts/BrandoSans-SemiBold.woff2') format('woff2'),
+        url('fonts/BrandoSans-SemiBold.woff') format('woff'),
+        url('fonts/BrandoSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal
+	}
+	
+	
+/* Global ------------------------------------------------------------- */
+
+.noise {
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    width: 100%;
+    height: 100%;
+    
+    pointer-events: none;
+    opacity: .1;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+	}
+
+body {
+    font-family: 'Brando Sans', sans-serif;
+    font-size: 20px;
+    padding: 0;
+	margin: 0;
+	color: rgba(37,40,42,1);
+	background-color: #F4F1EF;
+	}
+
+a {
+	text-decoration: none;
+	border-bottom: 1px solid;
+	border-bottom-color: currentColor;
+	color: rgba(37,40,42,1);
+	}
+
+a:hover {
+	border-bottom: 0px solid;
+	color: #6A6B6C;
+	}	
+
+/* Links in a story take the story's own colour (the start colour of its
+   title gradient, like the drop capital). That colour keeps at least 4.5:1
+   contrast on the page background. The previous/next navigation keeps the
+   normal link style. */
+.story-colour .content a {
+	color: var(--title-colour, inherit);
+	}
+.story-colour .content a:hover {
+	color: #6A6B6C;
+	}
+
+/* Layout -------------------------------------------------------------  */
+
+	
+.header h1 {
+    margin: 0 0 0 0;
+    color: rgba(37,40,42,1);
+ 	}
+
+h2 {
+    margin: 0 0 0 0;
+ 	}
+
+.header_subtitle {
+	text-align: left;
+	color: #6A6B6C;
+	font-size: 0.7em;
+	display: block;
+	}
+	
+.content {
+	padding: 0;
+	margin: 0;
+	line-height: 1.8em;
+	display: block;
+	}	
+
+p {
+	margin-bottom: 3em;
+	}
+	
+.content p {
+	line-height: 1.8em;
+	}
+	
+.clientreference {
+/* 	color: #6A6B6C; */
+	}
+
+/* Navigation -------------------------------------------------------------  */
+
+
+#menu {
+	padding: 1em;
+	margin: 0;
+	text-align: center;
+	background-color: #FCFAFA;
+	box-shadow: 0 20px 40px -15px rgba(0,0,0,.16);
+	}
+	
+#menu a {
+	text-decoration: none;
+	}
+
+.nav-item {
+	list-style: none;
+	display: inline-block;
+	margin: 0 1em;
+	text-align: left;
+	}
+	@media only screen and (max-width: 760px) {
+	    .nav-item {
+	        font-size: 0.8em;
+	    	}
+		}
+	@media only screen and (max-width: 600px) {
+	    .nav-item {
+	        font-size: 0.7em;
+	    	}
+		}
+	@media only screen and (max-width: 540px) {
+	    .nav-item {
+	        font-size: 0.6em;
+	    	}
+	    }
+	@media only screen and (max-width: 480px) {
+	    .nav-item {
+	        margin-right: 2em;
+	        padding: 0,5em;
+	    	}
+	    }
+	@media only screen and (max-width: 420px) {
+	    .nav-item {
+	        font-size: 0,5em;
+	        padding: 0,3em;
+	    	}
+	    }
+	    	    
+.nav-item a span.subtitle {
+	text-align: left;
+	color: #6A6B6C;
+	display: block;
+	}
+	@media only screen and (max-width: 960px) {
+	    .nav-item a span.subtitle {
+	        display: none;
+	    	}
+		}
+
+/* Footer  -------------------------------------------------------------  */
+
+	
+.footer	{
+	min-height: 5em;
+	}
+
+/* On story pages the previous/next navigation already closes the page,
+   so the empty footer adds no extra space there. */
+main:has(.article-nav) + .footer {
+	min-height: 0;
+	}
+
+	
+
+/* Listing -------------------------------------------------------------  */
+
+.article-listing-title {
+	margin: 4em 16em 0 16em;
+	}
+	
+.article-listing {
+	text-align: center;
+	margin: 0 4em 2em 4em;
+	}
+	
+ol.article-listing {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	align-content: center;
+	}
+	
+	
+li.listing-result {
+	display: inline-block;
+	margin: 0.5em 0.5em 0.5em 0.5em;
+	text-align: left;
+	}
+	@media only screen and (max-width: 530px) {
+		li.listing-result {
+	    margin: 0.25em 0.25em 0.25em 0.25em;
+	    }
+	}
+	    
+.article-figure {
+	margin: 0;
+	padding: 0.5em;
+	width: 240px;
+	height: 240px;
+	box-shadow: 0 20px 40px -15px rgba(0,0,0,0.25);
+	box-sizing: border-box;
+	border-style: none;
+    border-width: 1px;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	}
+
+/* Subtle lift on the Thoughts cards: on mouse hover and on keyboard focus. */
+.article-figure {
+	transition: transform .25s ease, box-shadow .25s ease;
+	}
+@media (hover: hover) {
+	a.link-figure:hover .article-figure {
+		transform: translateY(-4px);
+		box-shadow: 0 26px 44px -16px rgba(0,0,0,0.32);
+		}
+}
+a.link-figure:focus-visible .article-figure {
+	transform: translateY(-4px);
+	box-shadow: 0 26px 44px -16px rgba(0,0,0,0.32);
+	}
+
+	@media only screen and (max-width: 530px) {
+		.article-figure {
+	    width: 140px;
+	    height: 140px;
+/* 	    border: 0.05em solid red; */
+	    font-size: 0.6em;
+	    padding: 0.4em;
+	    }
+	}
+	
+a.link-figure {
+	font-weight: 600;
+	font-size: 2.6em;
+	text-decoration: none;
+	text-align: left;
+	color: rgba(249,248,247,1);
+	}
+		
+.article-title {
+	font-weight: 600;   /* SemiBold (was 60, which fell back to Light) */
+	float: left;
+	margin: 0;
+	padding-top: 0.3em;
+	height: 50%;
+	font-size: 0.5em;
+	width: 100%;
+	line-height: 90%;
+	}
+
+.article-date {
+	font-weight: 300;
+	display: block;
+	font-size: 0.3em;
+	color: rgba(249,248,247,1);
+	}
+	
+/* About me -------------------------------------------------------------  */
+
+
+/* The address block wraps around the floated photo (flow-root), so the
+   space below it is measured from the photo. 3em matches the space under
+   a paragraph, e.g. between the profile text and "Contact details". */
+.address {
+	display: flow-root;
+	margin-bottom: 3em;
+	}	
+		
+/* Talks -------------------------------------------------------------  */
+
+
+.talk {
+	margin-bottom: 5em;
+	padding: 0 0 0.5em 0;
+	border-bottom: 0.05em solid #D2CDC9;   /* light separator line */
+	}
+
+/* Optional photo per talk: insert an image right after the talk's title in
+   the CMS. On wider screens it sits to the right of the text, on phones it
+   runs full width under the title. Talks without a photo are unchanged. */
+.talk {
+	display: flow-root;   /* keep the separator line below a floated photo */
+	}
+.talk img {
+	float: right;
+	width: 38%;
+	height: auto;        /* ignore the width/height the editor saves with a photo */
+	aspect-ratio: 3 / 2;
+	object-fit: cover;
+	border-radius: 6px;
+	margin: 0.35em 0 1em 1.5em;
+	background: #EAE6E3;
+	}
+	@media only screen and (max-width: 640px) {
+	    .talk img {
+	        float: none;
+	        width: 100%;
+	        margin: 0.75em 0 0.5em;
+	    	}
+		}
+
+/* Publications -------------------------------------------------------------  */
+
+
+.publication {
+	margin-bottom: 5em;
+	padding: 0 0 0.5em 0;
+	border-bottom: 0.05em solid #D2CDC9;   /* light separator line */
+	}
+
+/* Links under a publication or talk (read it at its source, or download it), styled
+   like a small code block so it is clear there is something behind them.
+   Items without a link stay plain text. */
+/* Keep the links close to the description above them. */
+:is(.publication, .talk) p:has(+ ul.bullit) {
+	margin-bottom: 0.9em;
+	}
+:is(.publication, .talk) ul.bullit {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 2em;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.6em;
+	}
+:is(.publication, .talk) ul.bullit li {
+	margin-bottom: 0;     /* the gap above handles the spacing */
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+	font-size: 0.75em;
+	line-height: 1.4;
+	color: #6A6B6C;
+	}
+:is(.publication, .talk) ul.bullit li:has(a) {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.75em;
+	background: #EAE6E3;
+	border: 1px solid #D9D4D0;
+	border-radius: 6px;
+	padding: 0.55em 0.9em;
+	color: #25282A;
+	}
+:is(.publication, .talk) ul.bullit li a {
+	border-bottom: 0;
+	color: #25282A;
+	}
+:is(.publication, .talk) ul.bullit li a:hover {
+	color: #6A6B6C;
+	text-decoration: underline;
+	}
+:is(.publication, .talk) ul.bullit a[href^="http"]::after {
+	content: " \2197";   /* north-east arrow: opens another site */
+	}
+:is(.publication, .talk) ul.bullit a[href$=".pdf"]::before {
+	content: "\2193  ";  /* down arrow: download */
+	}
+:is(.publication, .talk) ul.bullit .pdf,
+:is(.publication, .talk) ul.bullit .language {
+	font-size: 0.85em;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	padding: 0.15em 0.5em;
+	border-radius: 4px;
+	background: #6A6B6C;
+	color: #F9F8F7;
+	margin-left: 0;
+	}
+
+.language {
+	font-size: 0.8em;
+	margin-left: 0.5em;
+	color: #6A6B6C;
+	}
+
+/* Article -------------------------------------------------------------  */
+
+.header {
+	padding: 4em 24em 4em 24em;
+	}
+	@media only screen and (max-width: 1600px) {
+	    .header {
+	        padding: 4em 16em 4em 16em;
+	    	}
+		}
+	@media only screen and (max-width: 1200px) {
+	    .header {
+	        padding: 2em 12em 2em 12em;
+	    	}
+		}
+	@media only screen and (max-width: 1024px) {
+	    .header {
+	        padding: 2em 8em 2em 8em;
+	    	}
+		}
+	@media only screen and (max-width: 768px) {
+	    .header {
+	        padding: 2em 4em 2em 4em;
+	    	}
+		}
+	@media only screen and (max-width: 640px) {
+	    .header {
+	        padding: 2em 2em 2em 2em;
+	        font-size: 1em;
+	    	}
+		}
+	@media only screen and (max-width: 320px) {
+	    .content {
+	        padding: 0em 1em 1em 1em;
+	        font-size: 0.7em;
+	    	}
+		}
+h1.article-detail-title {
+	color: rgba(249,248,247,1);
+	}	
+
+.article-detail-date {
+	color: rgba(249,248,247,1);
+	}	
+
+.cover {
+	color: #6A6B6C;	
+	margin-bottom: 2em;
+	}	
+	
+.angle {
+	-webkit-clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+	clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+	}	
+
+.up-one-level {
+	padding: 0em 0em 0.5em 0em;
+	color: rgba(249,248,247,1);
+	}
+	
+.up-one-level::before {
+	content: "‹ ";
+	}
+
+.up-one-level a {
+	margin: 0;
+	text-decoration: none;
+	padding: 0 0 0.1em 0;
+	font-size: 0.8em;
+	font-weight: 80;
+	border-bottom: 1px solid;
+	border-bottom-color: currentColor;
+	color: rgba(249,248,247,1);
+	}
+	
+.up-one-level a:hover {
+	border-bottom: 0px solid;
+	}	
+
+.content {
+	margin: 0em 24em 5em 24em;
+	}
+	@media only screen and (max-width: 1600px) {
+	    .content {
+	        margin: 0em 16em 4em 16em;
+	    	}
+		}
+	@media only screen and (max-width: 1200px) {
+	    .content {
+	        margin: 0em 12em 4em 12em;
+	    	}
+		}
+	@media only screen and (max-width: 1024px) {
+	    .content {
+	        margin: 0em 8em 4em 8em;
+	    	}
+		}
+	@media only screen and (max-width: 768px) {
+	    .content {
+	        margin: 0em 4em 4em 4em;
+	    	}
+		}
+	@media only screen and (max-width: 640px) {
+	    .content {
+	        margin: 0em 2em 2em 2em;
+	        font-size: 1em;
+	    	}
+		}
+	@media only screen and (max-width: 320px) {
+	    .content {
+	        margin: 0em 1em 1em 1em;
+	        font-size: 0.7em;
+	    	}
+		}
+
+	
+.subtitle {
+	display: block;
+	font-size: 0.9em;
+	font-weight: 70;
+	text-align: left;
+	color: #6A6B6C;
+	}
+	
+.article {
+	margin: 0;
+    padding: 0;
+	}
+	
+.arrow {
+	margin-left: 1em;
+	font-size: 1em;
+	font-weight: 80;
+	text-decoration: none;
+	}
+	
+.content .video {
+  	width: 100%;
+  	height: 400px;
+	} 
+		
+.image-header {
+	width: 100%;
+	}
+		
+.image-left {
+	max-width: 40%;
+    height: auto;
+    float: left;
+    margin: 0.45em 1em 0.5em 0;
+	}
+
+.image-right {
+	max-width: 40%;
+    height: auto;
+    float: right;
+    margin: 0 0 0.4em 1em;
+	}	
+	
+.image-center {
+    display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
+	
+.image-icon {
+    float: left;
+    margin: 0.5em 1em 1em 0;
+	}
+
+.image-full {
+	max-width: 100%;
+    margin: 0 0 0.4em;
+	}
+
+.image-phone {
+	border: 1em solid #000;
+	border-radius: 40px;
+	margin: 2em auto 2em auto;
+	display: block;
+	box-shadow: 0 20px 40px -15px rgba(0,0,0,.16);
+	max-width: 374px;
+	width: 50%;
+	height: auto;
+  	}
+
+.image-tablet {
+	border: 1em solid #000;
+	border-radius: 40px;
+	margin: 2em auto 2em auto;
+	display: block;
+	box-shadow: 0 20px 40px -15px rgba(0,0,0,.16);
+	max-width: 700px;
+	width: 100%;
+	height: auto;
+  	}  
+  	
+.image-profile {
+	border: 0.1em solid rgba(37,40,42,0.5);
+	border-radius: 50%;
+    margin: 0 1em 0 0;
+	max-width: 10em;
+	float: left;
+  	}
+  	 
+time.article-detail-date {
+	font-weight: 80;
+	margin: 0 0 2em 0;
+	padding: 0;
+	}
+	
+/* Drop capital: added by the front end (auto_dropcap in lib/helpers.php).
+   ::first-letter makes the box as wide as the letter itself. */
+.content p.has-dropcap::first-letter {
+    float: left;
+    font-size: 660%;
+    font-weight: 600;
+	line-height: 66%;
+    padding-top: 16px;
+    margin-right: 0.08em;
+    color: var(--title-colour, inherit);
+    }
+
+.previous-article {
+	display: block;
+	order: 1;            /* shown on the left, although it comes second in the HTML */
+	flex: 0 1 auto;
+	text-align: left;
+	font-size: 80%;
+	line-height: 1.5em;
+	}
+
+.next-article {
+	display: block;
+	order: 2;
+	flex: 0 1 auto;
+	margin-left: auto;   /* stays on the right, also when there is no previous article */
+	text-align: right;
+	font-size: 80%;
+	line-height: 1.5em;
+	}
+	
+.previous-article-label, .next-article-label {
+	color: #6A6B6C;
+	}
+
+	
+.next-article-label::after {
+	content: " ›";
+	}
+
+.previous-article-label::before {
+	content: "‹ ";
+	}
+
+.next-article-link {
+	display: block;
+	font-size: 120%;
+	}
+	
+.previous-article-link {
+	display: block;
+	font-size: 120%
+	}
+
+.image-source {
+	font-size: 70%
+	}
+		
+table, th, td {
+	border-collapse: collapse;
+	border-bottom: 1px solid rgba(37,40,42,0.1);
+	padding: 0.5em;
+	padding-right: 2em;
+	}
+ 	
+caption {
+	text-align: left;
+	}	
+	
+th {
+	text-align: left;
+	}
+	
+tr:hover {
+	background-color: rgba(249,248,247,1);
+	}
+
+td {
+	font-size: 90%;
+	}
+
+.companyname {
+	font-weight: 600;
+	}
+	
+li {
+	margin-bottom: 2em;
+}
+
+/* Bullet and numbered lists in page and story text: one compact spacing
+   everywhere. The resume timeline (ul.item, ul.resume) keeps its own,
+   wider spacing, and the link blocks under talks and publications use a
+   gap instead (see ul.bullit there). */
+.content :where(ul, ol):where(:not(.item, .resume)) > li {   /* :where keeps this low-priority */
+	margin-bottom: 0.4em;
+	}
+		
+/* Resume -------------------------------------------------------------  */
+
+.resume{
+	list-style: none;
+	padding-left: 0;
+	}
+	
+.section-title {
+	font-size: 150%;
+	list-style: none;
+	font-weight: 600;
+	margin: 1em 0 1em 0;
+	}
+		
+.client-name {
+	font-weight: 600;
+	}
+
+.description {
+	display: inline-block;
+	margin: 0 0 1.5em 0;
+	font-size: 90%;
+	}
+	
+.location {
+	display: inline-block;
+	margin: 0 0 1.5em 0;
+	font-size: 70%;
+	}
+	
+.highlight {
+	font-weight: 600;
+	display: inline-block;
+	width: 25em;
+	}
+	
+.highlight-addon {
+	font-weight: 100;
+	}
+	
+.highlight-addon::before {
+	content: " - ";
+	}
+	
+.time-period {
+	vertical-align: top;
+	font-size: 90%;
+	display: inline-block;
+	width: 15em;
+	}
+
+/* Resume entries as a two-column grid: the date on the left, and the
+   highlight with its location or description stacked directly under it. */
+.resume > ul {
+	display: grid;
+	grid-template-columns: 13.5em minmax(0, 1fr);
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	}
+.resume > ul > li {
+	grid-column: 2;
+	margin-bottom: 0;
+	}
+.resume > ul > .time-period {
+	grid-column: 1;
+	grid-row: 1 / span 2;
+	width: auto;
+	}
+.resume > ul > .highlight {
+	width: auto;
+	margin-bottom: 0.2em;
+	}
+.resume > ul > .location,
+.resume > ul > .description {
+	display: block;
+	margin-bottom: 1.5em;
+	}
+/* Every resume section ends with the same 3em before the next heading,
+   the same space as under a paragraph or the contact block. */
+.content .resume {
+	margin: 0 0 3em 0;
+	}
+.resume > ul:last-child > li:last-child {
+	margin-bottom: 0;
+	}
+/* Resume sections are separated by the same divider as Talks and
+   Publications, with the same spacing: 70px from the last line of text to
+   the line, then 100px to the next heading (h2 is 30px, so 1em = 30px). */
+.page-resume > h2 ~ h2 {
+	border-top: 1px solid #D2CDC9;   /* same light separator as .talk */
+	margin-top: 2.3333em;            /* 70px; collapses with the 60px above */
+	padding-top: 3.3333em;           /* 100px */
+	}
+
+/* Same space under every resume heading as between "Profile" and its
+   first sentence (the paragraph's 1em top margin). The list's first line
+   is slightly smaller text, so 0.95em lands it at the same optical
+   distance; the photo has no line spacing around it, so it gets a bit more. */
+.page-resume > h2 + .resume {
+	margin-top: 0.95em;
+	}
+.page-resume > h2 + .address {
+	margin-top: 1.35em;
+	}
+
+/* The highlights list sits a little closer to its "Show all projects" toggle. */
+.content .resume:has(+ .all-projects) {
+	margin-bottom: 1.5em;
+	}
+
+/* "Show all projects": the entries that are not highlighted, folded away
+   under the Career highlights. A native <details>, so it works with the
+   keyboard and without JavaScript. */
+.all-projects {
+	margin: 0 0 3em 0;
+	}
+.all-projects > summary {
+	display: inline-block;
+	cursor: pointer;
+	list-style: none;
+	font-weight: 600;
+	border-bottom: 1px solid currentColor;
+	margin: 0;
+	}
+.all-projects[open] > summary {
+	margin-bottom: 1.5em;
+	}
+.all-projects > summary::-webkit-details-marker {
+	display: none;
+	}
+.all-projects > summary:hover {
+	color: #6A6B6C;
+	border-bottom-color: transparent;
+	}
+.all-projects > summary:focus-visible {
+	outline: 3px solid #25282a;
+	outline-offset: 2px;
+	border-radius: 2px;
+	}
+.all-projects-less,
+.all-projects[open] .all-projects-more {
+	display: none;
+	}
+.all-projects[open] .all-projects-less {
+	display: inline;
+	}
+
+/* When the text column is narrow, the date sits above the entry instead of
+   beside it. This follows the width of the content column itself (a
+   container query), because the page side padding changes per screen size:
+   two columns only when the column is at least 700px wide. The media query
+   is the fallback for older browsers. */
+.content {
+	container-type: inline-size;
+	}
+@container (max-width: 699px) {
+	.resume > ul {
+		grid-template-columns: minmax(0, 1fr);
+		}
+	.resume > ul > li,
+	.resume > ul > .time-period {
+		grid-column: 1;
+		grid-row: auto;
+		}
+	.resume > ul > .time-period {
+		margin-bottom: 0.2em;
+		}
+}
+@media only screen and (max-width: 600px) {
+	.resume > ul {
+		grid-template-columns: minmax(0, 1fr);
+		}
+	.resume > ul > li,
+	.resume > ul > .time-period {
+		grid-column: 1;
+		grid-row: auto;
+		}
+	.resume > ul > .time-period {
+		margin-bottom: 0.2em;
+		}
+}
+
+/* Previous / next navigation at the bottom of a story. The two links share
+   the width flexibly, so a short title leaves room for a long one and both
+   usually fit on one line; the side padding keeps them off the window edges. */
+.article-nav	{
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 2em;
+	margin-top: 3em;
+	padding: 1em 1em 1.5em 1em;
+	border-top: 0.05em solid #D2CDC9;   /* light separator line */
+	}
+	@media only screen and (max-width: 320px) {
+	    .article-nav {
+	        padding: 1em 1em 1em 1em;
+	    	}
+		}
+
+/* =====================================================================
+   Accessibility (WCAG 2.1 AA) fixes
+   ===================================================================== */
+
+/* 1.4.3 Contrast — muted subtitles were ~3.0:1 (50% gray). Darken to
+   #6a6a6a which is >=4.5:1 on both the menu (#FCFAFA) and body (#F4F1EF). */
+.nav-item a span.subtitle,
+.subtitle,
+.header_subtitle {
+	color: #6a6a6a;
+}
+
+/* 2.4.7 Focus Visible — clear keyboard focus indicator on all controls. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+	outline: 3px solid #25282a;
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* 2.4.1 Bypass Blocks — satisfied via landmark regions (nav/main/footer)
+   and per-page <h1> headings rather than a visible skip link. */
+
+/* Respect reduced-motion for the card hover zoom and any transitions. */
+@media (prefers-reduced-motion: reduce) {
+	* {
+		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
+	}
+	.article-figure.grow:hover,
+	.grow:hover,
+	a.link-figure:hover .article-figure,
+	a.link-figure:focus-visible .article-figure {
+		transform: none !important;
+	}
+}
+/* ------------------------------------------------------------------
+   Figures and captions (restored from the old site's style)
+   ------------------------------------------------------------------ */
+.content figure {
+	margin: 0 0 2em 0;
+	padding: 0;
+	}
+
+.content figure img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	}
+
+.content figcaption {
+	font-size: 0.7em;
+	line-height: 1.5em;
+	margin-top: 0.5em;
+	color: #6A6B6C;
+	}
+
+.content figcaption:empty {
+	display: none;
+	}
+
+.content figure.left,
+.content figure.right {
+	max-width: 40%;
+	}
+
+.content figure.left {
+	float: left;
+	margin: 0.45em 1em 0.5em 0;
+	}
+
+.content figure.right {
+	float: right;
+	margin: 0 0 0.4em 1em;
+	}
+
+.content figure.left img,
+.content figure.right img {
+	float: none;
+	max-width: 100%;
+	margin: 0;
+	}
+
+.content figure.center img {
+	margin-left: auto;
+	margin-right: auto;
+	}
+
+.content figure.center figcaption {
+	text-align: center;
+	}

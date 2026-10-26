@@ -1,0 +1,15 @@
+# Secrets & environment
+config.php
+
+# Uploaded content (keep the folder, ignore its contents)
+public/images/*
+!public/images/.gitkeep
+
+# Migration previews
+migrate/review/
+
+# OS noise
+.DS_Store
+
+# Local backup copies made while editing
+*.bak*
