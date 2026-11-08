@@ -338,6 +338,29 @@ a.link-figure {
 	    	}
 		}
 
+/* Key takeaway: the first paragraph of every talk is its one-line message
+   ("A great experience starts backstage."). The front end gives it the
+   stage, so nothing extra is needed in the CMS: larger, semibold, with a
+   short accent line on the left. A description paragraph below it (if
+   any) follows at normal size, close to the takeaway. */
+.content .talk > p:first-of-type {
+	margin: 1.4em 0 3em;
+	padding-left: 0.8em;
+	border-left: 3px solid #25282A;
+	font-size: 1.3em;
+	font-weight: 600;
+	line-height: 1.35;
+	color: #25282A;
+	}
+.content .talk > p:first-of-type:has(+ p) {
+	margin-bottom: 1.1em;   /* keep the description close to its takeaway */
+	}
+	@media only screen and (max-width: 640px) {
+	    .content .talk > p:first-of-type {
+	        font-size: 1.15em;
+	    	}
+		}
+
 /* Publications -------------------------------------------------------------  */
 
 
