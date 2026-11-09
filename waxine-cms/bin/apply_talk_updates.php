@@ -9,6 +9,10 @@
  *
  * Each update finds one talk block (<div class="talk"> … </div>) by its
  * current <h2> title and replaces the whole block.
+ *
+ * An update marked 'env' => 'staging' is a preview: it is only applied on
+ * staging (and disappears there with the nightly copy of live). Remove the
+ * marker once it is approved, and the next live deploy applies it.
  */
 require_once dirname(__DIR__) . '/lib/db.php';
 
@@ -65,6 +69,19 @@ $updates[] = ['match' => ['Design thinking by doing', 'Design Thinking by Doing'
 <p>A three-hour workshop at IXDC, the biggest UX conference in Asia, given together with Lexi Lin of Mirabeau. Large companies tend to jump from a problem straight to a solution. Design thinking first takes the time to understand the problem, and that starts with empathy: seeing how someone&rsquo;s behaviour is shaped by their physical, inner, symbolic, relational, situational and cultural context. In the Wallet Project, participants first drew the &ldquo;ideal&rdquo; wallet on their own. Then they paired up and designed a wallet for their partner instead, going through a full design cycle: interview and dig deeper (empathize), capture insights and take a point of view (define), sketch radical ideas and get feedback (ideate), build it with their hands (prototype) and share it for feedback (test). Each team ended by pitching their prototype, which showed how much observing, prototyping and adjusting to someone&rsquo;s context changes the result.</p>
 </div>
 HTML];
+
+$updates[] = ['env' => 'staging', 'match' => ['The role of digital design in empowering professionals in mobility operations'], 'html' => <<<'HTML'
+<div class="talk">
+<h2>The role of digital design in empowering professionals in mobility operations</h2>
+<span class="subtitle"><img src="/images/20241003_emerce_eday_86dfb1.jpg" width="4032" height="2268" alt="">Emerce EDAY Mobility Connect</span> <span class="subtitle">De Kromhouthal Amsterdam &ndash; October 3, 2024</span>
+<p>A great experience starts backstage.</p>
+<p>Like a concert, a digital experience depends on what happens behind the scenes. When backstage processes are inefficient, engagement drops, solutions become error-prone, teams lose alignment, interfaces get complex and strategy fails. Building on fresk.digital&rsquo;s shared mobility research, this talk follows a shared bike or moped rider from finding a vehicle to ending the ride, and then shadows the people who keep the fleet available. A service blueprint brings both views together, layer by layer: rider and employee behaviour, touchpoints, backstage and support processes, and data. It feeds the interface design, connects technical processes to interfaces, shows what the architecture has to support, and when and how to measure. A second case shows the same approach in practice: for Rocsys, maker of charging robots for unmanned yard trucks, understanding the context, workflow and business goals turned a spreadsheet into a robust, secure and scalable fleet tool for program managers, maintenance and service engineers.</p>
+</div>
+HTML];
+
+$env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
+$updates = array_filter($updates, fn ($u) => ($u['env'] ?? 'all') === 'all' || $u['env'] === $env);
+echo "Environment: $env\n";
 
 $page = q1("SELECT id, body_html FROM pages WHERE slug = 'talks'");
 if (!$page) { fwrite(STDERR, "Talks page not found; nothing done.\n"); exit(0); }

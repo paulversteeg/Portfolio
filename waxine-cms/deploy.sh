@@ -49,15 +49,14 @@ if [ "$DEST" != "$LIVE" ]; then
     done
 fi
 
-if [ "$DEST" = "$LIVE" ]; then
-    # One-off content update for the Talks page (Nov 2026). It is safe to run
-    # again: talks that already have their new text are left alone. A failure
-    # here never blocks the deploy.
-    if command -v php >/dev/null 2>&1; then
-        php "$DEST/bin/apply_talk_updates.php" || echo "apply_talk_updates.php failed; content unchanged"
-    else
-        echo "php not found; run bin/apply_talk_updates.php by hand"
-    fi
+# Content updates for the Talks page (Nov 2026), on live and on staging
+# (staging also gets the previews that still need approval). Safe to run
+# again: talks that already have their new text are left alone. A failure
+# here never blocks the deploy.
+if command -v php >/dev/null 2>&1; then
+    php "$DEST/bin/apply_talk_updates.php" || echo "apply_talk_updates.php failed; content unchanged"
+else
+    echo "php not found; run bin/apply_talk_updates.php by hand"
 fi
 
 echo "waxine-cms deployed to $DEST $(date)"
