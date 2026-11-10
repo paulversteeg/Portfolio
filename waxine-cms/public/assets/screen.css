@@ -126,6 +126,23 @@ p {
 /* Navigation -------------------------------------------------------------  */
 
 
+/* The menu scrolls away when you scroll down and comes back as soon as you
+   scroll up a little (header.js adds .nav--hidden). */
+.nav {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	transition: transform .25s ease;
+	}
+.nav--hidden {
+	transform: translateY(calc(-100% - 40px));   /* also hide the menu's shadow */
+	}
+	@media (prefers-reduced-motion: reduce) {
+	    .nav {
+	        transition: none;
+	    	}
+		}
+
 #menu {
 	padding: 1em;
 	margin: 0;
