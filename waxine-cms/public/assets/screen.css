@@ -525,8 +525,21 @@ a.link-figure {
 	text-decoration: underline;
 	}
 :is(.publication, .talk) ul.bullit a[href^="http"]::after {
-	content: " \2197";   /* north-east arrow: opens another site */
+	content: "\2197";    /* north-east arrow: opens another site */
+	display: inline-block;   /* so it can move on hover */
+	margin-left: 0.3em;
+	transition: transform .2s ease;
 	}
+/* On hover the arrow nudges 2px towards where it points. */
+:is(.publication, .talk) ul.bullit li:hover a[href^="http"]::after,
+:is(.publication, .talk) ul.bullit a[href^="http"]:focus-visible::after {
+	transform: translate(2px, -2px);
+	}
+	@media (prefers-reduced-motion: reduce) {
+	    :is(.publication, .talk) ul.bullit a[href^="http"]::after {
+	        transition: none;
+	    	}
+		}
 :is(.publication, .talk) ul.bullit a[href$=".pdf"]::before {
 	content: "\2193  ";  /* down arrow: download */
 	}
