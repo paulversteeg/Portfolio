@@ -70,7 +70,7 @@ $updates[] = ['match' => ['Design thinking by doing', 'Design Thinking by Doing'
 </div>
 HTML];
 
-$updates[] = ['env' => 'staging', 'match' => ['The role of digital design in empowering professionals in mobility operations'], 'html' => <<<'HTML'
+$updates[] = ['match' => ['The role of digital design in empowering professionals in mobility operations'], 'html' => <<<'HTML'
 <div class="talk">
 <h2>The role of digital design in empowering professionals in mobility operations</h2>
 <span class="subtitle"><img src="/images/20241003_emerce_eday_86dfb1.jpg" width="4032" height="2268" alt="">Emerce EDAY Mobility Connect</span> <span class="subtitle">De Kromhouthal Amsterdam &ndash; October 3, 2024</span>
