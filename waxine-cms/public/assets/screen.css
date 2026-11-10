@@ -143,22 +143,34 @@ p {
 	    	}
 		}
 
+/* The menu sits in the same column as the page content: its left and right
+   edges follow the .content margins below (same em values, same
+   breakpoints), and the items spread out over that width. */
 #menu {
-	padding: 1em;
+	display: flex;
+	justify-content: space-between;
+	column-gap: 1.5em;
+	padding: 1em 24em;
 	margin: 0;
-	text-align: center;
+	container-type: inline-size;   /* for the subtitle rule below */
 	background-color: #FCFAFA;
 	box-shadow: 0 20px 40px -15px rgba(0,0,0,.16);
 	}
-	
+	@media only screen and (max-width: 1600px) { #menu { padding: 1em 16em; } }
+	@media only screen and (max-width: 1200px) { #menu { padding: 1em 12em; } }
+	@media only screen and (max-width: 1024px) { #menu { padding: 1em 8em; } }
+	@media only screen and (max-width: 768px)  { #menu { padding: 1em 4em; } }
+	@media only screen and (max-width: 640px)  { #menu { padding: 1em 2em; column-gap: 1em; } }
+	@media only screen and (max-width: 320px)  { #menu { padding: .7em; column-gap: .5em; } }
+
 #menu a {
 	text-decoration: none;
 	}
 
 .nav-item {
 	list-style: none;
-	display: inline-block;
-	margin: 0 1em;
+	min-width: 0;          /* lets a long subtitle wrap instead of pushing out of the column */
+	margin: 0;
 	text-align: left;
 	}
 	@media only screen and (max-width: 760px) {
@@ -176,19 +188,7 @@ p {
 	        font-size: 0.6em;
 	    	}
 	    }
-	@media only screen and (max-width: 480px) {
-	    .nav-item {
-	        margin-right: 2em;
-	        padding: 0,5em;
-	    	}
-	    }
-	@media only screen and (max-width: 420px) {
-	    .nav-item {
-	        font-size: 0,5em;
-	        padding: 0,3em;
-	    	}
-	    }
-	    	    
+
 .nav-item a span.subtitle {
 	text-align: left;
 	color: #6A6B6C;
@@ -199,6 +199,13 @@ p {
 	        display: none;
 	    	}
 		}
+/* The subtitles only fit when the column is wide enough to keep each item
+   on one line; below that, the menu shows just the titles. */
+@container (max-width: 759px) {
+	.nav-item a span.subtitle {
+		display: none;
+		}
+	}
 
 /* Footer  -------------------------------------------------------------  */
 
