@@ -79,6 +79,18 @@ $updates[] = ['match' => ['The role of digital design in empowering professional
 </div>
 HTML];
 
+$updates[] = ['env' => 'staging', 'match' => ['A wall becomes a bridge'], 'html' => <<<'HTML'
+<div class="talk">
+<h2>A wall becomes a bridge</h2>
+<span class="subtitle"><img src="/images/20221216_dtns_76612a.jpg" width="6000" height="3376" alt="">Design the Next Step 2022: Breaking Barriers</span> <span class="subtitle">Rijksmuseum Amsterdam &ndash; November 17, 2022</span>
+<p>Take a step back before moving forward.</p>
+<p>A drummer can play by copying what is around: the jazz style, the trends, what the record company wants. Truly meaningful work asks you to zoom out first. Named after an album by drummer Kendrick Scott, this talk shows how user research can turn a barrier into a bridge. A research framework brings human, data and business together and looks at a service from five perspectives (customer journey, digital touchpoints, backstage processes, support processes and data dependencies), before, during and after use. That shows the design areas where value is made. The case is fresk.digital&rsquo;s shared mobility research, for which we rode eleven bike and e-bike services in the Netherlands and Belgium, from OV-fiets and Lime to Blue-bike. Mapped onto the framework, it led to concrete suggestions for Blue-bike: sign up right in the app, pay with PayPal or credit card, see the battery level before choosing a bike, and only show hubs with bikes available.</p>
+<ul class="bullit">
+<li><a href="https://medium.com/design-ing/breaking-barriers-88358b7219ec">Event report</a></li>
+</ul>
+</div>
+HTML];
+
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
 $updates = array_filter($updates, fn ($u) => ($u['env'] ?? 'all') === 'all' || $u['env'] === $env);
 echo "Environment: $env\n";
