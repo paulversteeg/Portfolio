@@ -79,7 +79,7 @@ $updates[] = ['match' => ['The role of digital design in empowering professional
 </div>
 HTML];
 
-$updates[] = ['env' => 'staging', 'match' => ['A wall becomes a bridge'], 'html' => <<<'HTML'
+$updates[] = ['match' => ['A wall becomes a bridge'], 'html' => <<<'HTML'
 <div class="talk">
 <h2>A wall becomes a bridge</h2>
 <span class="subtitle"><img src="/images/20221216_dtns_76612a.jpg" width="6000" height="3376" alt="">Design the Next Step 2022: Breaking Barriers</span> <span class="subtitle">Rijksmuseum Amsterdam &ndash; November 17, 2022</span>
