@@ -49,15 +49,15 @@ if [ "$DEST" != "$LIVE" ]; then
     done
 fi
 
-# Content updates for the Talks page (Nov 2026), on live and on staging
-# (staging also gets the previews that still need approval). Safe to run
-# again: talks that already have their new text are left alone. A failure
-# here never blocks the deploy.
+# One-off content steps, on live and on staging (staging also gets the
+# previews that still need approval): move the hand-written talks into talk
+# records, and the resume updates. Both are safe to run again and do nothing
+# once done. A failure here never blocks the deploy.
 if command -v php >/dev/null 2>&1; then
-    php "$DEST/bin/apply_talk_updates.php" || echo "apply_talk_updates.php failed; content unchanged"
+    php "$DEST/bin/import_talks.php" || echo "import_talks.php failed; content unchanged"
     php "$DEST/bin/apply_resume_updates.php" || echo "apply_resume_updates.php failed; content unchanged"
 else
-    echo "php not found; run bin/apply_talk_updates.php by hand"
+    echo "php not found; run bin/import_talks.php and bin/apply_resume_updates.php by hand"
 fi
 
 echo "waxine-cms deployed to $DEST $(date)"
