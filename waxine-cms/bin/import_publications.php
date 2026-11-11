@@ -14,7 +14,7 @@ require_once dirname(__DIR__) . '/lib/helpers.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const IMPORT_ON = 'staging';
+const IMPORT_ON = 'all';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
 if (IMPORT_ON !== 'all' && IMPORT_ON !== $env) { echo "import_publications: not on $env yet\n"; exit(0); }
@@ -25,7 +25,6 @@ echo $n ? "import_publications: $n publications imported\n" : "import_publicatio
 
 $publicationUpdates = [
     [
-        'env'   => 'staging',
         'match' => ['MaaS Conference 2020: challenges in Mobility becoming a Service for everyone'],
         'set'   => [
             // The article on info.nl is gone; the PDF is rebuilt from the Internet Archive copy.
@@ -34,7 +33,6 @@ $publicationUpdates = [
         ],
     ],
     [
-        'env'   => 'staging',
         'match' => ['Unleash the artificial smartness', 'Unleash the Artificial Smartness'],
         'set'   => [
             'title'   => 'Unleash the Artificial Smartness',
