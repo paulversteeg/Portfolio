@@ -100,7 +100,7 @@ $updates[] = ['match' => ['The Pitches Showcase'], 'html' => <<<'HTML'
 </div>
 HTML];
 
-$updates[] = ['env' => 'staging', 'match' => ['New Skills'], 'insert_before' => 'Being different', 'html' => <<<'HTML'
+$updates[] = ['match' => ['New Skills'], 'insert_before' => 'Being different', 'html' => <<<'HTML'
 <div class="talk">
 <h2>New Skills</h2>
 <span class="subtitle"><img src="/assets/talks/20180609_uxcamp_amsterdam.jpg" width="1086" height="724" alt="Paul Versteeg presenting his session to a room full of people at UXcamp Amsterdam">UXcamp Amsterdam 2018</span> <span class="subtitle">IJsfontein Amsterdam &ndash; June 9, 2018</span>
