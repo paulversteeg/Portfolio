@@ -280,3 +280,4 @@ function live_years(string $html): string
 
 require_once __DIR__ . '/experiences.php';
 require_once __DIR__ . '/talks.php';
+require_once __DIR__ . '/publications.php';

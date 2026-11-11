@@ -48,6 +48,7 @@ $adminTitle = $adminTitle ?? 'Admin';
     <a href="/admin/pages.php">Pages</a>
     <a href="/admin/experiences.php">Experience</a>
     <a href="/admin/talks.php">Talks</a>
+    <a href="/admin/publications.php">Publications</a>
     <a href="/admin/edit.php">New post</a>
     <a href="/" target="_blank">View site ↗</a>
     <a href="/admin/logout.php">Log out</a>

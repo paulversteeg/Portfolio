@@ -24,6 +24,6 @@ include __DIR__ . '/inc/head.php';
   <h1><?= esc($page['title']) ?><?php if ($page['subtitle'] !== ''): ?><span class="header_subtitle"> <?= esc($page['subtitle']) ?></span><?php endif; ?></h1>
 </div>
 <div class="content page-<?= esc(preg_replace('/[^a-z0-9-]+/', '-', strtolower($page['slug']))) ?>">
-  <?= live_talks(live_experiences(live_years($page['body_html']))) // trusted: authored HTML; live year counts, the Experience list and the talks from the Talks page ?>
+  <?= live_publications(live_talks(live_experiences(live_years($page['body_html'])))) // trusted: authored HTML; live year counts, the Experience list and the talks from the Talks page ?>
 </div>
 <?php include __DIR__ . '/inc/foot.php'; ?>
