@@ -91,12 +91,12 @@ $updates[] = ['match' => ['A wall becomes a bridge'], 'html' => <<<'HTML'
 </div>
 HTML];
 
-$updates[] = ['match' => ['The Pitches Showcase'], 'html' => <<<'HTML'
+$updates[] = ['env' => 'staging', 'match' => ['The Pitches Showcase'], 'html' => <<<'HTML'
 <div class="talk">
 <h2>The Pitches Showcase</h2>
 <span class="subtitle">Masterclass University of applied sciences Rotterdam</span> <span class="subtitle">Rotterdam &ndash; December 3, 2020</span>
 <p>The art of losing pitches.</p>
-<p>Selling UX is a craft of its own. This masterclass takes students backstage at a design agency and walks through real pitches, the lost ones included. It starts before the pitch: does the client match your weight class, and what is really being asked? Pitches are often lost on the same pitfalls: not answering the true question, not understanding the business, showing what we like instead of what the client needs, forgetting how mature the client is, no clear creative direction, and decks without focus, structure or story. A good pitch is a fight in six rounds. Set the stage with the team and its experience. Make a promise that repeats the ask and pinpoints the why. Show the plan, from discovery and personas to roadmap and design principles. Be clear on the price. Give proof with earlier work. And make them fall in love with a first exploration of the design.</p>
+<p>To get a project sold, you need to convince the client that you are the right person or team for the job. The client wants to be reassured that you can deliver the right quality and that your approach matches their way of thinking. This masterclass takes students backstage at a design agency and walks through real pitches, and the trends, approach, design exploration and strategy that won or lost them. It starts before the pitch: does the client match your weight class, and what is really being asked? Pitches are often lost on the same pitfalls: not answering the true question, not understanding the business, showing what we like instead of what the client needs, and decks without focus or story. A good pitch is a fight in six rounds: set the stage with the team and its experience, make a promise that pinpoints the why, show the plan, be clear on the price, give proof with earlier work, and make them fall in love with a first exploration of the design.</p>
 </div>
 HTML];
 
