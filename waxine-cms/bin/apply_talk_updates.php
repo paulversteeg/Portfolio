@@ -103,7 +103,7 @@ HTML];
 $updates[] = ['env' => 'staging', 'match' => ['New Skills'], 'insert_before' => 'Being different', 'html' => <<<'HTML'
 <div class="talk">
 <h2>New Skills</h2>
-<span class="subtitle">UXcamp Amsterdam 2018</span> <span class="subtitle">IJsfontein Amsterdam &ndash; June 9, 2018</span>
+<span class="subtitle"><img src="/assets/talks/20180609_uxcamp_amsterdam.jpg" width="1086" height="724" alt="Paul Versteeg presenting his session to a room full of people at UXcamp Amsterdam">UXcamp Amsterdam 2018</span> <span class="subtitle">IJsfontein Amsterdam &ndash; June 9, 2018</span>
 <p>Dare to be different.</p>
 <p>Pixel perfect design is an illusion, and good tools alone do not make a good designer. This barcamp session was about the secret skills an effective designer needs, told as five superpowers. Ultra-mega-vision: understand the context, from who the user is and what they want to do, to the touchpoints before, during and after, and everything that can be measured, like time, location, speed or weather. Atomic brain-power: think from a business perspective, from vision and strategic pillars to KPIs, and an experience map that links user needs, business goals and channels. Amorphic flexibility: accept that a design is impermanent, incomplete and imperfect, and leave room to grow. Work like a scientist: do research, run workshops with clients and test what you create. And break the boundaries: dare to be different, because branding is about accentuating differences.</p>
 <ul class="bullit">
