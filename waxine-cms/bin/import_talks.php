@@ -14,7 +14,7 @@ require_once dirname(__DIR__) . '/lib/helpers.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const IMPORT_ON = 'staging';
+const IMPORT_ON = 'all';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
 if (IMPORT_ON !== 'all' && IMPORT_ON !== $env) { echo "import_talks: not on $env yet\n"; exit(0); }
@@ -31,7 +31,6 @@ echo $n ? "import_talks: $n talks imported\n" : "import_talks: nothing to import
  */
 $talkUpdates = [
     [
-        'env'   => 'staging',
         'match' => ['Digital transformation of Etihad'],
         'set'   => [
             'takeaway'    => 'A design language starts with alignment.',

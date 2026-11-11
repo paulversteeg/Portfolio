@@ -24,19 +24,16 @@ $applies = fn ($c) => ($c['env'] ?? 'all') === 'all' || $c['env'] === $env;
 // --- Resume page text: [old => new] replacements --------------------------------
 $pageChanges = [
     [
-        'env'  => 'staging',
         'what' => 'profile: international, cross-cultural experience',
         'old'  => 'independent of who is across the table.</p>',
         'new'  => 'independent of who is across the table. I am at home in international, cross-cultural settings, with hands-on experience on projects in Europe, the Middle East and Asia. Pro-active and outspoken, I take the lead and get stakeholders enthusiastic.</p>',
     ],
     [
-        'env'  => 'staging',
         'what' => 'contact details: LinkedIn and location',
         'old'  => '<a href="tel:+31650525000">+316 5052 5000</a></address>',
         'new'  => '<a href="tel:+31650525000">+316 5052 5000</a><br><a href="https://www.linkedin.com/in/paulversteeg/">linkedin.com/in/paulversteeg</a><br>Dordrecht, The Netherlands</address>',
     ],
     [
-        'env'  => 'staging',
         'what' => 'new sections: Skills and Languages (after Education)',
         'old'  => '<h2>Speaking engagements</h2>',
         'new'  => '<h2>Skills</h2>
@@ -73,7 +70,6 @@ $pageChanges = [
         'marker' => '<h2>Skills</h2>',   // already there? then skip
     ],
     [
-        'env'     => 'staging',
         'what'    => 'speaking engagements: listing from the Talks page',
         // The hand-written list between the heading and Side activities.
         'pattern' => '#(<h2>Speaking engagements</h2>\s*)<ul class="resume">.*?</ul>\s*</ul>#s',
@@ -85,7 +81,6 @@ $pageChanges = [
 // --- Experience records: [title, old description start => new description] --------
 $experienceChanges = [
     [
-        'env'   => 'staging',
         'title' => 'Etihad Airways',
         'old'   => 'It should hold up to interpretation both internally, and externally by agencies and vendors.',
         'new'   => 'It should hold up to interpretation both internally, and externally by agencies and vendors. The work involved dozens of internal stakeholders and external vendors, across 4 time zones and 3 design studios in Amsterdam, Abu Dhabi and Kolkata.',
