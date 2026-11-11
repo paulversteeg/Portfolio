@@ -31,7 +31,6 @@ echo $n ? "import_talks: $n talks imported\n" : "import_talks: nothing to import
  */
 $talkUpdates = [
     [
-        'env'   => 'staging',
         'match' => ['Being different'],
         'set'   => [
             'takeaway'    => 'Branding is about accentuating differences.',
