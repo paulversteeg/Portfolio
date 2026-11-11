@@ -55,6 +55,7 @@ fi
 # here never blocks the deploy.
 if command -v php >/dev/null 2>&1; then
     php "$DEST/bin/apply_talk_updates.php" || echo "apply_talk_updates.php failed; content unchanged"
+    php "$DEST/bin/apply_resume_updates.php" || echo "apply_resume_updates.php failed; content unchanged"
 else
     echo "php not found; run bin/apply_talk_updates.php by hand"
 fi
