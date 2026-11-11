@@ -91,7 +91,7 @@ $updates[] = ['match' => ['A wall becomes a bridge'], 'html' => <<<'HTML'
 </div>
 HTML];
 
-$updates[] = ['env' => 'staging', 'match' => ['The Pitches Showcase'], 'html' => <<<'HTML'
+$updates[] = ['match' => ['The Pitches Showcase'], 'html' => <<<'HTML'
 <div class="talk">
 <h2>The Pitches Showcase</h2>
 <span class="subtitle">Masterclass University of applied sciences Rotterdam</span> <span class="subtitle">Rotterdam &ndash; December 3, 2020</span>
