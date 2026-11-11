@@ -18,6 +18,39 @@ const IMPORT_ON = 'staging';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
 if (IMPORT_ON !== 'all' && IMPORT_ON !== $env) { echo "import_talks: not on $env yet\n"; exit(0); }
+ensure_talks_table();
 
 $n = import_talks_from_page();
 echo $n ? "import_talks: $n talks imported\n" : "import_talks: nothing to import\n";
+
+/*
+ * Text updates for talk records that cannot be made in the admin right now
+ * (no login). Each finds a talk by its current or new title and sets the
+ * given fields; it does nothing when they already match. Updates marked
+ * 'env' => 'staging' are a preview until approved.
+ */
+$talkUpdates = [
+    [
+        'env'   => 'staging',
+        'match' => ['Digital transformation of Etihad'],
+        'set'   => [
+            'takeaway'    => 'A design language starts with alignment.',
+            'description' => "Etihad Airways, the national airline of the United Arab Emirates, was working hard to become the number one digital airline, with the user experience across all channels as top priority. This session shows how we took on the creative challenge: a visually striking design language that translates Etihad's \"Choose Well\" proposition to UX, and holds up when it is interpreted internally as well as by agencies and vendors.\n\nAn audit of existing touchpoints, from emails to the website, showed that 90% of them were inconsistent. So the work started from strategy: a strategy pyramid, personas, and an experience map from choosing a destination to evaluating the trip, linking business goals, user needs and channels. From there came design principles for the way the experience looks, communicates, behaves and is built, and a design system. It was first used in the self-service hub at the new Midfield terminal, for baggage drop and kiosks, followed by in-flight entertainment and the Etihad app.",
+        ],
+    ],
+];
+
+foreach ($talkUpdates as $u) {
+    if (($u['env'] ?? 'all') !== 'all' && $u['env'] !== $env) continue;
+    $row = null;
+    foreach ($u['match'] as $title) {
+        $row = q1('SELECT * FROM talks WHERE title = ? ORDER BY id LIMIT 1', [$title]);
+        if ($row) break;
+    }
+    if (!$row) { echo "talk not found, skipped: {$u['match'][0]}\n"; continue; }
+    $diff = array_filter($u['set'], fn ($v, $k) => (string) $row[$k] !== $v, ARRAY_FILTER_USE_BOTH);
+    if (!$diff) { echo "talk already up to date: {$row['title']}\n"; continue; }
+    $sets = implode(', ', array_map(fn ($k) => "$k = ?", array_keys($diff)));
+    exec_sql("UPDATE talks SET $sets WHERE id = ?", array_merge(array_values($diff), [$row['id']]));
+    echo "talk updated: {$row['title']}\n";
+}
