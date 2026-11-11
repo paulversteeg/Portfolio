@@ -72,6 +72,14 @@ $pageChanges = [
 <h2>Speaking engagements</h2>',
         'marker' => '<h2>Skills</h2>',   // already there? then skip
     ],
+    [
+        'env'     => 'staging',
+        'what'    => 'speaking engagements: listing from the Talks page',
+        // The hand-written list between the heading and Side activities.
+        'pattern' => '#(<h2>Speaking engagements</h2>\s*)<ul class="resume">.*?</ul>\s*</ul>#s',
+        'new'     => '$1<p data-talks="speaking-engagements">Speaking engagements are filled in from the Talks page.</p>',
+        'marker'  => 'data-talks="speaking-engagements"',
+    ],
 ];
 
 // --- Experience records: [title, old description start => new description] --------
@@ -95,6 +103,13 @@ else {
     foreach (array_filter($pageChanges, $applies) as $c) {
         $done = strpos($body, $c['marker'] ?? $c['new']) !== false;
         if ($done)                                  { echo "already done: {$c['what']}\n"; continue; }
+        if (isset($c['pattern'])) {
+            if (!preg_match($c['pattern'], $body)) { echo "old text not found, skipped: {$c['what']}\n"; continue; }
+            $body = preg_replace($c['pattern'], $c['new'], $body, 1);
+            echo "updated: {$c['what']}\n";
+            $changed++;
+            continue;
+        }
         if (strpos($body, $c['old']) === false)     { echo "old text not found, skipped: {$c['what']}\n"; continue; }
         $body = preg_replace('/' . preg_quote($c['old'], '/') . '/', addcslashes($c['new'], '\\$'), $body, 1);
         echo "updated: {$c['what']}\n";

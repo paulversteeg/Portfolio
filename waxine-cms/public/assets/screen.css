@@ -945,7 +945,7 @@ li {
 .resume > ul > .location,
 .resume > ul > .description {
 	display: block;
-	margin-bottom: 1.5em;
+	margin-bottom: 2.25em;   /* room between entries */
 	}
 /* Every resume section ends with the same 3em before the next heading,
    the same space as under a paragraph or the contact block. */
