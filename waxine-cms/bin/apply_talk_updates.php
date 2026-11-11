@@ -100,6 +100,18 @@ $updates[] = ['match' => ['The Pitches Showcase'], 'html' => <<<'HTML'
 </div>
 HTML];
 
+$updates[] = ['env' => 'staging', 'match' => ['New Skills'], 'insert_before' => 'Being different', 'html' => <<<'HTML'
+<div class="talk">
+<h2>New Skills</h2>
+<span class="subtitle">UXcamp Amsterdam 2018</span> <span class="subtitle">IJsfontein Amsterdam &ndash; June 9, 2018</span>
+<p>Dare to be different.</p>
+<p>Pixel perfect design is an illusion, and good tools alone do not make a good designer. This barcamp session was about the secret skills an effective designer needs, told as five superpowers. Ultra-mega-vision: understand the context, from who the user is and what they want to do, to the touchpoints before, during and after, and everything that can be measured, like time, location, speed or weather. Atomic brain-power: think from a business perspective, from vision and strategic pillars to KPIs, and an experience map that links user needs, business goals and channels. Amorphic flexibility: accept that a design is impermanent, incomplete and imperfect, and leave room to grow. Work like a scientist: do research, run workshops with clients and test what you create. And break the boundaries: dare to be different, because branding is about accentuating differences.</p>
+<ul class="bullit">
+<li><a href="https://uxcampams.com/welcome">Event page</a></li>
+</ul>
+</div>
+HTML];
+
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
 $updates = array_filter($updates, fn ($u) => ($u['env'] ?? 'all') === 'all' || $u['env'] === $env);
 echo "Environment: $env\n";
@@ -123,6 +135,16 @@ foreach ($updates as $u) {
         echo "updated: $title\n";
         $changed++; $found = true;
         break;
+    }
+    if (!$found && !empty($u['insert_before'])) {
+        // A new talk: put it right before the given talk (talks run newest first).
+        $h = strpos($body, '<h2>' . $u['insert_before'] . '</h2>');
+        $start = $h === false ? false : strrpos(substr($body, 0, $h), '<div class="talk">');
+        if ($start !== false) {
+            $body = substr($body, 0, $start) . $new . "\n" . substr($body, $start);
+            echo "added before {$u['insert_before']}: " . $u['match'][0] . "\n";
+            $changed++; $found = true;
+        }
     }
     if (!$found) echo "not found, skipped: " . implode(' / ', $u['match']) . "\n";
 }
