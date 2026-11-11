@@ -31,6 +31,14 @@ echo $n ? "import_talks: $n talks imported\n" : "import_talks: nothing to import
  */
 $talkUpdates = [
     [
+        'env'   => 'staging',
+        'match' => ['Being different'],
+        'set'   => [
+            'takeaway'    => 'Branding is about accentuating differences.',
+            'description' => "The focus of design is shifting from craftsmanship to copying best practices, and that is a problem. Physical products show how much room there is to be different, while many websites follow the same trends and start to look alike. Dieter Rams made Braun, but there is only one Braun: we have to be somebody else, and find our own place between minimal and expressive, conservative and innovative. Craft is hard and takes both breadth and depth, down to an 8-point grid. Craft gives you good design, creativity on top makes it standout design, and perseverance gets you there. So work together, argue your choices, test, think outside the box and stay in shape.",
+        ],
+    ],
+    [
         'match' => ['Digital transformation of Etihad'],
         'set'   => [
             'takeaway'    => 'A design language starts with alignment.',
