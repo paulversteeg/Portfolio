@@ -26,6 +26,15 @@ echo $n ? "import_publications: $n publications imported\n" : "import_publicatio
 $publicationUpdates = [
     [
         'env'   => 'staging',
+        'match' => ['MaaS Conference 2020: challenges in Mobility becoming a Service for everyone'],
+        'set'   => [
+            // The article on info.nl is gone; the PDF is rebuilt from the Internet Archive copy.
+            'links'     => 'Download article | /assets/downloads/maas-conference-2020-paul-versteeg.pdf | pdf',
+            'publisher' => 'INFO',
+        ],
+    ],
+    [
+        'env'   => 'staging',
         'match' => ['Unleash the artificial smartness', 'Unleash the Artificial Smartness'],
         'set'   => [
             'title'   => 'Unleash the Artificial Smartness',
