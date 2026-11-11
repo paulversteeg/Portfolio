@@ -57,6 +57,7 @@ if command -v php >/dev/null 2>&1; then
     php "$DEST/bin/import_talks.php" || echo "import_talks.php failed; content unchanged"
     php "$DEST/bin/import_publications.php" || echo "import_publications.php failed; content unchanged"
     php "$DEST/bin/apply_resume_updates.php" || echo "apply_resume_updates.php failed; content unchanged"
+    php "$DEST/bin/apply_about_updates.php" || echo "apply_about_updates.php failed; content unchanged"
 else
     echo "php not found; run bin/import_talks.php and bin/apply_resume_updates.php by hand"
 fi

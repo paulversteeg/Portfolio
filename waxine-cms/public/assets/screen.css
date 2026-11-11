@@ -758,6 +758,32 @@ h1.article-detail-title {
 	height: auto;
   	}  
   	
+/* About page: the contact block ends below the round photo, so the next
+   heading never sits beside it. */
+.content .contactdetails {
+	margin-bottom: 3em;
+	}
+.content .contactdetails::after {
+	content: "";
+	display: block;
+	clear: both;
+	}
+
+/* About page: the "full resume" line as a call-out block that stands out
+   from the running text. */
+.content p.callout {
+	margin: 2.5em 0 3em;
+	padding: 1.1em 1.4em;
+	background: #EAE6E3;
+	border: 1px solid #D9D4D0;
+	border-left: 4px solid #25282A;
+	border-radius: 6px;
+	font-weight: 600;
+	}
+.content p.callout a {
+	color: #25282A;
+	}
+
 .image-profile {
 	border: 0.1em solid rgba(37,40,42,0.5);
 	border-radius: 50%;

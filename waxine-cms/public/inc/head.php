@@ -20,19 +20,17 @@ $pageTitle = $pageTitle ?? $siteTitle;
 <nav class="nav" aria-label="Primary">
   <ul id="menu">
     <?php
-    // "Thoughts" (the home page) is not a CMS page. It sits right after the
-    // first page in the CMS menu order (About), so the menu reads:
-    // About, Thoughts, Talks, Publications.
-    $thoughts_shown = false;
-    foreach (nav_pages() as $i => $pg):
-      if ($i === 1): $thoughts_shown = true; ?>
+    // "Thoughts" (the home page) is not a CMS page; it always comes first.
+    // The CMS pages follow in their menu order (Pages > order), which puts
+    // About last: Thoughts, Talks, Publications, About.
+    ?>
     <li class="nav-item">
       <a href="/">
         <strong>Thoughts</strong>
         <span class="subtitle"><?= esc($cfg['site']['tagline'] ?? '') ?></span>
       </a>
     </li>
-    <?php endif; ?>
+    <?php foreach (nav_pages() as $pg): ?>
     <li class="nav-item">
       <a href="<?= esc(page_url($pg)) ?>">
         <strong><?= esc($pg['title']) ?></strong>
@@ -40,14 +38,6 @@ $pageTitle = $pageTitle ?? $siteTitle;
       </a>
     </li>
     <?php endforeach; ?>
-    <?php if (!$thoughts_shown): // fewer than two CMS pages in the menu ?>
-    <li class="nav-item">
-      <a href="/">
-        <strong>Thoughts</strong>
-        <span class="subtitle"><?= esc($cfg['site']['tagline'] ?? '') ?></span>
-      </a>
-    </li>
-    <?php endif; ?>
   </ul>
 </nav>
 <main>
