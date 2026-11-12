@@ -967,6 +967,18 @@ li {
 .page-resume > h2 + .resume {
 	margin-top: 0.95em;
 	}
+/* Resume: the round photo floats beside the profile text. */
+.page-resume .profile {
+	display: flow-root;
+	margin-bottom: 1em;
+	}
+.page-resume .profile .image-profile {
+	margin: 0.3em 1.5em 0.5em 0;
+	}
+.page-resume .profile > p:first-of-type {
+	margin-top: 0;
+	}
+.page-resume > h2 + .profile,
 .page-resume > h2 + .address {
 	margin-top: 1.35em;
 	}
