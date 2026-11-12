@@ -103,6 +103,28 @@ $pageChanges = [
         'new'     => 'Local historian and tour guide on the Island of Dordrecht',
     ],
     [
+        'what'    => 'new section: Tools I like to work with (after Skills)',
+        'env'     => 'staging',
+        'pattern' => '#(<h2>Languages</h2>)#',
+        'new'     => '<h2>Tools I like to work with</h2>
+<ul class="resume">
+<ul class="item">
+<li class="highlight">Design &amp; presenting</li>
+<li class="location">Figma, Keynote</li>
+</ul>
+<ul class="item">
+<li class="highlight">AI</li>
+<li class="location">Claude, Gemini, Midjourney, ElevenLabs</li>
+</ul>
+<ul class="item">
+<li class="highlight">Audio &amp; video</li>
+<li class="location">Logic Pro, Final Cut Pro</li>
+</ul>
+</ul>
+$1',
+        'marker'  => '<h2>Tools I like to work with</h2>',
+    ],
+    [
         'what'    => 'side activities: drum teacher still ongoing',
         'env'     => 'staging',
         'old'     => '<li class="time-period">2018</li>
