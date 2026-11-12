@@ -1255,6 +1255,30 @@ select:focus-visible,
 	text-align: center;
 	}
 
+/* Work: the cards sit in the page column, unlike the Thoughts cards that use
+   the full width. A grid keeps every card on the same line and the outer
+   cards in line with the page title, whatever the length of their text
+   (inline-blocks line up on their text, so longer subtitles pushed cards
+   down). The page text's line height is reset to the card's own. */
+.content .work-listing {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 240px);
+	justify-content: space-between;
+	gap: 1em;
+	margin: 0 0 3em;
+	line-height: normal;
+	text-align: left;
+	}
+.content .work-listing > li.listing-result {
+	margin: 0;
+	}
+	@media only screen and (max-width: 530px) {
+		.content .work-listing {
+			grid-template-columns: repeat(auto-fill, 140px);
+			gap: .5em;
+			}
+	}
+
 /* Work: the summary that opens a case page, a little larger than the text. */
 .page-work-case .case-summary {
 	font-size: 1.15em;
