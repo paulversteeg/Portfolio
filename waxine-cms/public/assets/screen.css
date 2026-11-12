@@ -954,11 +954,11 @@ li {
 	}
 /* Every resume section opens with the divider, then its heading, then the
    content: the line belongs to the heading, so it sits close above it
-   (20px) with the open space before it (100px from the previous section).
+   (36px) with the open space before it (100px from the previous section).
    h2 is 30px, so 1em = 30px. */
 .page-resume > h2 {
 	border-top: 1px solid #D2CDC9;   /* same light separator as .talk */
-	padding-top: 0.6667em;           /* 20px from the line to the heading */
+	padding-top: 2.25rem;            /* 36px (one line of text) from the line to the heading */
 	margin-top: 3.3333em;            /* 100px from the previous section */
 	}
 .page-resume > h2:first-child {
