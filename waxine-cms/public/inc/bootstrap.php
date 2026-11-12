@@ -28,4 +28,9 @@ function nav_pages(): array
 
 /** URL builders. */
 function post_url(array $p): string  { return '/thoughts/' . rawurlencode($p['slug']); }
-function page_url(array $pg): string { return '/' . rawurlencode($pg['slug']); }
+function page_url(array $pg): string
+{
+    // The Work page is the home page; Thoughts has its own listing at /thoughts.
+    if ($pg['slug'] === 'work') return '/';
+    return '/' . rawurlencode($pg['slug']);
+}

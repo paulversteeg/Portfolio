@@ -1254,3 +1254,9 @@ select:focus-visible,
 .content figure.center figcaption {
 	text-align: center;
 	}
+
+/* Work: the summary that opens a case page, a little larger than the text. */
+.page-work-case .case-summary {
+	font-size: 1.15em;
+	line-height: 1.5;
+	}

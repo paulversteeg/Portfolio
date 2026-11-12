@@ -8,6 +8,12 @@
  * The Resume page text holds a placeholder where the list goes:
  *   <p data-experiences="career-highlights">…</p>
  * live_experiences() swaps it for the rendered list on every request.
+ *
+ * Work (Nov 2026): the same records feed the Work page. A record ticked
+ * "Show on Work" gets a card on the Work page and its own case page at
+ * /work/<slug>, with a longer case text (work_body) and a short summary.
+ *   <p data-experiences="work">…</p>    the Work cards
+ *   <p data-experiences="other">…</p>   every project that is not on Work
  */
 
 const EXPERIENCE_MAX_HIGHLIGHTS = 5;
@@ -32,7 +38,87 @@ function ensure_experiences_table(): void
            KEY idx_experiences_order (sort_order, id)
          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
     );
+    // Columns for the Work page, added to existing tables too (staging gets
+    // live's table structure every night, so this must keep working).
+    $have = array_column(q('SHOW COLUMNS FROM experiences'), 'Field');
+    $add = [
+        'slug'         => 'ADD COLUMN slug VARCHAR(160) NULL AFTER subtitle, ADD UNIQUE KEY uq_experiences_slug (slug)',
+        'on_work'      => 'ADD COLUMN on_work TINYINT(1) NOT NULL DEFAULT 0 AFTER is_highlight',
+        'work_summary' => 'ADD COLUMN work_summary TEXT NULL AFTER description',
+        'work_body'    => 'ADD COLUMN work_body MEDIUMTEXT NULL AFTER work_summary',
+    ];
+    foreach ($add as $col => $sql) {
+        if (!in_array($col, $have, true)) db()->exec('ALTER TABLE experiences ' . $sql);
+    }
     $done = true;
+}
+
+/* ---------------------------------------------------------------------
+ *  Work page
+ * ------------------------------------------------------------------- */
+
+/** URL of a case page. */
+function experience_url(array $e): string
+{
+    return '/work/' . rawurlencode((string) $e['slug']);
+}
+
+/** A unique slug from the project name, e.g. "hertek-safety". */
+function experience_unique_slug(string $title, int $exceptId = 0): string
+{
+    $base = str_replace('_', '-', slugify($title));
+    $slug = $base;
+    for ($i = 2; q1('SELECT id FROM experiences WHERE slug = ? AND id <> ?', [$slug, $exceptId]); $i++) {
+        $slug = $base . '-' . $i;
+    }
+    return $slug;
+}
+
+/** Records shown on the Work page, in display order. Fills in missing slugs. */
+function experiences_on_work(): array
+{
+    ensure_experiences_table();
+    $rows = q('SELECT * FROM experiences WHERE on_work = 1 ORDER BY sort_order, id');
+    foreach ($rows as &$e) {
+        if (($e['slug'] ?? '') === '') {
+            $e['slug'] = experience_unique_slug($e['title'], (int) $e['id']);
+            exec_sql('UPDATE experiences SET slug = ? WHERE id = ?', [$e['slug'], $e['id']]);
+        }
+    }
+    return $rows;
+}
+
+/** One case by its slug, only when it is on Work. */
+function experience_by_slug(string $slug): ?array
+{
+    ensure_experiences_table();
+    return q1('SELECT * FROM experiences WHERE slug = ? AND on_work = 1', [$slug]);
+}
+
+/** Short text for a card or a case intro: the summary, else the description. */
+function experience_summary(array $e): string
+{
+    $s = trim((string) ($e['work_summary'] ?? ''));
+    return $s !== '' ? $s : trim((string) $e['description']);
+}
+
+/**
+ * The Work cards, in the same shape and title colours as the Thoughts
+ * cards, so both pages read as one site.
+ */
+function render_work(array $items): string
+{
+    if (!$items) return '';
+    $html = "<ol class=\"article-listing work-listing\">\n";
+    foreach ($items as $e) {
+        $html .= '  <li class="listing-result">'
+               . '<a href="' . esc(experience_url($e)) . '" class="link-figure">'
+               . '<figure class="article-figure" style="background-image:' . esc(title_gradient($e['title'])) . '">'
+               . '<span class="article-date">' . esc($e['subtitle']) . '</span>'
+               . '<strong class="article-title">' . esc($e['title']) . '</strong>'
+               . "</figure></a></li>\n";
+    }
+    return $html . "</ol>\n";
 }
 
 /** All experiences in display order. */
@@ -94,18 +180,30 @@ function render_experiences(array $all): string
     return $html;
 }
 
-/** Replace the placeholder paragraph in page HTML with the live list. */
+/**
+ * Replace each placeholder paragraph in page HTML with its live list:
+ * data-experiences="career-highlights" (Resume), "work" (the Work cards)
+ * or "other" (every project that is not on Work).
+ */
 function live_experiences(string $html): string
 {
     if (stripos($html, 'data-experiences') === false) return $html;
-    $pattern = '/<(p|div)\b[^>]*\bdata-experiences="[^"]*"[^>]*>.*?<\/\1>/is';
-    if (!preg_match($pattern, $html)) return $html;
-    try {
-        $block = render_experiences(experiences_all());
-    } catch (Throwable $e) {
-        return $html; // keep the placeholder text rather than break the page
-    }
-    return preg_replace_callback($pattern, fn () => $block, $html, 1) ?? $html;
+    $pattern = '/<(p|div)\b[^>]*\bdata-experiences="([^"]*)"[^>]*>.*?<\/\1>/is';
+    return preg_replace_callback($pattern, function ($m) {
+        try {
+            switch (strtolower($m[2])) {
+                case 'work':
+                    return render_work(experiences_on_work());
+                case 'other':
+                    $other = array_values(array_filter(experiences_all(), fn ($e) => empty($e['on_work'])));
+                    return $other ? "<ul class=\"resume\">\n" . implode('', array_map('experience_item_html', $other)) . "</ul>\n" : '';
+                default:
+                    return render_experiences(experiences_all());
+            }
+        } catch (Throwable $e) {
+            return $m[0]; // keep the placeholder text rather than break the page
+        }
+    }, $html) ?? $html;
 }
 
 /**

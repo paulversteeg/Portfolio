@@ -13,6 +13,13 @@ DirectoryIndex index.php
   # New post URLs: /thoughts/come_work_in_ATL
   RewriteRule ^thoughts/([^/]+)/?$ post.php?slug=$1 [L,QSA]
 
+  # The Thoughts listing (the home page is the Work page).
+  RewriteRule ^thoughts/?$ thoughts.php [L,QSA]
+
+  # Work: the page itself is the home page; each case has its own page.
+  RewriteRule ^work/?$ / [R=301,L]
+  RewriteRule ^work/([a-zA-Z0-9_-]+)/?$ work.php?slug=$1 [L,QSA]
+
   # Anything that is a real file or directory: serve as-is.
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d

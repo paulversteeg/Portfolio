@@ -22,7 +22,7 @@ if (!$post) {
     $pageTitle = 'Not found';
     include __DIR__ . '/inc/head.php';
     echo '<div class="header"><h1>Not found</h1></div>';
-    echo '<div class="content"><p>That thought doesn\'t exist. <a href="/">Back to all thoughts</a>.</p></div>';
+    echo '<div class="content"><p>That thought doesn\'t exist. <a href="/thoughts">Back to all thoughts</a>.</p></div>';
     include __DIR__ . '/inc/foot.php';
     exit;
 }
@@ -35,7 +35,7 @@ $pageTitle = $post['title'];
 include __DIR__ . '/inc/head.php';
 ?>
 <div class="header cover angle" style="background-image:<?= esc(title_gradient($post['title'])) ?>">
-  <div class="up-one-level"><a href="/" class="first" title="All articles">Other thoughts</a></div>
+  <div class="up-one-level"><a href="/thoughts" class="first" title="All articles">Other thoughts</a></div>
   <h1 class="article-detail-title"><?= esc($post['title']) ?></h1>
   <time class="article-detail-date"><?= esc(date("F j, 'y", strtotime($post['published_at']))) ?></time>
 </div>

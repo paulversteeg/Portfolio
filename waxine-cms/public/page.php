@@ -3,7 +3,7 @@
  * Static page view (about / talks / publications / ...).
  * Accepts ?slug=about  (via .htaccess rewrite of /about).
  */
-require __DIR__ . '/inc/bootstrap.php';
+require_once __DIR__ . '/inc/bootstrap.php';
 
 $slug = $_GET['slug'] ?? '';
 $page = q1('SELECT * FROM pages WHERE slug = ?', [$slug]);

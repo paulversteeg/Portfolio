@@ -20,16 +20,20 @@ $pageTitle = $pageTitle ?? $siteTitle;
 <nav class="nav" aria-label="Primary">
   <ul id="menu">
     <?php
-    // "Thoughts" (the home page) is not a CMS page; it always comes first.
-    // The CMS pages follow in their menu order (Pages > order), which puts
-    // About last: Thoughts, Talks, Publications, About.
+    // The menu follows Pages > order. Thoughts and Work are entries under
+    // Pages too (Work is the home page, Thoughts lists the posts), so the
+    // menu reads: Work, Talks, Publications, Thoughts, Resume, About.
+    // Until there is a Thoughts entry, Thoughts stays first, as the home page.
+    $navHasThoughts = in_array('thoughts', array_column(nav_pages(), 'slug'), true);
     ?>
+    <?php if (!$navHasThoughts): ?>
     <li class="nav-item">
       <a href="/">
         <strong>Thoughts</strong>
         <span class="subtitle"><?= esc($cfg['site']['tagline'] ?? '') ?></span>
       </a>
     </li>
+    <?php endif; ?>
     <?php foreach (nav_pages() as $pg): ?>
     <li class="nav-item">
       <a href="<?= esc(page_url($pg)) ?>">

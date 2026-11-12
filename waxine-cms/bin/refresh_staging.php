@@ -78,3 +78,13 @@ foreach ($tables as $table) {
 
 $to->exec('SET FOREIGN_KEY_CHECKS = 1');
 echo 'Staging refreshed from live: ' . count($tables) . " tables, $total rows, " . date('Y-m-d H:i') . "\n";
+
+// The live copy has none of the previews that are still waiting for approval,
+// so run the update steps again: a preview stays visible on staging after
+// the nightly refresh instead of only until the next deploy.
+foreach (['import_talks', 'import_publications', 'apply_resume_updates', 'apply_about_updates', 'apply_work_updates'] as $step) {
+    $file = __DIR__ . "/$step.php";
+    if (!is_file($file)) continue;
+    passthru(escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($file), $code);
+    if ($code !== 0) echo "$step failed (exit $code); staging content otherwise refreshed\n";
+}

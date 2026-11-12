@@ -83,7 +83,7 @@ include __DIR__ . '/inc/admin_head.php';
     <h2 style="margin:0">Experience <span class="muted">(<?= count($items) ?>)</span></h2>
     <a class="btn" href="/admin/edit_experience.php">+ New experience</a>
   </div>
-  <p class="muted" style="margin:.6rem 0 0">Tick up to <?= $max ?> to show as Career highlights on the Resume page. The rest appear under "Show all projects". Lower order numbers come first.</p>
+  <p class="muted" style="margin:.6rem 0 0">Tick up to <?= $max ?> to show as Career highlights on the Resume page. The rest appear under "Show all projects". Lower order numbers come first. Open a project to put it on the Work page.</p>
 </div>
 
 <?php if ($canImport): ?>
@@ -102,7 +102,7 @@ include __DIR__ . '/inc/admin_head.php';
   <input type="hidden" name="action" value="save_list">
   <p style="margin-top:0"><strong id="hl-count"><?= $highlighted ?></strong> of <?= $max ?> highlighted</p>
   <table>
-    <thead><tr><th>Highlight</th><th>Order</th><th>Project</th><th>Period</th></tr></thead>
+    <thead><tr><th>Highlight</th><th>Order</th><th>Project</th><th>Period</th><th>Work</th></tr></thead>
     <tbody>
     <?php foreach ($items as $e): $id = (int) $e['id']; ?>
       <tr>
@@ -110,6 +110,7 @@ include __DIR__ . '/inc/admin_head.php';
         <td><input type="number" name="order[<?= $id ?>]" value="<?= (int) $e['sort_order'] ?>" style="width:5.5em" aria-label="Order of <?= esc($e['title']) ?>"></td>
         <td><a href="/admin/edit_experience.php?id=<?= $id ?>"><?= esc($e['title']) ?></a><?php if ($e['subtitle'] !== ''): ?><br><span class="muted"><?= esc($e['subtitle']) ?></span><?php endif; ?></td>
         <td class="muted"><?= esc($e['period']) ?></td>
+        <td><?= !empty($e['on_work']) ? '<a href="' . esc(experience_url($e)) . '" target="_blank">On Work ↗</a>' : '<span class="muted">–</span>' ?></td>
       </tr>
     <?php endforeach; ?>
     </tbody>
