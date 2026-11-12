@@ -67,4 +67,13 @@ if (!q1('SELECT id FROM experiences WHERE on_work = 1')) {
     echo 'work: ' . count($picked) . " Career highlights put on Work\n";
 }
 
+// --- Employer in its own field --------------------------------------------------------
+// "fresk.digital · 2022 – present" becomes period "2022 – present" with
+// employer "fresk.digital", shown under the period on the Resume page.
+foreach (q("SELECT id, period FROM experiences WHERE employer = '' AND period LIKE '% · %'") as $e) {
+    [$employer, $period] = array_map('trim', explode(' · ', $e['period'], 2));
+    exec_sql('UPDATE experiences SET employer = ?, period = ? WHERE id = ?', [$employer, $period, $e['id']]);
+    echo "employer: '$employer' split from the period of record {$e['id']}\n";
+}
+
 echo "apply_work_updates: done on $env\n";

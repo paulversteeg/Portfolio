@@ -34,7 +34,7 @@ include __DIR__ . '/inc/head.php';
 <div class="header cover angle" style="background-image:<?= esc(title_gradient($item['title'])) ?>">
   <div class="up-one-level"><a href="/" class="first" title="All work">Other work</a></div>
   <h1 class="article-detail-title"><?= esc($item['title']) ?></h1>
-  <span class="article-detail-date"><?= esc(trim($item['subtitle'] . ($item['period'] !== '' ? ' · ' . $item['period'] : ''), ' ·')) ?></span>
+  <span class="article-detail-date"><?= esc(implode(' · ', array_filter([$item['subtitle'], $item['employer'] ?? '', $item['period']], fn ($x) => trim((string) $x) !== ''))) ?></span>
 </div>
 
 <div class="story-colour" style="--title-colour:#<?= esc(title_start_colour($item['title'])) ?>">

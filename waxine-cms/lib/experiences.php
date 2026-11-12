@@ -42,6 +42,7 @@ function ensure_experiences_table(): void
     // live's table structure every night, so this must keep working).
     $have = array_column(q('SHOW COLUMNS FROM experiences'), 'Field');
     $add = [
+        'employer'     => "ADD COLUMN employer VARCHAR(120) NOT NULL DEFAULT '' AFTER period",
         'slug'         => 'ADD COLUMN slug VARCHAR(160) NULL AFTER subtitle, ADD UNIQUE KEY uq_experiences_slug (slug)',
         'on_work'      => 'ADD COLUMN on_work TINYINT(1) NOT NULL DEFAULT 0 AFTER is_highlight',
         'work_summary' => 'ADD COLUMN work_summary TEXT NULL AFTER description',
@@ -136,6 +137,14 @@ function experiences_highlight_count(int $exceptId = 0): int
     return (int) ($row['n'] ?? 0);
 }
 
+/** The left column of an entry: the period, with the employer under it. */
+function experience_when_html(array $e): string
+{
+    $employer = trim((string) ($e['employer'] ?? ''));
+    return esc($e['period'])
+         . ($employer !== '' ? '<span class="employer">' . esc($employer) . '</span>' : '');
+}
+
 /** One entry in the same markup the Resume page has always used. */
 function experience_item_html(array $e): string
 {
@@ -146,7 +155,7 @@ function experience_item_html(array $e): string
         ? "\n  <li class=\"description\">" . nl2br(esc($e['description']), false) . '</li>'
         : '';
     return "<ul class=\"item\">\n"
-         . '  <li class="time-period">' . esc($e['period']) . "</li>\n"
+         . '  <li class="time-period">' . experience_when_html($e) . "</li>\n"
          . '  <li class="highlight">' . esc($e['title']) . $sub . '</li>'
          . $desc . "\n</ul>\n";
 }

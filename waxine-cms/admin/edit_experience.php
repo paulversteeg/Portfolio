@@ -12,6 +12,7 @@ $flash = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
     $period      = trim($_POST['period'] ?? '');
+    $employer    = trim($_POST['employer'] ?? '');
     $title       = trim($_POST['title'] ?? '');
     $subtitle    = trim($_POST['subtitle'] ?? '');
     $description = trim($_POST['description'] ?? '');
@@ -36,17 +37,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $summaryDb = $work_summary === '' ? null : $work_summary;
         $bodyDb = trim(strip_tags($work_body, '<img>')) === '' ? null : $work_body;
         if ($id) {
-            exec_sql('UPDATE experiences SET period=?, title=?, subtitle=?, slug=?, description=?, work_summary=?, work_body=?, sort_order=?, is_highlight=?, on_work=? WHERE id=?',
-                [$period, $title, $subtitle, $slugDb, $description, $summaryDb, $bodyDb, $sort_order, $highlight, $on_work, $id]);
+            exec_sql('UPDATE experiences SET period=?, employer=?, title=?, subtitle=?, slug=?, description=?, work_summary=?, work_body=?, sort_order=?, is_highlight=?, on_work=? WHERE id=?',
+                [$period, $employer, $title, $subtitle, $slugDb, $description, $summaryDb, $bodyDb, $sort_order, $highlight, $on_work, $id]);
         } else {
-            exec_sql('INSERT INTO experiences (period, title, subtitle, slug, description, work_summary, work_body, sort_order, is_highlight, on_work) VALUES (?,?,?,?,?,?,?,?,?,?)',
-                [$period, $title, $subtitle, $slugDb, $description, $summaryDb, $bodyDb, $sort_order, $highlight, $on_work]);
+            exec_sql('INSERT INTO experiences (period, employer, title, subtitle, slug, description, work_summary, work_body, sort_order, is_highlight, on_work) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
+                [$period, $employer, $title, $subtitle, $slugDb, $description, $summaryDb, $bodyDb, $sort_order, $highlight, $on_work]);
             $id = (int) db()->lastInsertId();
         }
         header('Location: /admin/edit_experience.php?id=' . $id . '&saved=1');
         exit;
     }
-    $item = compact('period', 'title', 'subtitle', 'slug', 'description', 'work_summary', 'sort_order', 'on_work')
+    $item = compact('period', 'employer', 'title', 'subtitle', 'slug', 'description', 'work_summary', 'sort_order', 'on_work')
           + ['id' => $id, 'is_highlight' => $highlight, 'work_body' => $work_body];
 }
 
@@ -83,8 +84,15 @@ include __DIR__ . '/inc/admin_head.php';
   <div class="row">
     <div>
       <label for="period">Period</label>
-      <input type="text" id="period" name="period" value="<?= $v('period') ?>" placeholder="e.g. fresk.digital · 2022 – present">
+      <input type="text" id="period" name="period" value="<?= $v('period') ?>" placeholder="e.g. 2022 – present">
     </div>
+    <div>
+      <label for="employer">Employer <span class="muted">(shown under the period)</span></label>
+      <input type="text" id="employer" name="employer" value="<?= $v('employer') ?>" placeholder="e.g. fresk.digital">
+    </div>
+  </div>
+
+  <div class="row">
     <div>
       <label for="sort_order">Order <span class="muted">(lower comes first)</span></label>
       <input type="number" id="sort_order" name="sort_order" value="<?= $v('sort_order', '0') ?>">

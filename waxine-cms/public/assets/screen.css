@@ -1272,11 +1272,27 @@ select:focus-visible,
 .content .work-listing > li.listing-result {
 	margin: 0;
 	}
+/* The page text sets figures to no padding; the cards keep their own. */
+.content .work-listing .article-figure {
+	margin: 0;
+	padding: 0.5em;
+	}
+	@media only screen and (max-width: 530px) {
+		.content .work-listing .article-figure { padding: 0.4em; }
+	}
 	@media only screen and (max-width: 530px) {
 		.content .work-listing {
 			grid-template-columns: repeat(auto-fill, 140px);
 			gap: .5em;
 			}
+	}
+
+/* Resume: the employer under the period, smaller and in the subtitle grey. */
+.time-period .employer {
+	display: block;
+	font-size: 85%;
+	line-height: 1.5;
+	color: #6A6B6C;
 	}
 
 /* Work: the summary that opens a case page, a little larger than the text. */

@@ -109,7 +109,7 @@ include __DIR__ . '/inc/admin_head.php';
         <td><input type="checkbox" class="hl" name="highlight[]" value="<?= $id ?>" aria-label="Highlight <?= esc($e['title']) ?>" <?= $e['is_highlight'] ? 'checked' : '' ?>></td>
         <td><input type="number" name="order[<?= $id ?>]" value="<?= (int) $e['sort_order'] ?>" style="width:5.5em" aria-label="Order of <?= esc($e['title']) ?>"></td>
         <td><a href="/admin/edit_experience.php?id=<?= $id ?>"><?= esc($e['title']) ?></a><?php if ($e['subtitle'] !== ''): ?><br><span class="muted"><?= esc($e['subtitle']) ?></span><?php endif; ?></td>
-        <td class="muted"><?= esc($e['period']) ?></td>
+        <td class="muted"><?= esc($e['period']) ?><?php if (($e['employer'] ?? '') !== ''): ?><br><?= esc($e['employer']) ?><?php endif; ?></td>
         <td><?= !empty($e['on_work']) ? '<a href="' . esc(experience_url($e)) . '" target="_blank">On Work ↗</a>' : '<span class="muted">–</span>' ?></td>
       </tr>
     <?php endforeach; ?>
