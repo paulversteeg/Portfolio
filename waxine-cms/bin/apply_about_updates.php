@@ -1,7 +1,7 @@
 <?php
 /**
- * About page (Nov 2026): new order of the page text, and About last in the
- * menu. Runs from deploy.sh and can be run by hand: php bin/apply_about_updates.php.
+ * About page (Nov 2026): new order of the page text, About last in the menu,
+ * and the subtitle 'me as a design strategist'. Runs from deploy.sh and can be run by hand: php bin/apply_about_updates.php.
  * Safe to run again: it does nothing once the page has its new layout.
  *
  * New order: intro · Contact details · "My work" (the rest of the story) ·
@@ -28,6 +28,14 @@ if ((int) $about['nav_order'] < $last - 9) {
     echo "about: moved to the end of the menu (order $last)\n";
 } else {
     echo "about: already last in the menu\n";
+}
+
+// --- Subtitle in the menu and the page heading -----------------------------------
+$subtitle = 'me as a design strategist';
+$cur = q1("SELECT subtitle FROM pages WHERE id = ?", [$about['id']]);
+if (($cur['subtitle'] ?? '') !== $subtitle) {
+    exec_sql('UPDATE pages SET subtitle = ? WHERE id = ?', [$subtitle, $about['id']]);
+    echo "about: subtitle set to '$subtitle'\n";
 }
 
 // --- Page text --------------------------------------------------------------------
