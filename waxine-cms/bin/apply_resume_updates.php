@@ -93,8 +93,16 @@ $pageChanges = [
         'what'    => 'side activities: Dordoloog',
         'env'     => 'staging',
         'pattern' => '#(<h2>Side activities</h2>\s*<ul class="resume">\s*)#',
-        'new'     => "\$1<ul class=\"item\">\n<li class=\"time-period\">2024 &ndash; present</li>\n<li class=\"highlight\">Dordoloog</li>\n<li class=\"location\">Local historian and guide, researching where things come from on the Island of Dordrecht and sharing it on guided tours</li>\n</ul>\n",
+        'new'     => "\$1<ul class=\"item\">\n<li class=\"time-period\">2024 &ndash; present</li>\n<li class=\"highlight\">Dordoloog</li>\n<li class=\"location\">Local historian and tour guide on the Island of Dordrecht</li>\n</ul>\n",
         'marker'  => '>Dordoloog<',
+    ],
+    [
+        'what'    => 'side activities: drum teacher still ongoing',
+        'env'     => 'staging',
+        'old'     => '<li class="time-period">2018</li>
+<li class="highlight">Drum teacher</li>',
+        'new'     => '<li class="time-period">2018 &ndash; present</li>
+<li class="highlight">Drum teacher</li>',
     ],
 ];
 
