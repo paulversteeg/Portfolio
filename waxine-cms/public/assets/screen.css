@@ -75,6 +75,10 @@ a {
 	text-decoration: none;
 	border-bottom: 1px solid;
 	border-bottom-color: currentColor;
+	/* Softer underline: the link colour at 60%, which for the dark text is
+	   about the grey of the subtitles (#6a6a6a). Older browsers keep the
+	   full colour. */
+	border-bottom-color: color-mix(in srgb, currentColor 60%, transparent);
 	color: rgba(37,40,42,1);
 	}
 
