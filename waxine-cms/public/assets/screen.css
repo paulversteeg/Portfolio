@@ -975,7 +975,8 @@ li {
 	}
 .page-resume .profile .image-profile {
 	float: right;
-	margin: 0.3em 0 0.5em 1.5em;
+	max-width: 11em;               /* 10% larger than elsewhere */
+	margin: 0.3em 0 1.25em 2.25em; /* room below and to the left */
 	}
 .page-resume .profile > p:first-of-type {
 	margin-top: 0;
