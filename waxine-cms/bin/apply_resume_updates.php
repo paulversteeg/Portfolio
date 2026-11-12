@@ -97,6 +97,12 @@ $pageChanges = [
         'marker'  => '>Dordoloog<',
     ],
     [
+        'what'    => 'side activities: Dordoloog wording (staging had the first version)',
+        'env'     => 'staging',
+        'old'     => 'Local historian and guide, researching where things come from on the Island of Dordrecht and sharing it on guided tours',
+        'new'     => 'Local historian and tour guide on the Island of Dordrecht',
+    ],
+    [
         'what'    => 'side activities: drum teacher still ongoing',
         'env'     => 'staging',
         'old'     => '<li class="time-period">2018</li>
