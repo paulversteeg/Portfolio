@@ -76,4 +76,47 @@ foreach (q("SELECT id, period FROM experiences WHERE employer = '' AND period LI
     echo "employer: '$employer' split from the period of record {$e['id']}\n";
 }
 
+// --- Employers for the projects before fresk.digital (as told by Paul, Nov 2026) ---
+// Matched on the start of the project name and, where a name occurs twice, the period.
+$employers = [
+    ['NOC*NSF',                  'February 2021', 'INFO'],
+    ['Sevvy',                    'August 2020',   'INFO'],
+    ['OV-fiets',                 null,            'INFO'],
+    ['Lloyds Bank',              null,            'INFO'],
+    ['Lely',                     null,            'Mirabeau'],
+    ['Etihad',                   null,            'Mirabeau'],
+    ['Philips',                  null,            'Mirabeau'],
+    ['China Southern',           null,            'Mirabeau'],
+    ['FrieslandCampina',         null,            'Mirabeau'],
+    ['PARKnSHOP',                null,            'Mirabeau'],
+    ['Leaseplan',                null,            'Mirabeau'],
+    ['Maxeda',                   null,            'Mirabeau'],
+];
+foreach ($employers as [$name, $periodStart, $employer]) {
+    $sql = "UPDATE experiences SET employer = ? WHERE employer = '' AND title LIKE ?";
+    $args = [$employer, $name . '%'];
+    if ($periodStart !== null) { $sql .= ' AND period LIKE ?'; $args[] = $periodStart . '%'; }
+    if (exec_sql($sql, $args)) echo "employer: $name -> $employer\n";
+}
+
+// --- NOC*NSF twice: concept and design system at INFO, inspection portal at fresk ---
+$nocOld = 'Design of a platform that informs sport unions and municipalities about the possibilities to realise a high quality and sustainable sport infrastructure, including the product roadmap.';
+$nocNew = 'Concept and design system for a platform that informs sport unions and municipalities about the possibilities to realise high-quality, sustainable sport infrastructure, including the product roadmap.';
+if (exec_sql('UPDATE experiences SET description = ? WHERE title LIKE ? AND description = ?', [$nocNew, 'NOC*NSF%', $nocOld])) {
+    echo "noc*nsf: INFO description now about concept and design system\n";
+}
+$nocInfo = q1("SELECT sort_order FROM experiences WHERE title LIKE 'NOC*NSF%' AND employer = 'INFO'");
+if ($nocInfo && !q1("SELECT id FROM experiences WHERE title LIKE 'NOC*NSF%' AND employer = 'fresk.digital'")) {
+    exec_sql('INSERT INTO experiences (period, employer, title, subtitle, description, sort_order, is_highlight, on_work)
+              VALUES (?,?,?,?,?,?,0,0)', [
+        'July 2023 – present',
+        'fresk.digital',
+        'NOC*NSF',
+        'Inspection portal and knowledge base',
+        'We started by validating the current implementation of the Sport Infrastructure Platform and what users wanted sharpened, then set up a roadmap to tackle it in the right order and priority. Together with Virginia Rispoli I created the concept for the inspection portal: one flow that follows a sports field from plan to approval. The municipality knows what is coming, inspection bodies create and inspect the field in the same system and check it against the right standards, and the result appears in the facility passport. I also shaped the concept for the knowledge base.',
+        (int) $nocInfo['sort_order'] - 1,
+    ]);
+    echo "noc*nsf: fresk.digital entry for the inspection portal added\n";
+}
+
 echo "apply_work_updates: done on $env\n";
