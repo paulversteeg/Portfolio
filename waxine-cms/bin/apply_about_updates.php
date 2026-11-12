@@ -41,6 +41,14 @@ if (($cur['subtitle'] ?? '') !== $subtitle) {
 // --- Page text --------------------------------------------------------------------
 $crlf = strpos($about['body_html'], "\r\n") !== false;
 $body = str_replace("\r\n", "\n", $about['body_html']);
+// Heading of the last section. RENAME_ON: 'staging' while being reviewed, 'all' once approved.
+const RENAME_ON = 'staging';
+if ((RENAME_ON === 'all' || RENAME_ON === $env) && strpos($body, '<h2>Other channels:</h2>') !== false
+    && strpos($body, 'class="callout"') !== false) {
+    $body = str_replace('<h2>Other channels:</h2>', '<h2>Find me elsewhere:</h2>', $body);
+    exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+    echo "about: 'Other channels' renamed\n";
+}
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; exit(0); }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
