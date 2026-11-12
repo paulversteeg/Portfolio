@@ -43,9 +43,10 @@ $crlf = strpos($about['body_html'], "\r\n") !== false;
 $body = str_replace("\r\n", "\n", $about['body_html']);
 // Heading of the last section. RENAME_ON: 'staging' while being reviewed, 'all' once approved.
 const RENAME_ON = 'staging';
-if ((RENAME_ON === 'all' || RENAME_ON === $env) && strpos($body, '<h2>Other channels:</h2>') !== false
-    && strpos($body, 'class="callout"') !== false) {
-    $body = str_replace('<h2>Other channels:</h2>', '<h2>Find me elsewhere:</h2>', $body);
+$oldHeadings = ['<h2>Other channels:</h2>', '<h2>Find me elsewhere:</h2>'];   // the second was a first try on staging
+$hasOld = array_filter($oldHeadings, fn ($h) => strpos($body, $h) !== false);
+if ((RENAME_ON === 'all' || RENAME_ON === $env) && $hasOld && strpos($body, 'class="callout"') !== false) {
+    $body = str_replace($oldHeadings, '<h2>Where else to find me:</h2>', $body);
     exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
     echo "about: 'Other channels' renamed\n";
 }
