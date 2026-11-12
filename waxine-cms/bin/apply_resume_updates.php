@@ -84,27 +84,23 @@ $pageChanges = [
     ],
     [
         'what'    => 'profile: opening sentence as its own lead paragraph',
-        'env'     => 'staging',
         'pattern' => '#<p><b>(Design strategist with .*?clear choices\.)</b>\s*#s',
         'new'     => "<p class=\"lead\">\$1</p>\n<p>",
         'marker'  => '<p class="lead">',
     ],
     [
         'what'    => 'side activities: Dordoloog',
-        'env'     => 'staging',
         'pattern' => '#(<h2>Side activities</h2>\s*<ul class="resume">\s*)#',
         'new'     => "\$1<ul class=\"item\">\n<li class=\"time-period\">2024 &ndash; present</li>\n<li class=\"highlight\">Dordoloog</li>\n<li class=\"location\">Local historian and tour guide on the Island of Dordrecht</li>\n</ul>\n",
         'marker'  => '>Dordoloog<',
     ],
     [
         'what'    => 'side activities: Dordoloog wording (staging had the first version)',
-        'env'     => 'staging',
         'old'     => 'Local historian and guide, researching where things come from on the Island of Dordrecht and sharing it on guided tours',
         'new'     => 'Local historian and tour guide on the Island of Dordrecht',
     ],
     [
         'what'    => 'new section: Tools I like to work with (after Skills)',
-        'env'     => 'staging',
         'pattern' => '#(<h2>Languages</h2>)#',
         'new'     => '<h2>Tools I like to work with</h2>
 <ul class="resume">
@@ -130,7 +126,6 @@ $1',
     ],
     [
         'what'    => 'tools: Organising work (staging had three groups)',
-        'env'     => 'staging',
         'old'     => '<li class="location">Logic Pro, Final Cut Pro</li>
 </ul>
 </ul>',
@@ -144,7 +139,6 @@ $1',
     ],
     [
         'what'    => 'side activities: drum teacher still ongoing',
-        'env'     => 'staging',
         'old'     => '<li class="time-period">2018</li>
 <li class="highlight">Drum teacher</li>',
         'new'     => '<li class="time-period">2018 &ndash; present</li>
