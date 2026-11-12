@@ -120,9 +120,27 @@ $pageChanges = [
 <li class="highlight">Audio &amp; video</li>
 <li class="location">Logic Pro, Final Cut Pro</li>
 </ul>
+<ul class="item">
+<li class="highlight">Organising work</li>
+<li class="location">ClickUp</li>
+</ul>
 </ul>
 $1',
         'marker'  => '<h2>Tools I like to work with</h2>',
+    ],
+    [
+        'what'    => 'tools: Organising work (staging had three groups)',
+        'env'     => 'staging',
+        'old'     => '<li class="location">Logic Pro, Final Cut Pro</li>
+</ul>
+</ul>',
+        'new'     => '<li class="location">Logic Pro, Final Cut Pro</li>
+</ul>
+<ul class="item">
+<li class="highlight">Organising work</li>
+<li class="location">ClickUp</li>
+</ul>
+</ul>',
     ],
     [
         'what'    => 'side activities: drum teacher still ongoing',
