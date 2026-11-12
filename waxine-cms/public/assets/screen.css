@@ -952,13 +952,17 @@ li {
 .resume > ul:last-child > li:last-child {
 	margin-bottom: 0;
 	}
-/* Resume sections are separated by the same divider as Talks and
-   Publications, with the same spacing: 70px from the last line of text to
-   the line, then 100px to the next heading (h2 is 30px, so 1em = 30px). */
-.page-resume > h2 ~ h2 {
+/* Every resume section opens with the divider, then its heading, then the
+   content: the line belongs to the heading, so it sits close above it
+   (20px) with the open space before it (100px from the previous section).
+   h2 is 30px, so 1em = 30px. */
+.page-resume > h2 {
 	border-top: 1px solid #D2CDC9;   /* same light separator as .talk */
-	margin-top: 2.3333em;            /* 70px; collapses with the 60px above */
-	padding-top: 3.3333em;           /* 100px */
+	padding-top: 0.6667em;           /* 20px from the line to the heading */
+	margin-top: 3.3333em;            /* 100px from the previous section */
+	}
+.page-resume > h2:first-child {
+	margin-top: 0;                   /* the first one follows the page title */
 	}
 
 /* Same space under every resume heading as between "Profile" and its
@@ -975,7 +979,7 @@ li {
 	}
 .page-resume .profile .image-profile {
 	float: right;
-	max-width: 12em;               /* larger than elsewhere */
+	max-width: 12.5em;             /* full size of the image file (250px) */
 	margin: 0.3em 0 1.25em 2.25em; /* room below and to the left */
 	}
 	/* On small screens there is no room for text beside the photo:
@@ -984,7 +988,7 @@ li {
 	    .page-resume .profile .image-profile {
 	        float: none;
 	        display: block;
-	        max-width: min(12em, 75%);
+	        max-width: min(12.5em, 75%);
 	        margin: 0 0 1.25em 0;
 	    	}
 		}
