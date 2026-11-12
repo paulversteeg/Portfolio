@@ -50,6 +50,23 @@ if ((RENAME_ON === 'all' || RENAME_ON === $env) && $hasOld && strpos($body, 'cla
     exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
     echo "about: 'Other channels' renamed\n";
 }
+// Instagram after Facebook and YouTube after Vimeo (same review flag as the heading).
+if ((RENAME_ON === 'all' || RENAME_ON === $env) && strpos($body, 'instagram.com/paulversteeg') === false) {
+    $links = [
+        '<li><a href="https://www.facebook.com/paulversteeg">Facebook</a></li>'
+            => "\n<li><a href=\"https://www.instagram.com/paulversteeg/\">Instagram</a></li>",
+        '<li><a href="https://vimeo.com/paulversteeg">Vimeo</a></li>'
+            => "\n<li><a href=\"https://www.youtube.com/@paulversteeg\">YouTube</a></li>",
+    ];
+    $added = 0;
+    foreach ($links as $after => $item) {
+        if (strpos($body, $after) !== false) { $body = str_replace($after, $after . $item, $body); $added++; }
+    }
+    if ($added) {
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: $added channel link(s) added\n";
+    }
+}
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; exit(0); }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
