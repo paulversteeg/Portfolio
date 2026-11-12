@@ -42,7 +42,7 @@ if (($cur['subtitle'] ?? '') !== $subtitle) {
 $crlf = strpos($about['body_html'], "\r\n") !== false;
 $body = str_replace("\r\n", "\n", $about['body_html']);
 // Heading of the last section. RENAME_ON: 'staging' while being reviewed, 'all' once approved.
-const RENAME_ON = 'staging';
+const RENAME_ON = 'all';
 $oldHeadings = ['<h2>Other channels:</h2>', '<h2>Find me elsewhere:</h2>'];   // the second was a first try on staging
 $hasOld = array_filter($oldHeadings, fn ($h) => strpos($body, $h) !== false);
 if ((RENAME_ON === 'all' || RENAME_ON === $env) && $hasOld && strpos($body, 'class="callout"') !== false) {
