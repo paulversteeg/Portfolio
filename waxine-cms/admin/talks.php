@@ -39,7 +39,7 @@ include __DIR__ . '/inc/admin_head.php';
     <h2 style="margin:0">Talks <span class="muted">(<?= count($items) ?>)</span></h2>
     <a class="btn" href="/admin/edit_talk.php">+ New talk</a>
   </div>
-  <p class="muted" style="margin:.6rem 0 0">Shown on the Talks page, newest first, and as Speaking engagements on the Resume page (the latest <?= SPEAKING_SHOWN ?>, the rest under "Show all talks").</p>
+  <p class="muted" style="margin:.6rem 0 0">Shown on the Talks page, newest first, and as Speaking engagements on the Resume page (the latest <?= SPEAKING_SHOWN ?>, the rest under "Show all speaking engagements").</p>
 </div>
 
 <?php if ($canImport): ?>

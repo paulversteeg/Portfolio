@@ -5,7 +5,7 @@
  * Two pages show them, through a placeholder in their page text:
  *   Talks page:   <p data-talks="all">…</p>                   every talk, in full
  *   Resume page:  <p data-talks="speaking-engagements">…</p>  a short listing: the
- *                 latest SPEAKING_SHOWN, the rest under "Show all talks"
+ *                 latest SPEAKING_SHOWN, the rest under "Show all speaking engagements"
  * live_talks() swaps the placeholders on every request, so both pages always
  * show the same talks. Talks are ordered by date, newest first.
  *
@@ -138,8 +138,8 @@ function render_speaking(array $talks): string
     $html = "<ul class=\"resume\">\n" . implode('', array_map('talk_item_html', $top)) . "</ul>\n";
     if ($rest) {
         $html .= "<details class=\"all-projects\">\n"
-               . '<summary><span class="all-projects-more">Show all talks (' . count($talks) . ')</span>'
-               . "<span class=\"all-projects-less\">Show fewer talks</span></summary>\n"
+               . '<summary><span class="all-projects-more">Show all speaking engagements (' . count($talks) . ')</span>'
+               . "<span class=\"all-projects-less\">Show fewer speaking engagements</span></summary>\n"
                . "<ul class=\"resume\">\n" . implode('', array_map('talk_item_html', $rest)) . "</ul>\n"
                . "</details>\n";
     }
