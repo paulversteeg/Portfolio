@@ -992,7 +992,7 @@ li {
    is slightly smaller text, so 0.95em lands it at the same optical
    distance; the photo has no line spacing around it, so it gets a bit more. */
 .page-resume > h2 + .resume {
-	margin-top: 0.95em;
+	margin-top: 1.55em;   /* a little more air under the heading (was 0.95em) */
 	}
 /* Resume: the round photo floats beside the profile text. */
 .page-resume .profile {
@@ -1019,7 +1019,7 @@ li {
 	}
 .page-resume > h2 + .profile,
 .page-resume > h2 + .address {
-	margin-top: 1.35em;
+	margin-top: 1.95em;   /* was 1.35em; same extra air as the lists */
 	}
 
 /* Less empty space at the bottom of the resume: half of what it was
