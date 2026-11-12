@@ -13,7 +13,7 @@ require_once dirname(__DIR__) . '/lib/db.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const APPLY_ON = 'staging';
+const APPLY_ON = 'all';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
 if (APPLY_ON !== 'all' && APPLY_ON !== $env) { echo "apply_about_updates: not on $env yet\n"; exit(0); }

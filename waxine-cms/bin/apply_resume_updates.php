@@ -78,7 +78,6 @@ $pageChanges = [
     ],
     [
         'what'    => 'round photo beside the profile, contact details below it',
-        'env'     => 'staging',
         'pattern' => '#(<h2>Profile</h2>\s*)(<p>.*?</p>)(.*?<div class="address">)(<img class="image-profile"[^>]*>)#s',
         'new'     => '$1<div class="profile">$4$2</div>$3',
         'marker'  => '<div class="profile">',
