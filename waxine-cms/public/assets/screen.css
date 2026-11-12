@@ -185,16 +185,8 @@ p {
 	        font-size: 0.8em;
 	    	}
 		}
-	@media only screen and (max-width: 600px) {
-	    .nav-item {
-	        font-size: 0.7em;
-	    	}
-		}
-	@media only screen and (max-width: 540px) {
-	    .nav-item {
-	        font-size: 0.6em;
-	    	}
-	    }
+	/* No smaller steps below this: at 0.8em the four titles still fit on
+	   one line on a 320px screen, and smaller text reads worse. */
 
 .nav-item a span.subtitle {
 	text-align: left;
