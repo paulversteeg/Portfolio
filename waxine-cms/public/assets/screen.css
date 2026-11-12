@@ -145,10 +145,10 @@ p {
 
 /* The page column ---------------------------------------------------------
    Menu, page headers and content share one centred column. It is at most
-   --col wide (its width on a 1400px screen) and keeps at least --gutter of
+   --col wide (its width on a 1470px screen) and keeps at least --gutter of
    space on both sides on smaller screens. --side is the space beside it. */
 :root {
-	--col: 760px;
+	--col: 830px;
 	--gutter: 80px;
 	--side: max(var(--gutter), calc((100% - var(--col)) / 2));
 	}
