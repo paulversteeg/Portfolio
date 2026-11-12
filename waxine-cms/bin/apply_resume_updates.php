@@ -82,6 +82,13 @@ $pageChanges = [
         'new'     => '$1<div class="profile">$4$2</div>$3',
         'marker'  => '<div class="profile">',
     ],
+    [
+        'what'    => 'profile: opening sentence as its own lead paragraph',
+        'env'     => 'staging',
+        'pattern' => '#<p><b>(Design strategist with .*?clear choices\.)</b>\s*#s',
+        'new'     => "<p class=\"lead\">\$1</p>\n<p>",
+        'marker'  => '<p class="lead">',
+    ],
 ];
 
 // --- Experience records: [title, old description start => new description] --------
