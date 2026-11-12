@@ -150,17 +150,17 @@ p {
 	display: flex;
 	justify-content: space-between;
 	column-gap: 1.5em;
-	padding: 1em 24em;
+	padding: 1.3em 24em;
 	margin: 0;
 	container-type: inline-size;   /* for the subtitle rule below */
 	background-color: #FCFAFA;
 	box-shadow: 0 20px 40px -15px rgba(0,0,0,.16);
 	}
-	@media only screen and (max-width: 1600px) { #menu { padding: 1em 16em; } }
-	@media only screen and (max-width: 1200px) { #menu { padding: 1em 12em; } }
-	@media only screen and (max-width: 1024px) { #menu { padding: 1em 8em; } }
-	@media only screen and (max-width: 768px)  { #menu { padding: 1em 4em; } }
-	@media only screen and (max-width: 640px)  { #menu { padding: 1em 2em; column-gap: 1em; } }
+	@media only screen and (max-width: 1600px) { #menu { padding: 1.3em 16em; } }
+	@media only screen and (max-width: 1200px) { #menu { padding: 1.3em 12em; } }
+	@media only screen and (max-width: 1024px) { #menu { padding: 1.3em 8em; } }
+	@media only screen and (max-width: 768px)  { #menu { padding: 1.3em 4em; } }
+	@media only screen and (max-width: 640px)  { #menu { padding: 1.3em 2em; column-gap: 1em; } }
 	@media only screen and (max-width: 320px)  { #menu { padding: .7em; column-gap: .5em; } }
 
 #menu a {
@@ -193,6 +193,8 @@ p {
 	text-align: left;
 	color: #6A6B6C;
 	display: block;
+	margin-top: 0.35em;   /* room between the title and its subtitle */
+	line-height: 1.3;
 	}
 	@media only screen and (max-width: 960px) {
 	    .nav-item a span.subtitle {
