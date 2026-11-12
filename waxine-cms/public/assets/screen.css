@@ -944,6 +944,28 @@ li {
 	display: block;
 	margin-bottom: 2.25em;   /* room between entries */
 	}
+/* Sections without dates (Skills, Languages) have nothing for the left
+   column, so instead of leaving it empty their entries fill the full width
+   in two equal columns; one column on small screens. */
+.resume:not(:has(.time-period)) {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	column-gap: 2.5em;
+	row-gap: 1.6em;
+	}
+.resume:not(:has(.time-period)) > ul {
+	grid-template-columns: minmax(0, 1fr);
+	align-content: start;
+	}
+.resume:not(:has(.time-period)) > ul > li {
+	grid-column: 1;
+	}
+.resume:not(:has(.time-period)) > ul > li:last-child {
+	margin-bottom: 0;
+	}
+	@media only screen and (max-width: 600px) {
+	    .resume:not(:has(.time-period)) { grid-template-columns: minmax(0, 1fr); }
+		}
 /* Every resume section ends with the same 3em before the next heading,
    the same space as under a paragraph or the contact block. */
 .content .resume {
