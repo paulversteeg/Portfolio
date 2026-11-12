@@ -30,8 +30,17 @@
     font-weight: 600;
     font-style: normal
 	}
-	
-	
+
+/* Waxine Slab (titles) and Waxine Sans (text): the site's own type, modified
+   from Zilla Slab and Fira Sans under the SIL Open Font License (see
+   assets/type/OFL.txt and type/build.py). Served with the site, so every
+   visitor sees them without installing anything. */
+@font-face { font-family: 'Waxine Slab'; src: url('type/WaxineSlab-SemiBold.woff') format('woff'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Waxine Sans'; src: url('type/WaxineSans-Light.woff') format('woff'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Waxine Sans'; src: url('type/WaxineSans-LightItalic.woff') format('woff'); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Waxine Sans'; src: url('type/WaxineSans-SemiBold.woff') format('woff'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Waxine Sans'; src: url('type/WaxineSans-SemiBoldItalic.woff') format('woff'); font-weight: 600; font-style: italic; font-display: swap; }
+
 /* Global ------------------------------------------------------------- */
 
 .noise {
@@ -54,7 +63,7 @@
 	}
 
 body {
-    font-family: 'Brando Sans', sans-serif;
+    font-family: 'Waxine Sans', 'Brando Sans', sans-serif;
     font-size: 20px;
     padding: 0;
 	margin: 0;
@@ -83,6 +92,20 @@ a:hover {
 	}
 .story-colour .content a:hover {
 	color: #6A6B6C;
+	}
+
+/* Titles in Waxine Slab: page titles, section headings, the menu titles
+   and the story titles; their subtitles stay in Waxine Sans. */
+h1, h2, h3,
+.nav-item a,
+a.link-figure,
+.article-title {
+	font-family: 'Waxine Slab', 'Brando Sans', serif;
+	}
+.header_subtitle,
+.nav-item a span.subtitle,
+.article-date {
+	font-family: 'Waxine Sans', 'Brando Sans', sans-serif;
 	}
 
 /* Layout -------------------------------------------------------------  */
