@@ -1152,14 +1152,12 @@ li {
 	align-items: flex-start;
 	gap: 2em;
 	margin-top: 3em;
-	padding: 1em 1em 1.5em 1em;
+	/* The same distance from the side edges as from the bottom of the page:
+	   40px on wide screens, scaling down to 20px on phones. */
+	--edge: clamp(1em, 3vw, 2em);
+	padding: 1em var(--edge) var(--edge);
 	border-top: 0.05em solid #D2CDC9;   /* light separator line */
 	}
-	@media only screen and (max-width: 320px) {
-	    .article-nav {
-	        padding: 1em 1em 1em 1em;
-	    	}
-		}
 
 /* =====================================================================
    Accessibility (WCAG 2.1 AA) fixes
