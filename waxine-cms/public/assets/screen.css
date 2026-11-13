@@ -62,9 +62,16 @@
           box-sizing: border-box;
 	}
 
+/* Every size on the site is relative: 1rem is 125% of the browser's default
+   text size (20px by default), so the whole layout grows with the reader's
+   text-size setting. Hairlines (borders, outlines) stay in px so they stay
+   crisp. Breakpoints are in em of the browser default (16px): 40em = 640px. */
+html {
+	font-size: 125%;
+	}
 body {
     font-family: 'Waxine Sans', 'Brando Sans', sans-serif;
-    font-size: 20px;
+    font-size: 1rem;
     padding: 0;
 	margin: 0;
 	color: rgba(37,40,42,1);
@@ -163,7 +170,7 @@ p {
 	transition: transform .45s cubic-bezier(.22, .61, .36, 1);   /* calm ease-out */
 	}
 .nav--hidden {
-	transform: translateY(calc(-100% - 40px));   /* also hide the menu's shadow */
+	transform: translateY(calc(-100% - 2rem));   /* also hide the menu's shadow */
 	}
 	@media (prefers-reduced-motion: reduce) {
 	    .nav {
@@ -176,12 +183,12 @@ p {
    --col wide (its width on a 1470px screen) and keeps at least --gutter of
    space on both sides on smaller screens. --side is the space beside it. */
 :root {
-	--col: 830px;
-	--gutter: 80px;
+	--col: 41.5rem;
+	--gutter: 4rem;
 	--side: max(var(--gutter), calc((100% - var(--col)) / 2));
 	}
-	@media only screen and (max-width: 640px) { :root { --gutter: 40px; } }
-	@media only screen and (max-width: 320px) { :root { --gutter: 14px; } }
+	@media only screen and (max-width: 40em) { :root { --gutter: 2rem; } }
+	@media only screen and (max-width: 20em) { :root { --gutter: 0.7rem; } }
 
 /* The menu sits in the page column (see --side above), and the items
    spread out over its width. */
@@ -193,10 +200,10 @@ p {
 	margin: 0;
 	container-type: inline-size;   /* for the subtitle rule below */
 	background-color: #FCFAFA;
-	box-shadow: 0 20px 40px -15px rgba(0,0,0,.16);
+	box-shadow: 0 1rem 2rem -0.75rem rgba(0,0,0,.16);
 	}
-	@media only screen and (max-width: 640px)  { #menu { column-gap: 1em; } }
-	@media only screen and (max-width: 320px)  { #menu { padding: .7em var(--side); column-gap: .5em; } }
+	@media only screen and (max-width: 40em)  { #menu { column-gap: 1em; } }
+	@media only screen and (max-width: 20em)  { #menu { padding: .7em var(--side); column-gap: .5em; } }
 
 #menu a {
 	text-decoration: none;
@@ -208,13 +215,13 @@ p {
 	margin: 0;
 	text-align: left;
 	}
-	@media only screen and (max-width: 760px) {
+	@media only screen and (max-width: 47.5em) {
 	    .nav-item {
 	        font-size: 0.8em;
 	    	}
 		}
 	/* One more step only on the smallest phones; smaller text reads worse. */
-	@media only screen and (max-width: 400px) {
+	@media only screen and (max-width: 25em) {
 	    .nav-item {
 	        font-size: 0.7em;
 	    	}
@@ -229,7 +236,7 @@ p {
 	}
 /* The subtitles only fit when the column is wide enough to keep each item
    on one line; below that, the menu shows just the titles. */
-@container (max-width: 689px) {
+@container (max-width: 34.45rem) {
 	.nav-item a span.subtitle {
 		display: none;
 		}
@@ -274,7 +281,7 @@ li.listing-result {
 	margin: 0.5em 0.5em 0.5em 0.5em;
 	text-align: left;
 	}
-	@media only screen and (max-width: 530px) {
+	@media only screen and (max-width: 33.125em) {
 		li.listing-result {
 	    margin: 0.25em 0.25em 0.25em 0.25em;
 	    }
@@ -283,16 +290,16 @@ li.listing-result {
 .article-figure {
 	margin: 0;
 	padding: 0.5em;
-	width: 240px;
-	height: 240px;
-	box-shadow: 0 20px 40px -15px rgba(0,0,0,0.25);
+	width: 12rem;
+	height: 12rem;
+	box-shadow: 0 1rem 2rem -0.75rem rgba(0,0,0,0.25);
 	box-sizing: border-box;
 	border-style: none;
     border-width: 1px;
-	border-bottom-left-radius: 7px;
-	border-bottom-right-radius: 7px;
-	border-top-left-radius: 7px;
-	border-top-right-radius: 7px;
+	border-bottom-left-radius: 0.35rem;
+	border-bottom-right-radius: 0.35rem;
+	border-top-left-radius: 0.35rem;
+	border-top-right-radius: 0.35rem;
 	}
 
 /* Subtle lift on the Thoughts cards: on mouse hover and on keyboard focus. */
@@ -301,19 +308,19 @@ li.listing-result {
 	}
 @media (hover: hover) {
 	a.link-figure:hover .article-figure {
-		transform: translateY(-4px);
-		box-shadow: 0 26px 44px -16px rgba(0,0,0,0.32);
+		transform: translateY(-0.2rem);
+		box-shadow: 0 1.3rem 2.2rem -0.8rem rgba(0,0,0,0.32);
 		}
 }
 a.link-figure:focus-visible .article-figure {
-	transform: translateY(-4px);
-	box-shadow: 0 26px 44px -16px rgba(0,0,0,0.32);
+	transform: translateY(-0.2rem);
+	box-shadow: 0 1.3rem 2.2rem -0.8rem rgba(0,0,0,0.32);
 	}
 
-	@media only screen and (max-width: 530px) {
+	@media only screen and (max-width: 33.125em) {
 		.article-figure {
-	    width: 140px;
-	    height: 140px;
+	    width: 7rem;
+	    height: 7rem;
 /* 	    border: 0.05em solid red; */
 	    font-size: 0.6em;
 	    padding: 0.4em;
@@ -378,11 +385,11 @@ a.link-figure {
 	height: auto;        /* ignore the width/height the editor saves with a photo */
 	aspect-ratio: 3 / 2;
 	object-fit: cover;
-	border-radius: 6px;
+	border-radius: 0.3rem;
 	margin: 0.35em 0 1em 1.5em;
 	background: #EAE6E3;
 	}
-	@media only screen and (max-width: 640px) {
+	@media only screen and (max-width: 40em) {
 	    .talk img {
 	        float: none;
 	        width: 100%;
@@ -434,7 +441,7 @@ a.link-figure {
 	max-height: calc(100vh - 9em);
 	width: auto;
 	height: auto;
-	border-radius: 6px;
+	border-radius: 0.3rem;
 	cursor: default;
 	}
 .lightbox-caption {
@@ -496,7 +503,7 @@ a.link-figure {
 .content .talk > p:first-of-type:has(+ p) {
 	margin-bottom: 1.1em;   /* keep the description close to its takeaway */
 	}
-	@media only screen and (max-width: 640px) {
+	@media only screen and (max-width: 40em) {
 	    .content .talk > p:first-of-type {
 	        font-size: 1.15em;
 	    	}
@@ -540,7 +547,7 @@ a.link-figure {
 	gap: 0.75em;
 	background: #EAE6E3;
 	border: 1px solid #D9D4D0;
-	border-radius: 6px;
+	border-radius: 0.3rem;
 	padding: 0.55em 0.9em;
 	color: #25282A;
 	}
@@ -561,7 +568,7 @@ a.link-figure {
 /* On hover the arrow nudges 2px towards where it points. */
 :is(.publication, .talk) ul.bullit li:hover a[href^="http"]::after,
 :is(.publication, .talk) ul.bullit a[href^="http"]:focus-visible::after {
-	transform: translate(2px, -2px);
+	transform: translate(0.1rem, -0.1rem);
 	}
 	@media (prefers-reduced-motion: reduce) {
 	    :is(.publication, .talk) ul.bullit a[href^="http"]::after {
@@ -577,7 +584,7 @@ a.link-figure {
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
 	padding: 0.15em 0.5em;
-	border-radius: 4px;
+	border-radius: 0.2rem;
 	background: #6A6B6C;
 	color: #F9F8F7;
 	margin-left: 0;
@@ -594,17 +601,17 @@ a.link-figure {
 .header {
 	padding: 4em var(--side);
 	}
-	@media only screen and (max-width: 1200px) {
+	@media only screen and (max-width: 75em) {
 	    .header {
 	        padding: 2em var(--side);
 	    	}
 		}
-	@media only screen and (max-width: 640px) {
+	@media only screen and (max-width: 40em) {
 	    .header {
 	        font-size: 1em;
 	    	}
 		}
-	@media only screen and (max-width: 320px) {
+	@media only screen and (max-width: 20em) {
 	    .content {
 	        padding: 0em 1em 1em 1em;
 	        font-size: 0.7em;
@@ -655,18 +662,18 @@ h1.article-detail-title {
 .content {
 	margin: 0 var(--side) 5em;
 	}
-	@media only screen and (max-width: 1600px) {
+	@media only screen and (max-width: 100em) {
 	    .content {
 	        margin-bottom: 4em;
 	    	}
 		}
-	@media only screen and (max-width: 640px) {
+	@media only screen and (max-width: 40em) {
 	    .content {
 	        margin-bottom: 2em;
 	        font-size: 1em;
 	    	}
 		}
-	@media only screen and (max-width: 320px) {
+	@media only screen and (max-width: 20em) {
 	    .content {
 	        margin-bottom: 1em;
 	        font-size: 0.7em;
@@ -697,7 +704,7 @@ h1.article-detail-title {
 	
 .content .video {
   	width: 100%;
-  	height: 400px;
+  	height: 20rem;
 	} 
 		
 .image-header {
@@ -736,22 +743,22 @@ h1.article-detail-title {
 
 .image-phone {
 	border: 1em solid #000;
-	border-radius: 40px;
+	border-radius: 2rem;
 	margin: 2em auto 2em auto;
 	display: block;
-	box-shadow: 0 20px 40px -15px rgba(0,0,0,.16);
-	max-width: 374px;
+	box-shadow: 0 1rem 2rem -0.75rem rgba(0,0,0,.16);
+	max-width: 18.7rem;
 	width: 50%;
 	height: auto;
   	}
 
 .image-tablet {
 	border: 1em solid #000;
-	border-radius: 40px;
+	border-radius: 2rem;
 	margin: 2em auto 2em auto;
 	display: block;
-	box-shadow: 0 20px 40px -15px rgba(0,0,0,.16);
-	max-width: 700px;
+	box-shadow: 0 1rem 2rem -0.75rem rgba(0,0,0,.16);
+	max-width: 35rem;
 	width: 100%;
 	height: auto;
   	}  
@@ -775,7 +782,7 @@ h1.article-detail-title {
 	background: #EAE6E3;
 	border: 1px solid #D9D4D0;
 	border-left: 4px solid #25282A;
-	border-radius: 6px;
+	border-radius: 0.3rem;
 	font-weight: 600;
 	}
 .content p.callout a {
@@ -803,7 +810,7 @@ time.article-detail-date {
     font-size: 660%;
     font-weight: 600;
 	line-height: 66%;
-    padding-top: 16px;
+    padding-top: 0.8rem;
     margin-right: 0.08em;
     color: var(--title-colour, inherit);
     }
@@ -993,7 +1000,7 @@ li {
 .resume:not(:has(.time-period)) > ul > li:last-child {
 	margin-bottom: 0;
 	}
-	@media only screen and (max-width: 600px) {
+	@media only screen and (max-width: 37.5em) {
 	    .resume:not(:has(.time-period)) { grid-template-columns: minmax(0, 1fr); }
 		}
 /* Every resume section ends with the same 3em before the next heading,
@@ -1036,7 +1043,7 @@ li {
 	}
 	/* On small screens there is no room for text beside the photo:
 	   the photo stands on its own, left-aligned, with the text below. */
-	@media only screen and (max-width: 480px) {
+	@media only screen and (max-width: 30em) {
 	    .page-resume .profile .image-profile {
 	        float: none;
 	        display: block;
@@ -1101,7 +1108,7 @@ li {
 .all-projects > summary:focus-visible {
 	outline: 3px solid #25282a;
 	outline-offset: 2px;
-	border-radius: 2px;
+	border-radius: 0.1rem;
 	}
 .all-projects-less,
 .all-projects[open] .all-projects-more {
@@ -1119,7 +1126,7 @@ li {
 .content {
 	container-type: inline-size;
 	}
-@container (max-width: 699px) {
+@container (max-width: 34.95rem) {
 	.resume > ul {
 		grid-template-columns: minmax(0, 1fr);
 		}
@@ -1132,7 +1139,7 @@ li {
 		margin-bottom: 0.2em;
 		}
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 37.5em) {
 	.resume > ul {
 		grid-template-columns: minmax(0, 1fr);
 		}
@@ -1183,7 +1190,7 @@ select:focus-visible,
 [tabindex]:focus-visible {
 	outline: 3px solid #25282a;
 	outline-offset: 2px;
-	border-radius: 2px;
+	border-radius: 0.1rem;
 }
 
 /* 2.4.1 Bypass Blocks — satisfied via landmark regions (nav/main/footer)
@@ -1265,7 +1272,7 @@ select:focus-visible,
    down). The page text's line height is reset to the card's own. */
 .content .work-listing {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 240px);
+	grid-template-columns: repeat(auto-fill, 12rem);
 	justify-content: space-between;
 	gap: 1em;
 	margin: 0 0 3em;
@@ -1280,12 +1287,12 @@ select:focus-visible,
 	margin: 0;
 	padding: 0.5em;
 	}
-	@media only screen and (max-width: 530px) {
+	@media only screen and (max-width: 33.125em) {
 		.content .work-listing .article-figure { padding: 0.4em; }
 	}
-	@media only screen and (max-width: 530px) {
+	@media only screen and (max-width: 33.125em) {
 		.content .work-listing {
-			grid-template-columns: repeat(auto-fill, 140px);
+			grid-template-columns: repeat(auto-fill, 7rem);
 			gap: .5em;
 			}
 	}
