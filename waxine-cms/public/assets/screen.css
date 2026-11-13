@@ -1344,3 +1344,390 @@ select:focus-visible,
 	font-size: 1.15em;
 	line-height: 1.5;
 	}
+
+/* =====================================================================
+   Notebook grid: a faint squared background, and everything rests on it
+   =====================================================================
+   One square (--u) is 0.9rem: 18px at default settings, about the size of
+   the squares in a paper notebook. A line of text is two squares, so text,
+   headings, spacing and blocks all start and end on a line of the grid.
+   The page column is always an odd number of squares wide and centred, so
+   its left and right edges fall on a vertical line at every screen size.
+
+   This section only adds the grid and moves spacing onto it; colours, type
+   and layout stay as they are. To see the lines clearly while checking the
+   alignment, add ?grid=check to a URL (see grid.js).
+   ===================================================================== */
+
+:root {
+	--u: 0.9rem;                         /* one square of the grid */
+	--grid-line: rgba(37,40,42,.0225);   /* the text colour at 2.25%: barely there */
+	--col: calc(47 * var(--u));          /* 846px; 6 menu items of 7 squares with 1 square between */
+	}
+	@media only screen and (max-width: 20em) { :root { --gutter: var(--u); } }
+html.grid-check {
+	--grid-line: rgba(220,38,38,.35);
+	}
+
+/* The column: the widest odd number of squares that fits between the
+   gutters, at most --col. Odd, because the grid is centred on the page:
+   then both edges of a centred column land on a line. */
+@supports (width: round(down, 100%, 1px)) {
+	:root {
+		--side: calc((100% - min(var(--col), round(down, 100% - 2 * var(--gutter) - var(--u), 2 * var(--u)) + var(--u))) / 2);
+		}
+}
+
+/* The grid itself, on the page wrapper, so it starts right under the
+   staging bar and scrolls with the page. A tile is centred on the page:
+   vertical lines at the centre plus or minus half a square. */
+#wrapper {
+	min-height: 100vh;
+	background-color: #F4F1EF;
+	background-image:
+		linear-gradient(var(--grid-line) 1px, transparent 1px),
+		linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+	background-size: var(--u) var(--u);
+	background-position: 50% 0;
+	}
+
+/* Line heights in squares. Set in rem, so smaller text keeps the rhythm. */
+body {
+	line-height: calc(2 * var(--u));
+	}
+h1 { line-height: calc(3 * var(--u)); }
+h2, h3 { line-height: calc(2 * var(--u)); }
+sup, sub { line-height: 0; }   /* never push a line of text off the grid */
+
+/* Menu: 1 square above, a 2-square title line, a 1-square subtitle line,
+   1 square below; 5 squares in all. */
+#menu {
+	column-gap: var(--u);
+	}
+.nav-item,
+#menu .nav-item {
+	padding: var(--u) 0;
+	}
+.nav-item a span.subtitle {
+	margin-top: 0;
+	line-height: var(--u);
+	}
+
+/* Page headers: 4 squares above and below the title (2 on smaller screens). */
+.header {
+	padding: calc(4 * var(--u)) var(--side);
+	line-height: calc(2 * var(--u));
+	}
+	@media only screen and (max-width: 75em) {
+	    .header { padding: calc(2 * var(--u)) var(--side); }
+		}
+.up-one-level {
+	padding: 0;
+	}
+/* Smaller text on a line keeps to the line's height (a mix of sizes can
+   otherwise make a line a pixel or two taller). */
+.up-one-level a {
+	line-height: 1;
+	}
+.header_subtitle {
+	line-height: calc(2 * var(--u));   /* its own line under the page title */
+	}
+.cover {
+	margin-bottom: calc(2 * var(--u));
+	}
+
+/* Page text */
+.content {
+	line-height: calc(2 * var(--u));
+	margin-bottom: calc(5 * var(--u));
+	}
+	@media only screen and (max-width: 100em) { .content { margin-bottom: calc(4 * var(--u)); } }
+	@media only screen and (max-width: 40em)  { .content { margin-bottom: calc(2 * var(--u)); } }
+	@media only screen and (max-width: 20em)  { .content { margin-bottom: var(--u); padding: 0; } }
+.content p {
+	line-height: calc(2 * var(--u));
+	margin: var(--u) 0 calc(3 * var(--u));
+	}
+.content h3 {
+	margin: var(--u) 0 0;
+	}
+:where(.content) :where(ul, ol) {   /* :where keeps this low-priority, so the resume and link lists keep their own */
+	margin: var(--u) 0;
+	padding-left: calc(2 * var(--u));
+	}
+li {
+	margin-bottom: calc(2 * var(--u));
+	}
+.content :where(ul, ol):where(:not(.item, .resume)) > li {
+	margin-bottom: 0;
+	}
+.content blockquote {
+	margin: var(--u) 0 var(--u) calc(2 * var(--u));
+	}
+.content pre {
+	margin: var(--u) 0;
+	}
+.content hr {
+	height: 1px;
+	border: 0;
+	background: #D2CDC9;
+	margin: calc(2 * var(--u)) 0 calc(2 * var(--u) - 1px);
+	}
+.content .video {
+	height: calc(22 * var(--u));
+	}
+.footer {
+	min-height: calc(5 * var(--u));
+	}
+
+/* Lines that would add a pixel to a block are drawn as an inset shadow,
+   which takes no room. */
+table, th, td {
+	border-bottom: 0;
+	}
+th, td {
+	padding-top: calc(var(--u) / 2);
+	padding-bottom: calc(var(--u) / 2);
+	box-shadow: inset 0 -1px 0 rgba(37,40,42,0.1);
+	}
+
+/* Photos and figures */
+.content figure {
+	margin: 0 0 calc(2 * var(--u));
+	}
+.content figcaption {
+	line-height: var(--u);
+	margin-top: 0;   /* grid.js rounds the photo above up to a whole square */
+	}
+.image-left,
+.content figure.left {
+	margin-top: 0;
+	}
+.image-phone,
+.image-tablet {
+	margin-top: calc(2 * var(--u));
+	margin-bottom: calc(2 * var(--u));
+	}
+
+/* Cards (Thoughts and Work): 13 squares, 1 square apart, in centred rows.
+   Any row of cards, also a shorter last row, is then an odd number of
+   squares wide, like the column, so its edges land on lines too. */
+ol.article-listing {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: var(--u);
+	padding: 0 var(--u);
+	}
+li.listing-result,
+.content .work-listing > li.listing-result {
+	display: block;
+	margin: 0;
+	}
+.article-figure {
+	width: calc(13 * var(--u));
+	height: calc(13 * var(--u));
+	}
+	@media only screen and (max-width: 33.125em) {
+		.article-figure { width: calc(8 * var(--u)); height: calc(8 * var(--u)); }
+	}
+.content .work-listing {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, calc(13 * var(--u)));
+	justify-content: space-between;
+	gap: var(--u);
+	padding: 0;
+	margin: 0 0 calc(3 * var(--u));
+	}
+	@media only screen and (max-width: 33.125em) {
+		.content .work-listing { grid-template-columns: repeat(auto-fill, calc(8 * var(--u))); }
+	}
+
+/* About */
+.address,
+.content .contactdetails {
+	margin-bottom: calc(3 * var(--u));
+	}
+.image-profile {
+	width: calc(11 * var(--u));
+	max-width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+	margin: 0 var(--u) 0 0;
+	}
+.content p.callout {
+	margin: calc(2 * var(--u)) 0 calc(3 * var(--u));
+	padding: var(--u);
+	border: 0;
+	box-shadow: inset 0 0 0 1px #D9D4D0, inset 4px 0 0 #25282A;
+	}
+
+/* Talks and publications */
+.talk,
+.publication {
+	margin-bottom: calc(5 * var(--u));
+	padding: 0 0 var(--u);
+	border-bottom: 0;
+	box-shadow: inset 0 -1px 0 #D2CDC9;
+	}
+.content .talk > p:first-of-type {
+	margin: calc(2 * var(--u)) 0 calc(3 * var(--u));
+	padding-left: var(--u);
+	border-left: 0;
+	box-shadow: inset 3px 0 0 #25282A;
+	line-height: calc(2 * var(--u));
+	}
+.content .talk > p:first-of-type:has(+ p),
+:is(.publication, .talk) p:has(+ ul.bullit) {
+	margin-bottom: var(--u);
+	}
+:is(.publication, .talk) ul.bullit {
+	margin: 0 0 calc(2 * var(--u));
+	padding-left: 0;
+	gap: var(--u);
+	}
+:is(.publication, .talk) ul.bullit li {
+	line-height: var(--u);
+	}
+:is(.publication, .talk) ul.bullit li:has(a) {
+	padding: calc(var(--u) / 2) var(--u);
+	border: 0;
+	box-shadow: inset 0 0 0 1px #D9D4D0;
+	}
+:is(.publication, .talk) ul.bullit .pdf,
+:is(.publication, .talk) ul.bullit .language {
+	padding-top: 0;
+	padding-bottom: 0;
+	line-height: var(--u);
+	}
+/* A talk photo: whole squares wide and high, on the right edge of the column. */
+@supports (width: round(down, 100cqi, 1px)) {
+	.talk img {
+		width: round(down, 38cqi, var(--u));
+		height: round(nearest, 38cqi * 2 / 3, var(--u));
+		aspect-ratio: auto;
+		margin: 0 0 var(--u) var(--u);
+		}
+		@media only screen and (max-width: 40em) {
+		    .talk img {
+		        display: block;
+		        width: 100%;
+		        height: round(nearest, 100cqi * 2 / 3, var(--u));
+		        margin: var(--u) 0;
+		    	}
+			}
+}
+
+/* Resume */
+.content .resume {
+	margin: 0 0 calc(3 * var(--u));
+	}
+.resume > ul {
+	grid-template-columns: calc(17 * var(--u)) minmax(0, 1fr);
+	column-gap: var(--u);
+	}
+.resume > ul > .highlight {
+	margin-bottom: 0;
+	}
+.resume > ul > .location,
+.resume > ul > .description {
+	margin-bottom: calc(2 * var(--u));
+	}
+.resume:not(:has(.time-period)) {
+	column-gap: calc(3 * var(--u));   /* odd, so both columns are whole squares wide */
+	row-gap: calc(2 * var(--u));
+	}
+.time-period .employer {
+	line-height: var(--u);
+	}
+@container (max-width: 34.95rem) {
+	.resume > ul > .time-period { margin-bottom: 0; }
+}
+@media only screen and (max-width: 37.5em) {
+	.resume > ul > .time-period { margin-bottom: 0; }
+}
+.page-resume > h2 {
+	border-top: 0;
+	box-shadow: inset 0 1px 0 #D2CDC9;
+	padding-top: calc(2 * var(--u));
+	margin-top: calc(5 * var(--u));
+	}
+.page-resume > h2:first-child {
+	margin-top: 0;
+	}
+.page-resume > h2 + .resume,
+.page-resume > h2 + .profile,
+.page-resume > h2 + .address {
+	margin-top: calc(2 * var(--u));
+	}
+.page-resume .profile {
+	margin-bottom: var(--u);
+	}
+.page-resume .profile .image-profile {
+	width: calc(13 * var(--u));
+	max-width: 100%;
+	margin: 0 0 var(--u) calc(2 * var(--u));
+	}
+	@media only screen and (max-width: 30em) {
+	    .page-resume .profile .image-profile { margin: 0 0 var(--u) 0; }
+		}
+.page-resume .profile p.lead {
+	line-height: calc(2 * var(--u));
+	margin-bottom: var(--u);
+	}
+.content.page-resume {
+	margin-bottom: var(--u);
+	}
+.content .resume:has(+ .all-projects) {
+	margin-bottom: var(--u);
+	}
+.all-projects {
+	margin: 0 0 calc(3 * var(--u));
+	}
+.all-projects > summary {
+	border-bottom: 0;
+	box-shadow: inset 0 -1px 0 currentColor;
+	}
+.all-projects > summary:hover {
+	box-shadow: none;
+	}
+.all-projects[open] > summary {
+	margin-bottom: var(--u);
+	}
+
+/* Work case page */
+.page-work-case .case-summary {
+	line-height: calc(2 * var(--u));
+	}
+
+/* Previous / next at the bottom of a story: a 1-square label line, a
+   2-square title line, and the edges on the grid's first lines from the
+   sides (1 or 2 squares in). */
+.article-nav {
+	margin-top: calc(3 * var(--u));
+	border-top: 0;
+	box-shadow: inset 0 1px 0 #D2CDC9;
+	--edge-y: calc(2 * var(--u));
+	padding: var(--u) var(--edge) var(--edge-y);
+	}
+	@media only screen and (max-width: 40em) { .article-nav { --edge-y: var(--u); } }
+@supports (width: mod(100%, 1px)) {
+	.article-nav { --edge: calc(mod(50% + var(--u) / 2, var(--u)) + 2 * var(--u)); }
+	@media only screen and (max-width: 40em) {
+		.article-nav { --edge: calc(mod(50% + var(--u) / 2, var(--u)) + var(--u)); }
+		}
+}
+.previous-article,
+.next-article {
+	line-height: var(--u);
+	}
+.previous-article-link,
+.next-article-link {
+	line-height: calc(2 * var(--u));
+	border-bottom: 0;   /* the underline as a shadow: a border would add a pixel */
+	box-shadow: inset 0 -1px 0 color-mix(in srgb, currentColor 60%, transparent);
+	}
+.previous-article-link:hover,
+.next-article-link:hover {
+	box-shadow: none;
+	}
