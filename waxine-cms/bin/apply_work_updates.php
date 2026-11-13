@@ -66,6 +66,7 @@ $subtitles = [
     'talks'        => ['and other stages I was on', 'I gave'],
     'publications' => ['I created',                 'I wrote'],
     'thoughts'     => ['that came to mind',         'on my mind'],
+    'about'        => ['me as a design strategist', 'who I am'],
 ];
 foreach ($subtitles as $slug => [$from, $to]) {
     if (exec_sql('UPDATE pages SET subtitle = ? WHERE slug = ? AND subtitle = ?', [$to, $slug, $from])) {

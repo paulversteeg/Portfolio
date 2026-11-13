@@ -32,8 +32,9 @@ if ((int) $about['nav_order'] < $last - 9) {
 
 // --- Subtitle in the menu and the page heading -----------------------------------
 $subtitle = 'me as a design strategist';
+// Only when there is no subtitle yet: a later choice (see apply_work_updates) stays.
 $cur = q1("SELECT subtitle FROM pages WHERE id = ?", [$about['id']]);
-if (($cur['subtitle'] ?? '') !== $subtitle) {
+if (($cur['subtitle'] ?? '') === '') {
     exec_sql('UPDATE pages SET subtitle = ? WHERE id = ?', [$subtitle, $about['id']]);
     echo "about: subtitle set to '$subtitle'\n";
 }
