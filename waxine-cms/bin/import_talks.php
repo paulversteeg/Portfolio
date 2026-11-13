@@ -80,6 +80,15 @@ $talkUpdates = [
         'match' => ['Lost in translation'],
         'set'   => ['title' => 'Lost in Translation'],
     ],
+    [
+        // From the organisers' e-mails and briefing (Dutch Digital Agencies, Oct 2017).
+        'match' => ['Craftsmanship', 'Craftmanship'],
+        'env'   => 'staging',
+        'set'   => [
+            'venue'       => 'MU, Eindhoven',
+            'description' => "A breakfast session by Dutch Digital Agencies to meet young talent, in the middle of the Materialising the Internet exhibition at MU during Dutch Design Week. Over an Asian breakfast, more than fifty students from all over the country, mostly third- and fourth-year CMD students looking for an internship or a first job, sat at ten tables, and every fifteen minutes the agencies moved on to the next one. No sales pitch, but one theme per agency: mine was craftsmanship, and why in this field of work you have to specialise. Right after, I joined the Adobe Creative Jam at SintLucas as coach and jury member, where twelve student teams designed a web or mobile service that helps people adapt to climate change.",
+        ],
+    ],
 ];
 
 foreach ($talkUpdates as $u) {
