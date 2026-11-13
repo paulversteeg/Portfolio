@@ -205,6 +205,16 @@ p {
 	background-color: #FCFAFA;
 	box-shadow: 0 1rem 2rem -0.75rem rgba(0,0,0,.16);
 	}
+	/* Once the subtitles are hidden (see the container rule below), equal
+	   columns would leave uneven gaps between short and long titles: then the
+	   titles spread out with equal space between them instead. The menu column
+	   is 34.45rem at that point, plus 2 x 4rem gutter = 42.45rem = 53.0625em. */
+	@media only screen and (max-width: 53.0625em) {
+		#menu {
+			display: flex;
+			justify-content: space-between;
+			}
+		}
 	@media only screen and (max-width: 40em)  { #menu { column-gap: 1em; } }
 	@media only screen and (max-width: 20em)  { #menu { padding: .7em var(--side); column-gap: .5em; } }
 
