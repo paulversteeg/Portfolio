@@ -44,7 +44,7 @@ $pageTitle = $pageTitle ?? $siteTitle;
     <li<?= $navAttrs('/') ?>>
       <a href="/"<?= $navCurrent('/') ?>>
         <strong>Thoughts</strong>
-        <span class="subtitle"><?= esc($cfg['site']['tagline'] ?? '') ?></span>
+        <span class="subtitle">on my mind</span>
       </a>
     </li>
     <?php endif; ?>

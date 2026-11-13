@@ -16,7 +16,7 @@ $posts = q(
 // Title and subtitle come from the Thoughts entry under Pages, when there is one.
 $thoughtsPage = q1("SELECT title, subtitle FROM pages WHERE slug = 'thoughts'");
 $listTitle    = $thoughtsPage['title'] ?? 'Thoughts';
-$listSubtitle = $thoughtsPage['subtitle'] ?? 'that came to mind';
+$listSubtitle = $thoughtsPage['subtitle'] ?? 'on my mind';
 
 $pageTitle = $listTitle;
 include __DIR__ . '/inc/head.php';

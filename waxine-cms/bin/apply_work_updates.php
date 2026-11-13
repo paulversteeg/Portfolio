@@ -27,6 +27,20 @@ if (APPLY_ON !== 'all' && APPLY_ON !== $env) { echo "apply_work_updates: not on 
 
 ensure_experiences_table();
 
+// --- Shorter menu subtitles (option A, Nov 2026; live, also without Work) ----------
+// Only replaces the previous wording, so a subtitle changed in the CMS stays.
+$subtitles = [
+    'talks'        => ['and other stages I was on', 'I gave'],
+    'publications' => ['I created',                 'I wrote'],
+    'thoughts'     => ['that came to mind',         'on my mind'],
+    'about'        => ['me as a design strategist', 'who I am'],
+];
+foreach ($subtitles as $slug => [$from, $to]) {
+    if (exec_sql('UPDATE pages SET subtitle = ? WHERE slug = ? AND subtitle = ?', [$to, $slug, $from])) {
+        echo "$slug: subtitle now '$to'\n";
+    }
+}
+
 if (WORK_ON === 'all' || WORK_ON === $env) {
 // --- Pages for Work and Thoughts ----------------------------------------------------
 $newPages = [
@@ -57,20 +71,6 @@ foreach ($order as $slug => $n) {
     if ((int) $pg['nav_order'] !== $n || (int) $pg['in_nav'] !== 1) {
         exec_sql('UPDATE pages SET nav_order = ?, in_nav = 1 WHERE id = ?', [$n, $pg['id']]);
         echo "$slug: menu position $n\n";
-    }
-}
-
-// --- Shorter menu subtitles (option A, Nov 2026) -----------------------------------
-// Only replaces the previous wording, so a subtitle changed in the CMS stays.
-$subtitles = [
-    'talks'        => ['and other stages I was on', 'I gave'],
-    'publications' => ['I created',                 'I wrote'],
-    'thoughts'     => ['that came to mind',         'on my mind'],
-    'about'        => ['me as a design strategist', 'who I am'],
-];
-foreach ($subtitles as $slug => [$from, $to]) {
-    if (exec_sql('UPDATE pages SET subtitle = ? WHERE slug = ? AND subtitle = ?', [$to, $slug, $from])) {
-        echo "$slug: subtitle now '$to'\n";
     }
 }
 
