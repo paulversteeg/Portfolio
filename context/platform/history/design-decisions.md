@@ -18,5 +18,5 @@ last-reviewed:           # YYYY-MM-DD
 - **Context:** The portfolio mock-up explored a faint squared background with every element aligned to it. Of that exploration, only the grid and the alignment carry over to the site; colours, type and layout stay as they are.
 - **Decision:** A grid of 0.9rem squares (18px), lines at 2.25% of the text colour, centred on the page. Text lines are 2 squares; all vertical spacing and block heights are whole squares; the page column is an odd number of squares wide so both edges fall on a line. Details in `design-system/DESIGN.md` (Grid).
 - **Alternatives considered:** A 24px grid with 24px text lines (as in the mock-up), which would have changed the site's type sizes; a grid drawn only as decoration, without aligning the elements.
-- **Consequences:** New styles use multiples of `--u` for line heights and vertical spacing, and inset shadows instead of borders that add height. Menu items in their own columns only line up with the grid at full width. On staging first.
+- **Consequences:** New styles use multiples of `--u` for line heights and vertical spacing, and inset shadows instead of borders that add height. Menu items in their own columns only line up with the grid at full width. Live since 2026-11-13.
 
