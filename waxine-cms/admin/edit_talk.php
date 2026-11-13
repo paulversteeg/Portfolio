@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exec_sql('INSERT INTO talks (title, event, venue, talk_date, takeaway, description, image, image_width, image_height, image_alt, links) VALUES (?,?,?,?,?,?,?,?,?,?,?)', $args);
             $id = (int) db()->lastInsertId();
         }
+        exec_sql('UPDATE talks SET published = ? WHERE id = ?', [isset($_POST['published']) ? 1 : 0, $id]);
         header('Location: /admin/edit_talk.php?id=' . $id . '&saved=1');
         exit;
     }
@@ -121,6 +122,11 @@ include __DIR__ . '/inc/admin_head.php';
     <label for="image_alt">Description of the photo <span class="muted">(for screen readers)</span></label>
     <input type="text" id="image_alt" name="image_alt" value="<?= $v('image_alt') ?>" placeholder="e.g. Paul presenting to a full room">
   </fieldset>
+
+  <label style="font-weight:normal;margin-top:1rem">
+    <input type="checkbox" name="published" value="1" <?= ($item['published'] ?? 1) ? 'checked' : '' ?>>
+    Published <span class="muted">(untick to take it off the Talks and Resume pages without deleting it)</span>
+  </label>
 
   <div class="form-actions">
     <?php if ($id): ?>

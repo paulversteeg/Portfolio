@@ -21,7 +21,7 @@ if (isset($_GET['saved']))    $flash = 'Saved.';
 if (isset($_GET['deleted']))  $flash = 'Deleted.';
 if (isset($_GET['imported'])) $flash = (int) $_GET['imported'] . ' talks imported from the Talks page.';
 
-$items = talks_all();
+$items = talks_all(true);
 
 // Offer the import while the Talks page still has hand-written talks.
 $page = q1("SELECT body_html FROM pages WHERE slug = 'talks'");
@@ -60,7 +60,7 @@ include __DIR__ . '/inc/admin_head.php';
     <?php foreach ($items as $t): ?>
       <tr>
         <td class="muted" style="white-space:nowrap"><?= esc(talk_date_label($t['talk_date'])) ?></td>
-        <td><a href="/admin/edit_talk.php?id=<?= (int) $t['id'] ?>"><?= esc($t['title']) ?></a><?php if ($t['image'] !== ''): ?> <span class="muted" title="Has a photo">· photo</span><?php endif; ?></td>
+        <td><a href="/admin/edit_talk.php?id=<?= (int) $t['id'] ?>"><?= esc($t['title']) ?></a><?php if ($t['image'] !== ''): ?> <span class="muted" title="Has a photo">· photo</span><?php endif; ?><?php if (empty($t['published'])): ?> <span class="muted">· offline</span><?php endif; ?></td>
         <td class="muted"><?= esc($t['event']) ?></td>
       </tr>
     <?php endforeach; ?>

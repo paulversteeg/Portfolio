@@ -90,13 +90,9 @@ $talkUpdates = [
         ],
     ],
     [
-        // DDA breakfast 2018: theme home.smart.home with VPRO Medialab (DDA news item).
+        // Taken offline until Paul remembers what this session was about (Nov 2026).
         'match' => ['Smart Home Smart'],
-        'env'   => 'staging',
-        'set'   => [
-            'venue'       => 'MU, Eindhoven',
-            'description' => "The Dutch Digital Agencies breakfast with young talent at MU during Dutch Design Week, this time with thirteen agencies and VPRO Medialab. Its editor-in-chief Annelies Termeer opened the morning with the theme home.smart.home, the subject of VPRO Medialab's project and short films that year. Students from all over the country moved from agency to agency over breakfast; at my table the conversation was about smart devices in the home, and how you design for a house that listens, learns and acts on its own.",
-        ],
+        'set'   => ['published' => '0'],
     ],
 ];
 

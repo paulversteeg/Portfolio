@@ -40,14 +40,19 @@ function ensure_talks_table(): void
            KEY idx_talks_date (talk_date)
          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
     );
+    // A talk can be taken offline without deleting it (Nov 2026).
+    $have = array_column(q('SHOW COLUMNS FROM talks'), 'Field');
+    if (!in_array('published', $have, true)) {
+        db()->exec('ALTER TABLE talks ADD COLUMN published TINYINT(1) NOT NULL DEFAULT 1 AFTER links');
+    }
     $done = true;
 }
 
-/** All talks, newest first. */
-function talks_all(): array
+/** Talks, newest first: only the published ones, unless the admin asks for all. */
+function talks_all(bool $withHidden = false): array
 {
     ensure_talks_table();
-    return q('SELECT * FROM talks ORDER BY talk_date DESC, id DESC');
+    return q('SELECT * FROM talks' . ($withHidden ? '' : ' WHERE published = 1') . ' ORDER BY talk_date DESC, id DESC');
 }
 
 /** "November 6, 2026" */
