@@ -224,11 +224,11 @@ p {
 
 .nav-item {
 	position: relative;
-	padding: 1.3rem 0;
+	padding: 1.3rem 0 1rem;   /* a little less below, where the active line sits */
 	list-style: none;
 	min-width: 0;          /* lets a long subtitle wrap instead of pushing out of the column */
 	margin: 0;
-	text-align: left;
+	text-align: center;    /* centred in its column, above the active line */
 	}
 	@media only screen and (max-width: 47.5em) {
 	    .nav-item {
@@ -243,7 +243,7 @@ p {
 		}
 
 .nav-item a span.subtitle {
-	text-align: left;
+	text-align: inherit;
 	color: #6A6B6C;
 	display: block;
 	font-size: 0.75em;    /* smaller than the title: 15px on desktop, 12px on tablets; do not go lower */
