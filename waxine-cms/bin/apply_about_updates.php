@@ -70,7 +70,7 @@ if ((RENAME_ON === 'all' || RENAME_ON === $env) && strpos($body, 'instagram.com/
 // Timeless wording (Nov 2026): no "over a decade", "recently", "not so long ago" or
 // other time markers that age, and the "lang" typo fixed. TEXT_ON: 'staging' while
 // being reviewed, 'all' once approved.
-const TEXT_ON = 'staging';
+const TEXT_ON = 'all';
 if (TEXT_ON === 'all' || TEXT_ON === $env) {
     $timeless = [
         '/have (?:over a decade|a wealth) of experience as a designer and consultant/' => 'have years of experience as a designer and consultant',

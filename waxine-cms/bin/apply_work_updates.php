@@ -11,19 +11,23 @@
  * step checks first and does nothing once done.
  *
  * APPLY_ON: 'staging' while being reviewed, 'all' once approved for live.
+ * WORK_ON: the same for the Work page and the new menu, which stay on staging
+ * while the Work content is refined; the resume data below already goes live.
  */
 require_once dirname(__DIR__) . '/lib/db.php';
 require_once dirname(__DIR__) . '/lib/helpers.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const APPLY_ON = 'staging';
+const APPLY_ON = 'all';
+const WORK_ON  = 'staging';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
 if (APPLY_ON !== 'all' && APPLY_ON !== $env) { echo "apply_work_updates: not on $env yet\n"; exit(0); }
 
 ensure_experiences_table();
 
+if (WORK_ON === 'all' || WORK_ON === $env) {
 // --- Pages for Work and Thoughts ----------------------------------------------------
 $newPages = [
     'work' => [
@@ -65,6 +69,9 @@ if (!q1('SELECT id FROM experiences WHERE on_work = 1')) {
             [experience_unique_slug($e['title'], (int) $e['id']), $e['id']]);
     }
     echo 'work: ' . count($picked) . " Career highlights put on Work\n";
+}
+} else {
+    echo "work page and menu: not on $env yet\n";
 }
 
 // --- Employer in its own field --------------------------------------------------------
