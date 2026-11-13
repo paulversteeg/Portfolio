@@ -736,10 +736,20 @@ h1.article-detail-title {
 	text-decoration: none;
 	}
 	
+/* Photos, videos and embeds in a story never stick out of the column,
+   whatever width the file or the editor gave them. */
+.content :is(img, video, svg, canvas) {
+	max-width: 100%;
+	height: auto;
+	}
+.content :is(iframe, embed, object) {
+	max-width: 100%;
+	}
+
 .content .video {
   	width: 100%;
   	height: 20rem;
-	} 
+	}
 		
 .image-header {
 	width: 100%;
