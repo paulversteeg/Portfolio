@@ -231,7 +231,7 @@ p {
 	text-align: left;
 	color: #6A6B6C;
 	display: block;
-	font-size: 0.8em;     /* a step smaller than the title: 16px on desktop, about 13px on tablets */
+	font-size: 0.75em;    /* smaller than the title: 15px on desktop, 12px on tablets; do not go lower */
 	margin-top: 0.35em;   /* room between the title and its subtitle */
 	line-height: 1.3;
 	}
