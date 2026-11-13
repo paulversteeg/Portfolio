@@ -56,6 +56,16 @@ $talkUpdates = [
             'links'       => "White paper: From progressive enhancement to dynamic design | https://www.mirabeau.nl/en/news/article/2016/ecommerce-optimisation-for-the-ever-changing-web#verdiepend\nArticle (Dutch): Content first, from responsive design to a dynamic website | https://www.frankwatching.com/archive/2013/08/16/content-first-van-responsive-design-naar-dynamische-website/",
         ],
     ],
+    [
+        'match' => ['Design Thinking by Doing'],
+        'env'   => 'staging',
+        'set'   => [
+            'image'        => '/assets/talks/20170713_ixdc_beijing.jpg',
+            'image_width'  => '1086',
+            'image_height' => '724',
+            'image_alt'    => 'Paul Versteeg in the workshop room at IXDC 2017 in Beijing, next to a whiteboard',
+        ],
+    ],
 ];
 
 foreach ($talkUpdates as $u) {
