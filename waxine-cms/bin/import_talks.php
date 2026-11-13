@@ -94,6 +94,11 @@ $talkUpdates = [
         'match' => ['Smart Home Smart'],
         'set'   => ['published' => '0'],
     ],
+    [
+        // Taken offline while Paul fills in the story; it is still too short (Nov 2026).
+        'match' => ['The Power of 10', 'Power of 10', 'The Power of Ten', 'Power of Ten'],
+        'set'   => ['published' => '0'],
+    ],
 ];
 
 foreach ($talkUpdates as $u) {
