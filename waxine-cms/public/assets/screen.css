@@ -259,7 +259,13 @@ p {
 	right: 0;
 	bottom: 0;
 	height: 2px;
-	background-color: #25282A;
+	background-color: rgba(37,40,42,.3);   /* the text colour, light: it marks the page without shouting */
+	}
+/* The line says where you are, so the title needs no link underline there. */
+.nav-item.is-active a,
+.nav-item.is-active a strong {
+	border-bottom: 0;
+	text-decoration: none;
 	}
 
 /* The subtitles only fit when the column is wide enough to keep each item
