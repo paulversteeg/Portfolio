@@ -73,7 +73,7 @@ if ((RENAME_ON === 'all' || RENAME_ON === $env) && strpos($body, 'instagram.com/
 const TEXT_ON = 'staging';
 if (TEXT_ON === 'all' || TEXT_ON === $env) {
     $timeless = [
-        '/have over a decade of experience as a designer and consultant/' => 'have a wealth of experience as a designer and consultant',
+        '/have (?:over a decade|a wealth) of experience as a designer and consultant/' => 'have years of experience as a designer and consultant',
         '/Some time later I realised a complete new social intranet/'      => 'I realised a completely new social intranet',
         '/Not so lang ago I worked for multiple financial clients/'        => 'I worked for multiple financial clients',
         '/ and after that I was responsible for designing/'                => ' and I was responsible for designing',
