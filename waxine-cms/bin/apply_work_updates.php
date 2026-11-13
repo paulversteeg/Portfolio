@@ -119,4 +119,34 @@ if ($nocInfo && !q1("SELECT id FROM experiences WHERE title LIKE 'NOC*NSF%' AND 
     echo "noc*nsf: fresk.digital entry for the inspection portal added\n";
 }
 
+// --- Earlier projects with a strategic side (as told by Paul, Nov 2026) -------------
+// Added once, by name. 'after' places the entry directly after an existing one in
+// the date order; without it the entry goes to the end of the list.
+$earlier = [
+    ['KPN', 'Online experience of the future', 'Mirabeau', 'September 2013 – March 2014', 'Leaseplan',
+     'KPN aimed to handle half of all sales and service online by 2016. We developed the concept for KPN\'s online experience of the future, free from today\'s technical and organisational limits: focused on the journeys of consumers and small businesses, captured in a prototype for every device and validated with end users. The strategic question was how KPN could add unique value in a saturated market without competing with the ecosystems of Apple and Google: as a device-independent hub. A personal KPN account became the place to manage your packages and services, and to experience interactive TV in a new way, with suggestions that fit you, also on the go.'],
+    ['Bibliotheek.nl', 'National library platform', 'Mirabeau', '2012 – 2016', null,
+     'The website with the most registered members in the Netherlands. The new way of organising, searching and visiting the collection put people first: how someone experiences the collection and searches in it. That meant bringing stakeholders on several levels along in a different way of thinking. A more interactive, visually stronger library raised the value of the product. That in turn shaped the subscription structure: what each subscription offers, and how you sign up for it.'],
+    ['Randstad', 'Recruitment platform', 'Connect Holland', '2010 – 2012', null,
+     'An extensive recruitment website, built on a sharp understanding of who it was really for. Placing seasonal workers on critical work calls for flexibility and a buffer. When someone can\'t make it, the next person is asked quickly, so the work goes on and, for example, a harvest still gets in on the day it has to.'],
+    ['Oogziekenhuis Rotterdam', 'Social intranet', 'Connect Holland', '2010 – 2012', null,
+     'A completely new social intranet for the Rotterdam Eye Hospital: a professional Facebook of sorts, where groups post updates and departments easily share knowledge and organisational news with each other, instead of each working in its own silo.'],
+    ['Consumentenbond', 'Product comparison tool', 'Puurpxl', '2007 – 2009', null,
+     'Lead designer for the website of the Dutch consumer association, including a comparison tool for the products it tests. The key was understanding why members compare, what they want to see side by side and what they want to take away from it. At the same time, the quality of the comparison had to show the value of a paid membership. The interface had to balance independence with well-founded advice: the Best Buy and Best Tested labels stand out, without writing off the other products.'],
+];
+foreach ($earlier as [$title, $subtitle, $employer, $period, $after, $description]) {
+    if (q1('SELECT id FROM experiences WHERE title = ?', [$title])) continue;
+    $prev = $after !== null ? q1('SELECT sort_order FROM experiences WHERE title LIKE ? ORDER BY sort_order LIMIT 1', [$after . '%']) : null;
+    if ($prev) {
+        // Make room directly after the given entry.
+        exec_sql('UPDATE experiences SET sort_order = sort_order + 1 WHERE sort_order > ?', [$prev['sort_order']]);
+        $order = (int) $prev['sort_order'] + 1;
+    } else {
+        $order = (int) (q1('SELECT COALESCE(MAX(sort_order), 0) AS m FROM experiences')['m']) + 10;
+    }
+    exec_sql('INSERT INTO experiences (period, employer, title, subtitle, description, sort_order, is_highlight, on_work)
+              VALUES (?,?,?,?,?,?,0,0)', [$period, $employer, $title, $subtitle, $description, $order]);
+    echo "earlier: $title ($employer) added\n";
+}
+
 echo "apply_work_updates: done on $env\n";
