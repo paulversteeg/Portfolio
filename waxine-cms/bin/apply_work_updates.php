@@ -60,6 +60,19 @@ foreach ($order as $slug => $n) {
     }
 }
 
+// --- Shorter menu subtitles (option A, Nov 2026) -----------------------------------
+// Only replaces the previous wording, so a subtitle changed in the CMS stays.
+$subtitles = [
+    'talks'        => ['and other stages I was on', 'I gave'],
+    'publications' => ['I created',                 'I wrote'],
+    'thoughts'     => ['that came to mind',         'on my mind'],
+];
+foreach ($subtitles as $slug => [$from, $to]) {
+    if (exec_sql('UPDATE pages SET subtitle = ? WHERE slug = ? AND subtitle = ?', [$to, $slug, $from])) {
+        echo "$slug: subtitle now '$to'\n";
+    }
+}
+
 // --- First Work cards: the current Career highlights --------------------------------
 // Only while nothing is on Work yet; after that the choice is made in the CMS.
 if (!q1('SELECT id FROM experiences WHERE on_work = 1')) {
