@@ -66,6 +66,10 @@ $talkUpdates = [
             'image_alt'    => 'Paul Versteeg in the workshop room at IXDC 2017 in Beijing, next to a whiteboard',
         ],
     ],
+    [
+        'match' => ['Craftmanship'],
+        'set'   => ['title' => 'Craftsmanship'],
+    ],
 ];
 
 foreach ($talkUpdates as $u) {
