@@ -190,11 +190,14 @@ p {
 	@media only screen and (max-width: 40em) { :root { --gutter: 2rem; } }
 	@media only screen and (max-width: 20em) { :root { --gutter: 0.7rem; } }
 
-/* The menu sits in the page column (see --side above), and the items
-   spread out over its width. */
+/* The menu sits in the page column (see --side above). Every item gets a
+   column of the same width, so the items start at an even rhythm, whatever
+   the length of their title or subtitle. (With space-between, the gaps
+   depended on the text lengths and looked uneven.) */
 #menu {
-	display: flex;
-	justify-content: space-between;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(0, 1fr);
 	column-gap: 1.5em;
 	padding: 1.3em var(--side);
 	margin: 0;
