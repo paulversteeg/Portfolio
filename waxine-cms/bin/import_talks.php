@@ -86,7 +86,16 @@ $talkUpdates = [
         'env'   => 'staging',
         'set'   => [
             'venue'       => 'MU, Eindhoven',
-            'description' => "A breakfast session by Dutch Digital Agencies to meet young talent, in the middle of the Materialising the Internet exhibition at MU during Dutch Design Week. Over an Asian breakfast, more than fifty students from all over the country, mostly third- and fourth-year CMD students looking for an internship or a first job, sat at ten tables, and every fifteen minutes the agencies moved on to the next one. No sales pitch, but one theme per agency: mine was craftsmanship, and why in this field of work you have to specialise. Right after, I joined the Adobe Creative Jam at SintLucas as coach and jury member, where twelve student teams designed a web or mobile service that helps people adapt to climate change.",
+            'description' => "A breakfast session by Dutch Digital Agencies to meet young talent, in the middle of the Materialising the Internet exhibition at MU during Dutch Design Week. Over an Asian breakfast, more than fifty students from all over the country, mostly third- and fourth-year CMD students looking for an internship or a first job, sat at ten tables, and every fifteen minutes the agencies moved on to the next one. No sales pitch, but one theme per agency: mine was craftsmanship, and why in this field of work you have to specialise. Right after, at the Adobe Creative Jam at SintLucas, I gave a short, interactive talk on stage and joined the teams as coach and jury member, while twelve student teams designed a web or mobile service that helps people adapt to climate change.",
+        ],
+    ],
+    [
+        // DDA breakfast 2018: theme home.smart.home with VPRO Medialab (DDA news item).
+        'match' => ['Smart Home Smart'],
+        'env'   => 'staging',
+        'set'   => [
+            'venue'       => 'MU, Eindhoven',
+            'description' => "The Dutch Digital Agencies breakfast with young talent at MU during Dutch Design Week, this time with thirteen agencies and VPRO Medialab. Its editor-in-chief Annelies Termeer opened the morning with the theme home.smart.home, the subject of VPRO Medialab's project and short films that year. Students from all over the country moved from agency to agency over breakfast; at my table the conversation was about smart devices in the home, and how you design for a house that listens, learns and acts on its own.",
         ],
     ],
 ];
