@@ -70,6 +70,12 @@ $talkUpdates = [
         'match' => ['Craftmanship'],
         'set'   => ['title' => 'Craftsmanship'],
     ],
+    [
+        // Intro from the original invitation e-mail worked into the story.
+        'match' => ['Lost in translation'],
+        'env'   => 'staging',
+        'set'   => ['description' => 'Together with China Southern Airlines, Mirabeau worked on a new app around service, sales and loyalty: a first project for an Asian client. Our user-centred approach was the starting point, but it was not obvious that our design methods would work in China. The goal was simply to build a really good app, yet on the way there the cultural difference turned out to be a real challenge. This talk on digital design and Chinese culture shares what we ran into and what we learned. Culture shows up everywhere, from dragons and zodiac signs to colours and traditions. Everything is mobile: responsive matters less, apps like WeChat are everything, QR codes are hot and promotions are big. The local design and development scene is mature, so the bar is high. The hotel became our office, and we brought research, personas and scrum into the process. What worked best: show instead of explain, with demos and local examples; design with real content written by a native speaker; test more than once to convince stakeholders; and make sure you talk to the right person. And have fun while you learn.'],
+    ],
 ];
 
 foreach ($talkUpdates as $u) {
