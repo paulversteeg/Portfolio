@@ -67,6 +67,29 @@ if ((RENAME_ON === 'all' || RENAME_ON === $env) && strpos($body, 'instagram.com/
         echo "about: $added channel link(s) added\n";
     }
 }
+// Timeless wording (Nov 2026): no "over a decade", "recently", "not so long ago" or
+// other time markers that age, and the "lang" typo fixed. TEXT_ON: 'staging' while
+// being reviewed, 'all' once approved.
+const TEXT_ON = 'staging';
+if (TEXT_ON === 'all' || TEXT_ON === $env) {
+    $timeless = [
+        '/have over a decade of experience as a designer and consultant/' => 'have a wealth of experience as a designer and consultant',
+        '/Some time later I realised a complete new social intranet/'      => 'I realised a completely new social intranet',
+        '/Not so lang ago I worked for multiple financial clients/'        => 'I worked for multiple financial clients',
+        '/ and after that I was responsible for designing/'                => ' and I was responsible for designing',
+        '/Recently I(?:\x{2019}|\'|&rsquo;|&#8217;)ve worked for the most important telecom company/u' => 'I worked for the most important telecom company',
+    ];
+    $changed = 0;
+    foreach ($timeless as $re => $to) {
+        $body = preg_replace($re, $to, $body, -1, $n);
+        $changed += $n;
+    }
+    if ($changed) {
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: $changed time marker(s) removed\n";
+    }
+}
+
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; exit(0); }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
