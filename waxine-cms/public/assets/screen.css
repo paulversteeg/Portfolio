@@ -950,8 +950,8 @@ li {
 	display: grid;
 	/* Wide enough for the longest period ("September 2018 – December 2018")
 	   on one line, with a clear gap before the entry. */
-	grid-template-columns: 16em minmax(0, 1fr);
-	column-gap: 1.5em;
+	grid-template-columns: 14.75em minmax(0, 1fr);
+	column-gap: 0.75em;
 	list-style: none;
 	padding: 0;
 	margin: 0;
