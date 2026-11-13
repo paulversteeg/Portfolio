@@ -948,7 +948,10 @@ li {
    highlight with its location or description stacked directly under it. */
 .resume > ul {
 	display: grid;
-	grid-template-columns: 13.5em minmax(0, 1fr);
+	/* Wide enough for the longest period ("September 2018 – December 2018")
+	   on one line, with a clear gap before the entry. */
+	grid-template-columns: 16em minmax(0, 1fr);
+	column-gap: 1.5em;
 	list-style: none;
 	padding: 0;
 	margin: 0;
