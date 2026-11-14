@@ -38,6 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 [$title, $slug, $body, $excerpt, ($cover ?: null), $status, $me['id'], $published_at]);
             $id = (int) db()->lastInsertId();
         }
+        // Webartrose: every edit wears the maker's spot on the page a little.
+        require_once $APP . '/lib/wear.php';
+        wear_maker('/thoughts/' . $slug);
         header('Location: /admin/edit.php?id=' . $id . '&saved=1');
         exit;
     }

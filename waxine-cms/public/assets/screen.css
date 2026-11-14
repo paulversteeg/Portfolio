@@ -1759,12 +1759,14 @@ li.listing-result,
 
 :root {
 	--wt: 0; --wp: 0; --ws: 0; --wa: 0; --wr: 0;
+	--wg: 0; --we: 0; --wm: 0; --wh: 0; --wsun: 0;   /* graphite, dog-ear, maker, you are here, sun */
 	}
 
 /* The floor: where the pointer walks, the grid is rubbed out a little. */
 #wrapper {
 	position: relative;
 	isolation: isolate;
+	overflow: clip;   /* the drawn wear never makes the page wider or longer */
 	}
 .wear-trail {
 	display: none;
@@ -1838,8 +1840,12 @@ html.wear-on .header:not(.cover) h1,   /* not on a story's coloured cover: its t
 	}
 html.wear-on .content :is(p, li, blockquote),
 .wear-demo :is(p, li) {
-	background-image: radial-gradient(ellipse 3em 4em at 0 calc(50% + var(--wr) * 30%),
-		rgba(160,130,80, calc(var(--ws) * .09)), transparent 70%);
+	background-image:
+		radial-gradient(ellipse 3em 4em at 0 calc(50% + var(--wr) * 30%),
+			rgba(160,130,80, calc(var(--ws) * .09)), transparent 70%),
+		/* graphite: text people select gets a grey smudge, like a clipboard */
+		radial-gradient(ellipse 60% 90% at calc(50% + var(--wr) * 20%) 50%,
+			rgba(70,70,74, calc(var(--wg) * .07)), transparent 75%);
 	}
 
 /* Buttons: pressed in, outline rubbed away, a darker worn middle. */
@@ -1855,6 +1861,20 @@ html.wear-on :is(.publication, .talk) ul.bullit li:has(a),
 		inset 0 0 0 1px color-mix(in srgb, #D9D4D0 calc(100% - var(--wp) * 60%), transparent),
 		inset 0 calc(var(--wp) * -6px) calc(var(--wp) * 10px) rgba(120,100,70, calc(var(--wp) * .14));
 	border-radius: calc(2px + var(--wp) * 8px);
+	}
+
+/* A waist: a much-pressed button narrows in the middle, like a post that
+   cows have licked smooth. Only the outline goes in; the label stays whole. */
+html.wear-on :is(.publication, .talk) ul.bullit li:has(a),
+.wear-demo ul.bullit li:has(a) {
+	-webkit-mask-image:
+		radial-gradient(ellipse 40% calc(var(--wp) * 3px + .01px) at 50% 0, transparent 97%, #000),
+		radial-gradient(ellipse 40% calc(var(--wp) * 3px + .01px) at 50% 100%, transparent 97%, #000);
+	-webkit-mask-composite: source-in;
+	mask-image:
+		radial-gradient(ellipse 40% calc(var(--wp) * 3px + .01px) at 50% 0, transparent 97%, #000),
+		radial-gradient(ellipse 40% calc(var(--wp) * 3px + .01px) at 50% 100%, transparent 97%, #000);
+	mask-composite: intersect;
 	}
 
 /* Old neon: a much-pressed menu item or button flickers now and then, and
@@ -2057,3 +2077,295 @@ html.wear-on :is(.publication, .talk) ul.bullit li:has(a),
 	filter: blur(4px);
 	}
 
+/* ---------------------------------------------------------------------
+   More signs (Nov 2026), after photos of things worn by time.
+   Drawn by wear.js; each is hidden while the layer is off.
+   --------------------------------------------------------------------- */
+.wear-marks, .wear-reach, .wear-sun, .wear-routes,
+.wear-dogear, .wear-maker, .wear-staples { display: none; }
+
+/* Dead clicks: scuffs where people click on something that does nothing,
+   or just beside a button (the fake door). On top, but faint and small. */
+html.wear-on .wear-marks {
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2;
+	overflow: visible;
+	pointer-events: none;
+	}
+
+/* How far down: the left edge of the page is worn as far as people get. */
+html.wear-on .wear-reach {
+	display: block;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: var(--u);
+	z-index: -1;
+	pointer-events: none;
+	-webkit-mask-image: linear-gradient(90deg, #000, transparent);
+	mask-image: linear-gradient(90deg, #000, transparent);
+	}
+
+/* The tan line: the screen yellows in the sun, except in a circle behind
+   the round button, which always covers it (the can in a cup holder). */
+html.wear-on .wear-sun {
+	display: block;
+	position: fixed;
+	inset: 0;
+	z-index: 899;
+	pointer-events: none;
+	background: #F1DFAE;
+	mix-blend-mode: multiply;
+	opacity: calc(var(--wsun) * .22);
+	-webkit-mask-image: radial-gradient(circle at calc(100% - var(--u) - 22px) calc(100% - var(--u) - 22px), transparent 30px, #000 31px);
+	mask-image: radial-gradient(circle at calc(100% - var(--u) - 22px) calc(100% - var(--u) - 22px), transparent 30px, #000 31px);
+	}
+
+/* Worn through: the menu item of where you are wears through to the grid
+   paper underneath (--gx, --gy line the grid up with the page). */
+html.wear-on #menu .nav-item {
+	isolation: isolate;
+	z-index: 1;   /* above the routes */
+	}
+html.wear-on #menu .nav-item.is-active::before,
+.wear-demo .nav-item.is-active::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	opacity: var(--wh);
+	background:
+		radial-gradient(ellipse calc(28% + var(--wh) * 22%) calc(34% + var(--wh) * 26%) at calc(50% + var(--wr) * 8%) 55%,
+			transparent 62%, rgba(140,112,72,.16) 70%, transparent 78%),
+		linear-gradient(var(--grid-line) 1px, transparent 1px) var(--gx, 0) var(--gy, 0) / var(--u) var(--u),
+		linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) var(--gx, 0) var(--gy, 0) / var(--u) var(--u),
+		#F4F1EF;
+	-webkit-mask-image: radial-gradient(ellipse calc(28% + var(--wh) * 22%) calc(34% + var(--wh) * 26%) at calc(50% + var(--wr) * 8%) 55%, #000 66%, transparent 78%);
+	mask-image: radial-gradient(ellipse calc(28% + var(--wh) * 22%) calc(34% + var(--wh) * 26%) at calc(50% + var(--wr) * 8%) 55%, #000 66%, transparent 78%);
+	}
+
+/* Worn through: a much-touched card shows the grid through it where the
+   thumb goes (the rug that turned into cobbles). */
+html.wear-on .article-figure::before,
+.wear-demo .article-figure::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border-radius: inherit;
+	pointer-events: none;
+	opacity: calc(max(0, var(--wt) - .45) * 1.8);
+	background:
+		linear-gradient(rgba(37,40,42,.3) 1px, transparent 1px) 0 0 / var(--u) var(--u),
+		linear-gradient(90deg, rgba(37,40,42,.3) 1px, transparent 1px) 0 0 / var(--u) var(--u),
+		rgba(244,241,239,.45);
+	-webkit-mask-image: radial-gradient(circle at calc(55% + var(--wr) * 25%) calc(62% - var(--wr) * 18%), #000 9%, transparent 24%);
+	mask-image: radial-gradient(circle at calc(55% + var(--wr) * 25%) calc(62% - var(--wr) * 18%), #000 9%, transparent 24%);
+	}
+html.wear-on .article-figure,
+.wear-demo .article-figure { isolation: isolate; }
+
+/* Dog-ears: a page that arrives through shared links gets a folded corner,
+   like a banknote that went round (--we). */
+html.wear-on .header { position: relative; }
+html.wear-on .wear-dogear,
+.wear-demo .wear-dogear {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 1;
+	width: calc(var(--we) * 2 * var(--u));
+	height: calc(var(--we) * 2 * var(--u));
+	pointer-events: none;
+	background: linear-gradient(225deg, #F4F1EF 50%, #E8E2DA 50%, #D6CFC5);
+	box-shadow: -1px 1px 3px rgba(0,0,0,.14);
+	border-bottom-left-radius: 2px;
+	}
+
+/* The maker: a worn spot beside the title, where the maker stands (the
+   floor of a barber's shop): lighter where worn (--wm). */
+html.wear-on .wear-maker,
+.wear-demo .wear-maker {
+	display: block;
+	position: absolute;
+	left: max(0px, calc(var(--side) - 3 * var(--u)));
+	top: calc(50% - 1.5 * var(--u));
+	width: calc(2.5 * var(--u));
+	height: calc(3 * var(--u));
+	pointer-events: none;
+	background:
+		radial-gradient(ellipse 50% 50% at 50% 50%, rgba(255,255,255, calc(var(--wm) * .7)), rgba(255,255,255, calc(var(--wm) * .35)) 40%, transparent 56%),
+		radial-gradient(ellipse 50% 50% at 50% 50%, transparent 40%, rgba(120,98,70, calc(var(--wm) * .13)) 60%, transparent 82%);
+	filter: blur(3px);
+	}
+
+/* Staples: every visit leaves one at the foot of the page (the lamp post). */
+html.wear-on .footer.has-staples {
+	min-height: calc(5 * var(--u));
+	padding-top: var(--u);
+	box-sizing: border-box;
+	}
+html.wear-on .footer.has-staples .wear-staples {
+	display: block;
+	width: min(var(--col), calc(100% - 2 * var(--u)));
+	height: calc(3 * var(--u));
+	margin: 0 auto;
+	}
+
+/* Routes: the ways between sections wear into the menu like tyre marks. */
+/* (.nav is sticky, which already holds the canvas.) */
+html.wear-on .wear-routes {
+	display: block;
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	}
+
+/* The slider is worn where people leave it (the weights used most). The
+   track is drawn here, so the worn spots sit under the thumb. */
+.wear-range {
+	position: relative;
+	margin-top: calc(var(--u) / 2);
+	height: var(--u);
+	}
+.wear-panel .wear-range input[type="range"] {
+	-webkit-appearance: none;
+	appearance: none;
+	position: relative;
+	z-index: 1;
+	display: block;
+	width: 100%;
+	height: var(--u);
+	margin: 0;
+	background: transparent;
+	}
+.wear-range input[type="range"]::-webkit-slider-runnable-track { height: 4px; background: transparent; }
+.wear-range input[type="range"]::-moz-range-track { height: 4px; background: transparent; }
+.wear-range input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 16px;
+	height: 16px;
+	margin-top: -6px;
+	border-radius: 50%;
+	background: #25282A;
+	box-shadow: 0 0 0 2px #FCFAFA;
+	}
+.wear-range input[type="range"]::-moz-range-thumb {
+	width: 16px;
+	height: 16px;
+	border: 0;
+	border-radius: 50%;
+	background: #25282A;
+	box-shadow: 0 0 0 2px #FCFAFA;
+	}
+.wear-track {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: calc(50% - 3px);
+	height: 6px;
+	border-radius: 3px;
+	background-color: rgba(37,40,42,.3);
+	pointer-events: none;
+	}
+html:not(.wear-on) .wear-panel .wear-track { background-image: none !important; }
+
+/* Examples of these on the Webartrose page. */
+.wear-demo[data-scuffs] { position: relative; }
+.wear-demo svg.wear-scuffs {
+	position: absolute;
+	left: 0;
+	top: 0;
+	pointer-events: none;
+	}
+.wear-demo canvas.wear-staples {
+	display: block;
+	width: 100%;
+	height: calc(3 * var(--u));
+	}
+.wear-demo .wear-menubox { position: relative; }
+.wear-demo .wear-menu {
+	display: flex;
+	justify-content: space-around;
+	background: #FCFAFA;
+	}
+.wear-demo .wear-menu .nav-item { position: relative; z-index: 1; isolation: isolate; padding: var(--u) 0; }
+.wear-demo canvas.wear-routes {
+	display: block;
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	}
+.wear-demo .wear-head {
+	position: relative;
+	--side: calc(3 * var(--u));
+	padding: var(--u) 0 var(--u) var(--side);
+	font-weight: bold;
+	font-size: 1.4em;
+	line-height: calc(2 * var(--u));
+	}
+.wear-demo .wear-head .wear-dogear { right: calc(-1 * var(--u)); top: calc(-1 * var(--u)); }
+.wear-demo .wear-edgebox {
+	position: relative;
+	padding-left: calc(2 * var(--u));
+	}
+.wear-demo .wear-edge {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: var(--u);
+	background: linear-gradient(rgba(120,98,70, calc(var(--wd, 0) * .4)), rgba(120,98,70, calc(var(--wd, 0) * .32)) 30%,
+		rgba(120,98,70, calc(var(--wd, 0) * .12)) 55%, transparent 80%);
+	-webkit-mask-image: linear-gradient(90deg, #000, transparent);
+	mask-image: linear-gradient(90deg, #000, transparent);
+	}
+.wear-demo .wear-slider {
+	position: relative;
+	height: var(--u);
+	margin: var(--u) 0;
+	}
+.wear-demo .wear-slider .wear-track { background-color: rgba(37,40,42,.3); }
+.wear-demo .wear-slider .wear-thumb {
+	position: absolute;
+	top: calc(50% - 8px);
+	left: calc(25% - 8px);
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: #25282A;
+	box-shadow: 0 0 0 2px #FCFAFA;
+	}
+.wear-demo .wear-screen {
+	position: relative;
+	height: calc(6 * var(--u));
+	background: #F4F1EF;
+	overflow: hidden;
+	}
+.wear-demo .wear-screen::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: #F1DFAE;
+	mix-blend-mode: multiply;
+	opacity: calc(var(--wsun) * .5);
+	-webkit-mask-image: radial-gradient(circle at calc(100% - var(--u) - 22px) calc(100% - var(--u) - 22px), transparent 30px, #000 31px);
+	mask-image: radial-gradient(circle at calc(100% - var(--u) - 22px) calc(100% - var(--u) - 22px), transparent 30px, #000 31px);
+	}
+.wear-demo .wear-screen .wear-button {
+	position: absolute;
+	right: var(--u);
+	bottom: var(--u);
+	pointer-events: none;
+	}
+@media print { .wear-sun, .wear-marks, .wear-reach, .wear-routes, .wear-staples { display: none !important; } }

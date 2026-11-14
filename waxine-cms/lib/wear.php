@@ -12,15 +12,30 @@
  * "img /images/x.jpg"): how often it was touched, pressed and seen. Per
  * page: how often the pointer passed each square of the grid.
  *
+ * Since Nov 2026 also (counted the same anonymous way):
+ *   h <path>      page views ("you are here"; a staple per visit)
+ *   e <path>      arrivals from outside the site: a shared link going round
+ *   s <0..20>     where visitors set the Webartrose time slider
+ *   r <a>><b>     a walk from one menu section to another
+ *   m <path>      edits by the maker, counted by the admin on save (never
+ *                 accepted from the public endpoint)
+ * and per page, per grid square: clicks on things that do nothing (a dead
+ * click, or a near miss next to a button), and how far down people got.
+ * A mark only shows once it was counted a few times, so it never gives
+ * away what one visitor did (a worn keypad gives away the code).
+ *
  * assets/wear.js records and shows it; public/wear.php is the endpoint.
  */
 
-const WEAR_KINDS       = ['a', 'img', 'card', 't', 'b'];   // link, image, card, text block, button
+const WEAR_KINDS       = ['a', 'img', 'card', 't', 'b', 'h', 'e', 's', 'r', 'm'];
+const WEAR_PUBLIC      = ['a', 'img', 'card', 't', 'b', 'h', 'e', 's', 'r'];   // not m: only the admin counts edits
+const WEAR_MAX_MARKS   = 60;    // dead clicks in one report
+const WEAR_MIN_SHOWN   = 3;     // a dead-click mark shows once it was counted this often
 const WEAR_MAX_EVENTS  = 200;   // per request
 const WEAR_MAX_STEP    = 3;     // how much one page view can add to one counter
 const WEAR_MAX_CELLS   = 600;   // grid squares in one trail report
 const WEAR_MAX_CELL_N  = 5;     // passes one page view can add to one square
-const WEAR_MAX_READ    = 400;   // keys in one read request
+const WEAR_MAX_READ    = 600;   // keys in one read request
 
 /** Create the tables on first use, so no manual SQL step is needed. */
 function ensure_wear_tables(): void
@@ -45,6 +60,17 @@ function ensure_wear_tables(): void
            cy   SMALLINT     NOT NULL,
            n    INT UNSIGNED NOT NULL DEFAULT 0,
            PRIMARY KEY (page, cx, cy)
+         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
+    );
+    // c: a click on something that does nothing; d: how far down a page view got (cy, cx = 0).
+    exec_sql(
+        'CREATE TABLE IF NOT EXISTS wear_mark (
+           page VARCHAR(191) NOT NULL,
+           kind CHAR(1)      NOT NULL,
+           cx   SMALLINT     NOT NULL,
+           cy   SMALLINT     NOT NULL,
+           n    INT UNSIGNED NOT NULL DEFAULT 0,
+           PRIMARY KEY (page, kind, cx, cy)
          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci'
     );
     $done = true;
@@ -72,16 +98,17 @@ function wear_is_bot(string $ua): bool
 
 /**
  * Add one page view's worth of use.
- * $events: [[key, touch, press, seen], ...]; $trail: [[cx, cy, n], ...].
+ * $events: [[key, touch, press, seen], ...]; $trail: [[cx, cy, n], ...];
+ * $marks: [[kind, cx, cy, n], ...] with kind c (dead click) or d (depth).
  */
-function wear_record(string $page, array $events, array $trail): int
+function wear_record(string $page, array $events, array $trail, array $marks = []): int
 {
     ensure_wear_tables();
     $added = 0;
     foreach (array_slice($events, 0, WEAR_MAX_EVENTS) as $e) {
         if (!is_array($e) || count($e) < 4 || !is_string($e[0])) continue;
         $k = wear_key($e[0]);
-        if ($k === null) continue;
+        if ($k === null || !in_array(strstr($k, ' ', true), WEAR_PUBLIC, true)) continue;
         [$t, $p, $s] = array_map(fn($v) => max(0, min(WEAR_MAX_STEP, (int) $v)), [$e[1], $e[2], $e[3]]);
         if ($t + $p + $s === 0) continue;
         exec_sql(
@@ -103,7 +130,42 @@ function wear_record(string $page, array $events, array $trail): int
         );
         $added++;
     }
+    $depth = false;
+    foreach (array_slice($marks, 0, WEAR_MAX_MARKS + 1) as $mk) {
+        if (!is_array($mk) || count($mk) < 4 || !in_array($mk[0], ['c', 'd'], true)) continue;
+        [$x, $y] = [(int) $mk[1], (int) $mk[2]];
+        if ($mk[0] === 'd') {                          // one depth per page view
+            if ($depth) continue;
+            $depth = true; $x = 0; $n = 1;
+        } else {
+            $n = max(0, min(WEAR_MAX_STEP, (int) $mk[3]));
+        }
+        if ($n === 0 || $x < -80 || $x > 80 || $y < 0 || $y > 4000) continue;
+        exec_sql(
+            'INSERT INTO wear_mark (page, kind, cx, cy, n) VALUES (?, ?, ?, ?, ?)
+             ON DUPLICATE KEY UPDATE n = n + VALUES(n)',
+            [$page, $mk[0], $x, $y, $n]
+        );
+        $added++;
+    }
     return $added;
+}
+
+/** The maker edited a page (called by the admin on save): wear at the maker's spot. */
+function wear_maker(string $path): void
+{
+    $k = wear_key('m ' . $path);
+    if ($k === null) return;
+    try {
+        ensure_wear_tables();
+        exec_sql(
+            'INSERT INTO wear (k, touch, press, seen) VALUES (?, 1, 0, 0)
+             ON DUPLICATE KEY UPDATE touch = touch + 1, last_at = CURRENT_TIMESTAMP',
+            [$k]
+        );
+    } catch (Throwable $e) {
+        error_log('wear_maker: ' . $e->getMessage());   // saving the page matters more
+    }
 }
 
 /** The wear of the given elements, the trail of one page, and since when the site keeps count. */
@@ -126,10 +188,15 @@ function wear_read(string $page, array $keys): array
         fn($r) => [(int) $r['cx'], (int) $r['cy'], (int) $r['n']],
         q('SELECT cx, cy, n FROM wear_trail WHERE page = ?', [$page])
     );
+    $marks = array_map(
+        fn($r) => [$r['kind'], (int) $r['cx'], (int) $r['cy'], (int) $r['n']],
+        q("SELECT kind, cx, cy, n FROM wear_mark WHERE page = ? AND (kind = 'd' OR n >= ?)", [$page, WEAR_MIN_SHOWN])
+    );
     $since = q1('SELECT MIN(first_at) AS s FROM wear');
     return [
         'elements' => (object) $elements,
         'trail'    => $trail,
+        'marks'    => $marks,
         'since'    => $since['s'] ?? null,
     ];
 }

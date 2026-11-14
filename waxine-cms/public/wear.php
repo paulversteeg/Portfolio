@@ -3,8 +3,8 @@
  * Webartrose endpoint (see lib/wear.php). JSON in, JSON out.
  *
  *   POST {"op":"read","page":"/talks","keys":["a /talks", ...]}
- *        -> {"elements":{key:[touch,press,seen,idleDays]}, "trail":[[cx,cy,n]], "since":"..."}
- *   POST {"op":"hit","page":"/talks","events":[[key,t,p,s]], "trail":[[cx,cy,n]]}
+ *        -> {"elements":{key:[touch,press,seen,idleDays]}, "trail":[[cx,cy,n]], "marks":[[kind,cx,cy,n]], "since":"..."}
+ *   POST {"op":"hit","page":"/talks","events":[[key,t,p,s]], "trail":[[cx,cy,n]], "marks":[[kind,cx,cy,n]]}
  *        -> {"ok":true}   (sent with navigator.sendBeacon when a page is left)
  */
 require_once dirname(__DIR__) . '/lib/db.php';
@@ -46,7 +46,8 @@ try {
         $n = wear_record(
             $page,
             is_array($in['events'] ?? null) ? $in['events'] : [],
-            is_array($in['trail'] ?? null) ? $in['trail'] : []
+            is_array($in['trail'] ?? null) ? $in['trail'] : [],
+            is_array($in['marks'] ?? null) ? $in['marks'] : []
         );
         wear_out(200, ['ok' => true, 'counted' => $n]);
     }
