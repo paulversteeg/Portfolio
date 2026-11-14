@@ -34,7 +34,7 @@ $prev = q1('SELECT title, slug FROM posts WHERE status="published" AND published
 $pageTitle = $post['title'];
 include __DIR__ . '/inc/head.php';
 ?>
-<div class="header cover angle" style="background-image:<?= esc(title_gradient($post['title'])) ?>">
+<div class="header cover angle" style="background-image:<?= esc(title_gradient($post['title'])) ?>" data-published="<?= esc(date('Y-m-d', strtotime($post['published_at']))) ?>">
   <div class="up-one-level"><a href="/thoughts" class="first" title="All articles">Other thoughts</a></div>
   <h1 class="article-detail-title"><?= esc($post['title']) ?></h1>
   <time class="article-detail-date"><?= esc(date("F j, 'y", strtotime($post['published_at']))) ?></time>

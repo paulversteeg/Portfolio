@@ -26,5 +26,6 @@ Can:
 
 - Write, edit and delete posts and static pages (about, talks, publications) through `/admin`, including image uploads.
 - Import old `thoughts/` story files, keeping title, date, slug and colour.
+- Count anonymous use per element and show it as wear on the site (Webartrose, DD-003): no cookies, nothing stored about visitors.
 
 Cannot (yet): not provided.

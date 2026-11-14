@@ -20,3 +20,10 @@ last-reviewed:           # YYYY-MM-DD
 - **Alternatives considered:** A 24px grid with 24px text lines (as in the mock-up), which would have changed the site's type sizes; a grid drawn only as decoration, without aligning the elements.
 - **Consequences:** New styles use multiples of `--u` for line heights and vertical spacing, and inset shadows instead of borders that add height. Menu items in their own columns only line up with the grid at full width. Live since 2026-11-13.
 
+## DD-003: Webartrose: the site shows the signs of its use
+- **Date:** 2026-11-14
+- **Context:** Paul's graduation concept (Interaction Design): everything around us wears with use, and that gives it character. Applied to the site as a layer, it is also the "interesting gimmick to discover" the brief asks for.
+- **Decision:** Anonymous counts of how all visitors touch, press and see each element, and where the pointer walks, drawn as wear on the element itself. On by default at the real level; a control to switch it off and a time slider (as new, now, up to 30 years ahead). Details in `features/webartrose/`.
+- **Alternatives considered:** wear per visitor, stored in their own browser; simulated wear without counting; off by default; letting things break at the far end of the slider.
+- **Consequences:** Wear never shifts the layout or makes the site unusable, and stores nothing about visitors. New interactive elements get a wear key in `wear.js` when they should wear.
+

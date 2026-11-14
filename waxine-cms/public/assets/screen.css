@@ -1741,3 +1741,224 @@ li.listing-result,
 .next-article-link:hover {
 	box-shadow: none;
 	}
+
+/* =====================================================================
+   Webartrose: signs of use
+   =====================================================================
+   A layer over the site (assets/wear.js): everything wears with the use
+   of all visitors together. wear.js sets, on each thing that wears:
+     --wt  touched   0..1     --ws  seen (in the sun, read)   0..1
+     --wp  pressed   0..1     --wa  age of the story          0..1
+     --wr  this thing's own character, -1..1 (which way it leans, where
+           the fingerprint sits), the same on every visit
+   Effects only move things visually (rotate, translate, colour, shadow):
+   the layout, and with it the grid, never shifts. At the most worn
+   everything stays readable (ink fades toward a brown dark enough to keep
+   text above 4.5:1) and clickable. Off when html has no .wear-on.
+   ===================================================================== */
+
+:root {
+	--wt: 0; --wp: 0; --ws: 0; --wa: 0; --wr: 0;
+	}
+
+/* The floor: where the pointer walks, the grid is rubbed out a little. */
+#wrapper {
+	position: relative;
+	isolation: isolate;
+	}
+.wear-trail {
+	display: none;
+	position: absolute;
+	top: 0;
+	z-index: -1;
+	pointer-events: none;
+	image-rendering: auto;   /* one pixel per square, smoothed into soft paths */
+	filter: blur(calc(var(--u) * .6));
+	}
+html.wear-on .wear-trail { display: block; }
+
+/* Links: grease from fingers; the underline rubs thin; the ink wears. */
+html.wear-on :is(.content, .article-nav, .up-one-level) a:not(.link-figure) {
+	text-shadow: 0 0 calc(var(--wt) * 4px) rgba(150,120,70, calc(var(--wt) * .35));
+	border-bottom-color: color-mix(in srgb, currentColor calc(100% - var(--wt) * 55%), transparent);
+	color: color-mix(in srgb, currentColor calc(100% - var(--wp) * 18%), #6B5D4C);
+	}
+
+/* Menu items: work loose and hang crooked; a smudge where they are touched. */
+html.wear-on #menu .nav-item {
+	rotate: calc(var(--wr) * var(--wp) * 2deg);
+	translate: 0 calc(var(--wp) * 2px);
+	background-image: radial-gradient(ellipse 60% 40% at calc(50% + var(--wr) * 15%) 50%,
+		rgba(150,120,70, calc(var(--wt) * .09)), transparent 70%);
+	}
+html.wear-on #menu .nav-item strong {
+	text-shadow: 0 0 calc(var(--wt) * 3px) rgba(150,120,70, calc(var(--wt) * .3));
+	}
+
+/* Cards: corners worn round, a tilt, a fingerprint, colours bleached. */
+html.wear-on .article-figure {
+	position: relative;
+	rotate: calc(var(--wr) * var(--wt) * 1.5deg);
+	border-radius: calc(var(--wt) * 14px);
+	filter: saturate(calc(1 - var(--ws) * .45)) sepia(calc(var(--ws) * .3));
+	}
+html.wear-on .article-figure::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	pointer-events: none;
+	background:
+		radial-gradient(circle at calc(55% + var(--wr) * 25%) calc(62% - var(--wr) * 18%),
+			rgba(255,255,255, calc(var(--wt) * .22)) 0, rgba(255,255,255, calc(var(--wt) * .1)) 12%, transparent 22%),
+		linear-gradient(rgba(240,220,170, calc(var(--ws) * .12)), rgba(240,220,170, calc(var(--ws) * .12)));
+	mix-blend-mode: soft-light;
+	}
+
+/* Photos: fade and yellow in the sun; corners rounded where they are handled. */
+html.wear-on :is(.content, .header) img {
+	filter:
+		sepia(calc(var(--ws) * .35 + var(--wa) * .4))
+		saturate(calc(1 - var(--ws) * .3 - var(--wa) * .25))
+		contrast(calc(1 - var(--ws) * .08));
+	border-radius: calc(var(--wt) * 12px);
+	}
+
+/* Text: the ink fades toward brown; a thumb mark at the edge where it is held. */
+html.wear-on .content :is(p, h2, h3, li, blockquote),
+html.wear-on .header:not(.cover) h1 {   /* not on a story's coloured cover: its title stays light */
+	color: color-mix(in srgb, currentColor calc(100% - var(--ws) * 22% - var(--wa) * 10%), #6B5D4C);
+	}
+html.wear-on .content :is(p, li, blockquote) {
+	background-image: radial-gradient(ellipse 3em 4em at 0 calc(50% + var(--wr) * 30%),
+		rgba(160,130,80, calc(var(--ws) * .09)), transparent 70%);
+	}
+
+/* Buttons: pressed in, outline rubbed away, a darker worn middle. */
+html.wear-on :is(.publication, .talk) ul.bullit li:has(a),
+html.wear-on .all-projects > summary {
+	translate: 0 calc(var(--wp) * 1px);
+	rotate: calc(var(--wr) * var(--wp) * 1deg);
+	}
+html.wear-on :is(.publication, .talk) ul.bullit li:has(a) {
+	box-shadow:
+		inset 0 0 0 1px color-mix(in srgb, #D9D4D0 calc(100% - var(--wp) * 60%), transparent),
+		inset 0 calc(var(--wp) * -6px) calc(var(--wp) * 10px) rgba(120,100,70, calc(var(--wp) * .14));
+	border-radius: calc(2px + var(--wp) * 8px);
+	}
+
+/* Old neon: a much-pressed menu item or button flickers now and then, and
+   something nobody touched for months flickers once as it comes back on.
+   Never more than a few flashes, small, and not at all with reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+	html.wear-on .wear-flicker {
+		animation: wear-flicker calc(9s + var(--wr) * 4s) steps(1, end) infinite;
+		}
+	html.wear-on .wear-warmup {
+		animation: wear-warmup 1.6s steps(1, end) 1;
+		}
+}
+@keyframes wear-flicker {
+	0%, 90%, 100% { opacity: 1; }
+	91% { opacity: .6; }
+	92% { opacity: 1; }
+	94% { opacity: .75; }
+	95% { opacity: 1; }
+	}
+@keyframes wear-warmup {
+	0% { opacity: .35; }
+	12% { opacity: .9; }
+	20% { opacity: .5; }
+	34% { opacity: 1; }
+	45% { opacity: .7; }
+	60%, 100% { opacity: 1; }
+	}
+
+/* The control: a small round button at the bottom right, and its panel. */
+.wear-control {
+	position: fixed;
+	right: var(--u);
+	bottom: var(--u);
+	z-index: 900;
+	font-size: 15px;
+	line-height: var(--u);
+	}
+.wear-button {
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: #FCFAFA;
+	color: #25282A;
+	box-shadow: 0 .4rem 1.2rem -.3rem rgba(0,0,0,.3), inset 0 0 0 1px rgba(37,40,42,.12);
+	cursor: pointer;
+	}
+.wear-button:hover,
+.wear-button[aria-expanded="true"] {
+	background: #fff;
+	}
+.wear-button:focus-visible,
+.wear-panel :focus-visible {
+	outline: 2px solid #25282A;
+	outline-offset: 2px;
+	}
+.wear-panel {
+	position: absolute;
+	right: 0;
+	bottom: calc(44px + var(--u) / 2);
+	width: calc(18 * var(--u));
+	max-width: calc(100vw - 2 * var(--u));
+	padding: var(--u);
+	box-sizing: border-box;
+	background: #FCFAFA;
+	color: #25282A;
+	border-radius: 6px;
+	box-shadow: 0 .8rem 2rem -.6rem rgba(0,0,0,.35), inset 0 0 0 1px rgba(37,40,42,.1);
+	}
+.wear-panel[hidden] { display: none; }
+.wear-panel p { margin: 0 0 var(--u); }
+.wear-title {
+	font-weight: bold;
+	font-size: 17px;
+	}
+.wear-intro {
+	color: #4A4D50;
+	}
+.wear-switch {
+	display: flex;
+	align-items: center;
+	gap: calc(var(--u) / 2);
+	min-height: calc(2 * var(--u));
+	cursor: pointer;
+	}
+.wear-switch input,
+.wear-panel input[type="range"] {
+	accent-color: #25282A;
+	}
+.wear-label {
+	display: flex;
+	justify-content: space-between;
+	margin-top: calc(var(--u) / 2);
+	}
+.wear-label output {
+	color: #4A4D50;
+	}
+.wear-panel input[type="range"] {
+	width: 100%;
+	margin: calc(var(--u) / 2) 0 0;
+	}
+.wear-panel input[type="range"]:disabled { opacity: .4; }
+.wear-scale {
+	position: relative;
+	height: var(--u);
+	font-size: 12px;
+	color: #5A5D60;
+	}
+.wear-scale span { position: absolute; top: 0; white-space: nowrap; }
+.wear-scale span:nth-child(1) { left: 0; }
+.wear-scale span:nth-child(2) { left: 25%; translate: -50% 0; }   /* "now" sits a quarter along the slider */
+.wear-scale span:nth-child(3) { right: 0; }
+@media print { .wear-control, .wear-trail { display: none !important; } }
