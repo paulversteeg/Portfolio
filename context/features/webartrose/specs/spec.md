@@ -15,6 +15,7 @@ last-reviewed: 2026-11-14
 | Counting and drawing, control | `waxine-cms/public/assets/wear.js` |
 | Effects | "Webartrose" section at the end of `waxine-cms/public/assets/screen.css` |
 | Story age | `data-published` on the cover in `public/post.php` |
+| Explanation page | `/webartrose`, created once by `waxine-cms/bin/apply_webartrose_page.php` (editable in the admin; not in the menu); linked from the panel |
 
 ## What is counted
 
