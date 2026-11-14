@@ -467,7 +467,8 @@
     ctx.clearRect(0, 0, w, h);
     ctx.lineCap = 'round';
     pairs.forEach(function (p) {
-      var a = Math.min(1, Math.log10(1 + p[2] * m) / 3), from = items[p[0]], to = items[p[1]];
+      // Slower than other wear: a route needs many walks before it shows.
+      var a = Math.min(1, Math.log10(1 + p[2] * m / 4) / 4.5), from = items[p[0]], to = items[p[1]];
       if (a <= 0 || !from || !to) return;
       // Only in the empty bands above and below the titles, never across them:
       // to the right along the bottom, back to the left along the top.
@@ -475,8 +476,8 @@
       var y = right ? h - u / 2 : u / 2, bulge = Math.min(u * .3, Math.abs(to.x - from.x) * .05) * (right ? -1 : 1);
       for (var k = 0; k < 2 + Math.round(a * 3); k++) {
         var j = (r() - .5) * u * .3;
-        ctx.strokeStyle = 'rgba(95,80,60,' + (.04 + a * .08).toFixed(3) + ')';
-        ctx.lineWidth = 1.5 + a * 2.5 * r();
+        ctx.strokeStyle = 'rgba(95,80,60,' + (.015 + a * .05).toFixed(3) + ')';
+        ctx.lineWidth = 2 + a * 3 * r();
         ctx.beginPath();
         ctx.moveTo(from.x, y + j);
         ctx.quadraticCurveTo((from.x + to.x) / 2, y + bulge + j, to.x, y + j);
