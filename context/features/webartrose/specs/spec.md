@@ -58,6 +58,8 @@ Wear per counter is `log10(1 + n × f) / 4`, capped at 1: ten uses show, ten tho
 | The maker | `m` | a worn spot beside the title (`--wm`) |
 | A waist | press on buttons | the outline narrows in the middle |
 
+Related work (on the explanation page): Hill, Hollan et al., *Edit wear and read wear* (CHI 1992, doi 10.1145/142750.142751); Matejka, Grossman, Fitzmaurice, *Patina: Dynamic heatmaps for visualizing application usage* (Autodesk Research, CHI 2013). Webartrose started independently, in Paul's graduation; what it adds: shared wear shown to every visitor, as physical wear on the element, with a time slider.
+
 At the far end (30 years, full sun, graphite and a thumb mark on the same spot) text stays above 4.5:1.
 
 ## Limits against misuse

@@ -26,6 +26,7 @@ const APPLY_ON = 'all';
 /** md5 of the page text as earlier versions of this script wrote it. */
 const EARLIER_BODIES = [
     '49f8b1298d4baa917e836576758722a8',   // v1, 14 Nov 2026: the first eight signs
+    'e6c178fe3bd1f4778ab97be71ca228d6',   // v2, 14 Nov 2026: eighteen signs, without related work
 ];
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
@@ -150,6 +151,10 @@ PAIR_SLIDER
 <h2>What is counted</h2>
 <p>Only anonymous counts: how often each element was touched, pressed and seen, how often the pointer passed each square of the grid, where clicks landed on things that do nothing, how far down a page people got, how often a page was opened and how often from a link elsewhere, the ways between the sections of the menu, and where the slider was left. No cookies, no IP addresses, nothing that tells visitors apart. Browsers that ask not to be tracked are not counted.</p>
 <p>Wear can still give things away: on a worn keypad you can read the code. So a scuff only appears once a spot was clicked by several people, never for one visitor alone.</p>
+
+<h2>Related work</h2>
+<p>Webartrose started as an idea during my graduation in Interaction Design. Only while building it here did I find out that others had been thinking along the same lines; I had not come across their work in my research back then. In 1992 Will Hill, Jim Hollan and colleagues described <a href="https://doi.org/10.1145/142750.142751">edit wear and read wear</a>: documents that keep a record of how they were read and edited, shown beside the scrollbar. In 2013 Autodesk Research made <a href="https://research.autodesk.com/app/uploads/2023/03/patina-smart-heatmaps-for.pdf_recCytk45J1290FTT.pdf">Patina</a>: heatmaps of how an application is used, laid over its own interface.</p>
+<p>What connects them is the question I find most interesting: what does digital interaction leave behind? Webartrose gives its own answer. The use of all visitors together is shown to every visitor, as wear on the thing itself rather than in a dashboard, with a look ahead through time.</p>
 HTML;
 
 $body = strtr($body, [
