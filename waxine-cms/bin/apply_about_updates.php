@@ -91,6 +91,19 @@ if (TEXT_ON === 'all' || TEXT_ON === $env) {
     }
 }
 
+// Mission (Nov 2026): from the 2015 Dynamic Design wording to the design
+// strategist of today, keeping its roots. MISSION_ON: 'staging' while reviewed.
+const MISSION_ON = 'staging';
+if (MISSION_ON === 'all' || MISSION_ON === $env) {
+    $mission = '<p>My mission is to turn complex digital challenges into clear choices. I start from the people who use a service and the context they use it in, whether that is a traveller at the counter or a technician on a ladder, and connect that to what the business needs. That way of thinking grew from my early work on dynamic design: interfaces that adapt to someone&rsquo;s personal context. I like to get real as quickly as possible: research, a first concept and testing with real users, so that decisions rest on what people actually do, and strategy stays connected to what can be built.</p>';
+    $new = preg_replace('/<p[^>]*>\s*My mission is to challenge user centered design.*?<\/p>/s', $mission, $body, 1, $n);
+    if ($n) {
+        $body = $new;
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: mission rewritten\n";
+    }
+}
+
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; exit(0); }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
