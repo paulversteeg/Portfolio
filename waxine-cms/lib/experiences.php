@@ -46,6 +46,7 @@ function ensure_experiences_table(): void
         'slug'         => 'ADD COLUMN slug VARCHAR(160) NULL AFTER subtitle, ADD UNIQUE KEY uq_experiences_slug (slug)',
         'on_work'      => 'ADD COLUMN on_work TINYINT(1) NOT NULL DEFAULT 0 AFTER is_highlight',
         'work_summary' => 'ADD COLUMN work_summary TEXT NULL AFTER description',
+        'work_question' => 'ADD COLUMN work_question VARCHAR(255) NULL AFTER work_summary',
         'work_body'    => 'ADD COLUMN work_body MEDIUMTEXT NULL AFTER work_summary',
     ];
     foreach ($add as $col => $sql) {
@@ -104,20 +105,39 @@ function experience_summary(array $e): string
 }
 
 /**
- * The Work cards, in the same shape and title colours as the Thoughts
- * cards, so both pages read as one site.
+ * The question a case answered, for the Work page: the "question" field,
+ * else the first sentence of the summary or description.
+ */
+function work_question(array $e): string
+{
+    $q = trim((string) ($e['work_question'] ?? ''));
+    if ($q !== '') return $q;
+    $s = preg_replace('/\s+/', ' ', experience_summary($e));
+    if (preg_match('/^(.{20,220}?[.!?])(\s|$)/u', $s, $m)) return $m[1];
+    return mb_strimwidth($s, 0, 160, '…');
+}
+
+/**
+ * The Work page: each project as a spread, a colour panel (the case cover in
+ * small, same title colours) beside the question it answered, left and right
+ * in turn. The panel is a card for Webartrose, so it wears like one.
  */
 function render_work(array $items): string
 {
     if (!$items) return '';
-    $html = "<ol class=\"article-listing work-listing\">\n";
+    $html = "<ol class=\"work-spreads\">\n";
     foreach ($items as $e) {
-        $html .= '  <li class="listing-result">'
-               . '<a href="' . esc(experience_url($e)) . '" class="link-figure">'
-               . '<figure class="article-figure" style="background-image:' . esc(title_gradient($e['title'])) . '">'
-               . '<span class="article-date">' . esc($e['subtitle']) . '</span>'
+        $meta = implode(' · ', array_filter([trim((string) ($e['employer'] ?? '')), trim((string) ($e['period'] ?? ''))], fn ($x) => $x !== ''));
+        $html .= '  <li><a href="' . esc(experience_url($e)) . '" class="link-figure work-spread">'
+               . '<figure class="article-figure work-panel" style="background-image:' . esc(title_gradient($e['title'])) . '">'
+               . ($e['subtitle'] !== '' ? '<span class="article-date">' . esc($e['subtitle']) . '</span>' : '')
                . '<strong class="article-title">' . esc($e['title']) . '</strong>'
-               . "</figure></a></li>\n";
+               . '</figure>'
+               . '<span class="work-text">'
+               . '<span class="work-question">' . esc(work_question($e)) . '</span>'
+               . ($meta !== '' ? '<span class="work-meta">' . esc($meta) . '</span>' : '')
+               . '<span class="work-more">Read the case</span>'
+               . "</span></a></li>\n";
     }
     return $html . "</ol>\n";
 }

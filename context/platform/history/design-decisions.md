@@ -29,3 +29,10 @@ last-reviewed:           # YYYY-MM-DD
 - **Consequences:** Wear never shifts the layout or makes the site unusable, and stores nothing about visitors. New interactive elements get a wear key in `wear.js` when they should wear.
 - **Extended 2026-11-14:** after a series of photos of things worn by time (Paul's inspiration), ten more signs: dead clicks and near misses, how far down people get, the slider worn where it is left, a tan line behind the round button, the active menu item worn through to the grid, staples per ten visits, graphite on selected text, routes between sections in the menu, dog-ears from shared links, the maker's own edits, and a waist on much-pressed buttons. A dead-click mark only shows once several people made it (a worn keypad gives away the code).
 
+## DD-004: Work as spreads, led by the question
+- **Date:** 2026-11-14
+- **Status:** On staging, with the rest of the Work section.
+- **Context:** Work used the same square colour cards as Thoughts, so the two pages looked alike while they do different jobs.
+- **Decision:** Each project is a spread: a colour panel (the case cover in small, same title colours and slanted bottom) beside the question the project answered, the employer and period, and "Read the case"; left and right in turn, stacked on phones. The question is its own field in the CMS (Experience > Work page > The question); when empty, the first sentence of the summary or description is used.
+- **Alternatives considered:** a typographic index of questions with the period and employer in the margin; chapters per employer (too close to the Resume page).
+- **Consequences:** Every project on Work needs a good question; it leads the page and shows the strategic side of the work. The panels are cards for Webartrose, so they wear like cards.

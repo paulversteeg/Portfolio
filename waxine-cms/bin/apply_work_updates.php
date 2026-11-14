@@ -84,6 +84,26 @@ if (!q1('SELECT id FROM experiences WHERE on_work = 1')) {
     }
     echo 'work: ' . count($picked) . " Career highlights put on Work\n";
 }
+
+// --- The question each project answered (Work page, Nov 2026) -----------------------
+// A first wording, drawn from the project texts; only filled where it is
+// still empty, so Paul's own wording in the CMS always stays.
+$questions = [
+    ['NOC*NSF%',          'fresk.digital', 'How does a sports field get from plan to approval in one flow?'],
+    ['NOC*NSF%',          'INFO',          'How do sport unions and municipalities find out what good, sustainable sport facilities take?'],
+    ['KPN',               null,            'How does KPN stand out without competing with Apple and Google?'],
+    ['Bibliotheek.nl',    null,            'How do you organise a national library around people instead of its collection?'],
+    ['Randstad',          null,            'How does the work go on when someone can\'t make it?'],
+    ['Oogziekenhuis%',    null,            'How do departments share what they know instead of working in silos?'],
+    ['Consumentenbond',   null,            'How do you give well-founded advice without writing off the rest?'],
+    ['Etihad%',           null,            'How does one design language hold up across dozens of stakeholders, three studios and four time zones?'],
+];
+foreach ($questions as [$like, $employer, $q]) {
+    $sql = "UPDATE experiences SET work_question = ? WHERE (work_question IS NULL OR work_question = '') AND title LIKE ?";
+    $args = [$q, $like];
+    if ($employer !== null) { $sql .= ' AND employer = ?'; $args[] = $employer; }
+    if (exec_sql($sql, $args)) echo "work question: $like" . ($employer ? " ($employer)" : '') . "\n";
+}
 } else {
     echo "work page and menu: not on $env yet\n";
 }

@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $highlight   = isset($_POST['is_highlight']) ? 1 : 0;
     $on_work     = isset($_POST['on_work']) ? 1 : 0;
     $work_summary = trim($_POST['work_summary'] ?? '');
+    $work_question = trim($_POST['work_question'] ?? '');
     $work_body   = trim($_POST['body_html'] ?? '');
     $slugIn      = trim($_POST['slug'] ?? '');
     $slug        = $slugIn !== '' ? str_replace('_', '-', slugify($slugIn)) : '';
@@ -35,19 +36,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($slug === '' && $on_work) $slug = experience_unique_slug($title, $id);
         $slugDb = $slug === '' ? null : $slug;
         $summaryDb = $work_summary === '' ? null : $work_summary;
+        $questionDb = $work_question === '' ? null : mb_substr($work_question, 0, 255);
         $bodyDb = trim(strip_tags($work_body, '<img>')) === '' ? null : $work_body;
         if ($id) {
-            exec_sql('UPDATE experiences SET period=?, employer=?, title=?, subtitle=?, slug=?, description=?, work_summary=?, work_body=?, sort_order=?, is_highlight=?, on_work=? WHERE id=?',
-                [$period, $employer, $title, $subtitle, $slugDb, $description, $summaryDb, $bodyDb, $sort_order, $highlight, $on_work, $id]);
+            exec_sql('UPDATE experiences SET period=?, employer=?, title=?, subtitle=?, slug=?, description=?, work_summary=?, work_question=?, work_body=?, sort_order=?, is_highlight=?, on_work=? WHERE id=?',
+                [$period, $employer, $title, $subtitle, $slugDb, $description, $summaryDb, $questionDb, $bodyDb, $sort_order, $highlight, $on_work, $id]);
         } else {
-            exec_sql('INSERT INTO experiences (period, employer, title, subtitle, slug, description, work_summary, work_body, sort_order, is_highlight, on_work) VALUES (?,?,?,?,?,?,?,?,?,?,?)',
-                [$period, $employer, $title, $subtitle, $slugDb, $description, $summaryDb, $bodyDb, $sort_order, $highlight, $on_work]);
+            exec_sql('INSERT INTO experiences (period, employer, title, subtitle, slug, description, work_summary, work_question, work_body, sort_order, is_highlight, on_work) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)',
+                [$period, $employer, $title, $subtitle, $slugDb, $description, $summaryDb, $questionDb, $bodyDb, $sort_order, $highlight, $on_work]);
             $id = (int) db()->lastInsertId();
         }
         header('Location: /admin/edit_experience.php?id=' . $id . '&saved=1');
         exit;
     }
-    $item = compact('period', 'employer', 'title', 'subtitle', 'slug', 'description', 'work_summary', 'sort_order', 'on_work')
+    $item = compact('period', 'employer', 'title', 'subtitle', 'slug', 'description', 'work_summary', 'work_question', 'sort_order', 'on_work')
           + ['id' => $id, 'is_highlight' => $highlight, 'work_body' => $work_body];
 }
 
@@ -116,6 +118,9 @@ include __DIR__ . '/inc/admin_head.php';
 
   <label for="slug">Web address <span class="muted">(/work/…, made from the name when empty)</span></label>
   <input type="text" id="slug" name="slug" value="<?= $v('slug') ?>" placeholder="e.g. hertek-safety">
+
+  <label for="work_question">The question <span class="muted">(shown on the Work page beside the project, e.g. "How does KPN stand out without competing with Apple and Google?"; when empty, the first sentence of the Summary or Description)</span></label>
+  <input type="text" id="work_question" name="work_question" maxlength="255" value="<?= $v('work_question') ?>">
 
   <label for="work_summary">Summary <span class="muted">(the opening of the case page; when empty, the Description is used)</span></label>
   <textarea id="work_summary" name="work_summary" style="min-height:110px;font-family:inherit;font-size:inherit"><?= $v('work_summary') ?></textarea>
