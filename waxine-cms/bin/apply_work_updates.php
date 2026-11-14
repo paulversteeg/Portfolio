@@ -74,15 +74,34 @@ foreach ($order as $slug => $n) {
     }
 }
 
-// --- First Work cards: the current Career highlights --------------------------------
-// Only while nothing is on Work yet; after that the choice is made in the CMS.
-if (!q1('SELECT id FROM experiences WHERE on_work = 1')) {
-    $picked = q('SELECT id, title FROM experiences WHERE is_highlight = 1 ORDER BY sort_order, id');
-    foreach ($picked as $e) {
+// --- The projects on Work (chosen by Paul, Nov 2026) --------------------------------
+// Hertek (recent), NOC*NSF at fresk.digital, Etihad (international) and China
+// Southern (strategic). Put on Work while nothing was chosen yet, or while
+// the selection is still the first automatic one (the Career highlights);
+// once the choice is made in the CMS on live, that choice stays. The order
+// is the Experience order, newest first.
+$workPicks = [
+    ['Hertek%',          null],
+    ['NOC*NSF%',         'fresk.digital'],
+    ['Etihad%',          null],
+    ['China Southern%',  null],
+];
+$onWork     = array_column(q('SELECT id FROM experiences WHERE on_work = 1 ORDER BY id'), 'id');
+$highlights = array_column(q('SELECT id FROM experiences WHERE is_highlight = 1 ORDER BY id'), 'id');
+if (!$onWork || $onWork == $highlights) {
+    $ids = [];
+    foreach ($workPicks as [$like, $employer]) {
+        $sql = 'SELECT id, title FROM experiences WHERE title LIKE ?' . ($employer !== null ? ' AND employer = ?' : '') . ' ORDER BY sort_order LIMIT 1';
+        $row = q1($sql, $employer !== null ? [$like, $employer] : [$like]);
+        if (!$row) { echo "work: no project like '$like', skipped\n"; continue; }
+        $ids[] = (int) $row['id'];
         exec_sql('UPDATE experiences SET on_work = 1, slug = COALESCE(slug, ?) WHERE id = ?',
-            [experience_unique_slug($e['title'], (int) $e['id']), $e['id']]);
+            [experience_unique_slug($row['title'], (int) $row['id']), $row['id']]);
     }
-    echo 'work: ' . count($picked) . " Career highlights put on Work\n";
+    if ($ids) {
+        exec_sql('UPDATE experiences SET on_work = 0 WHERE on_work = 1 AND id NOT IN (' . implode(',', $ids) . ')');
+        echo 'work: ' . count($ids) . " chosen projects on Work\n";
+    }
 }
 
 // --- The question each project answered (Work page, Nov 2026) -----------------------
@@ -97,6 +116,7 @@ $questions = [
     ['Oogziekenhuis%',    null,            'How do departments share what they know instead of working in silos?'],
     ['Consumentenbond',   null,            'How do you give well-founded advice without writing off the rest?'],
     ['Etihad%',           null,            'How does one design language hold up across dozens of stakeholders, three studios and four time zones?'],
+    ['China Southern%',   null,            'Do European design methods work for an airline app in China?'],
 ];
 foreach ($questions as [$like, $employer, $q]) {
     $sql = "UPDATE experiences SET work_question = ? WHERE (work_question IS NULL OR work_question = '') AND title LIKE ?";
