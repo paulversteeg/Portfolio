@@ -2083,6 +2083,11 @@ html.wear-on :is(.publication, .talk) ul.bullit li:has(a),
 .wear-scale span:nth-child(3) { right: 0; }
 @media print { .wear-control, .wear-trail { display: none !important; } }
 
+/* The Webartrose page: a sign's title, text and examples stay together;
+   more room before the next sign. */
+.page-webartrose p:has(+ .wear-pair) { margin-bottom: var(--u); }
+.page-webartrose .wear-pair { margin-bottom: calc(6 * var(--u)); }
+
 /* The Webartrose page: each sign of use as a pair, new and worn. The worn
    one has fixed values (--wt, --wp, --ws, --wr set in the page), so it
    shows also when the layer is switched off. */
@@ -2311,6 +2316,7 @@ html.wear-on .footer.has-staples .wear-staples {
 /* (.nav is sticky, which already holds the canvas.) */
 html.wear-on .wear-routes {
 	display: block;
+	filter: blur(2px);   /* soft, like rubber worn into concrete */
 	position: absolute;
 	inset: 0;
 	width: 100%;
@@ -2389,6 +2395,7 @@ html:not(.wear-on) .wear-panel .wear-track { background-image: none !important; 
 .wear-demo .wear-menu .nav-item { position: relative; z-index: 1; isolation: isolate; padding: var(--u) 0; }
 .wear-demo canvas.wear-routes {
 	display: block;
+	filter: blur(2px);
 	position: absolute;
 	inset: 0;
 	width: 100%;
