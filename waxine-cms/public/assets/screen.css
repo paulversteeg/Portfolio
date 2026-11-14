@@ -1778,31 +1778,36 @@ li.listing-result,
 html.wear-on .wear-trail { display: block; }
 
 /* Links: grease from fingers; the underline rubs thin; the ink wears. */
-html.wear-on :is(.content, .article-nav, .up-one-level) a:not(.link-figure) {
-	text-shadow: 0 0 calc(var(--wt) * 4px) rgba(150,120,70, calc(var(--wt) * .35));
+html.wear-on :is(.content, .article-nav, .up-one-level) a:not(.link-figure),
+.wear-demo a:not(.link-figure) {
+	text-shadow: 0 0 calc(var(--wt) * 5px) rgba(150,120,70, calc(var(--wt) * .45));
 	border-bottom-color: color-mix(in srgb, currentColor calc(100% - var(--wt) * 55%), transparent);
 	color: color-mix(in srgb, currentColor calc(100% - var(--wp) * 18%), #6B5D4C);
 	}
 
 /* Menu items: work loose and hang crooked; a smudge where they are touched. */
-html.wear-on #menu .nav-item {
+html.wear-on #menu .nav-item,
+.wear-demo .nav-item {
 	rotate: calc(var(--wr) * var(--wp) * 2deg);
 	translate: 0 calc(var(--wp) * 2px);
 	background-image: radial-gradient(ellipse 60% 40% at calc(50% + var(--wr) * 15%) 50%,
 		rgba(150,120,70, calc(var(--wt) * .09)), transparent 70%);
 	}
-html.wear-on #menu .nav-item strong {
+html.wear-on #menu .nav-item strong,
+.wear-demo .nav-item strong {
 	text-shadow: 0 0 calc(var(--wt) * 3px) rgba(150,120,70, calc(var(--wt) * .3));
 	}
 
 /* Cards: corners worn round, a tilt, a fingerprint, colours bleached. */
-html.wear-on .article-figure {
+html.wear-on .article-figure,
+.wear-demo .article-figure {
 	position: relative;
 	rotate: calc(var(--wr) * var(--wt) * 1.5deg);
 	border-radius: calc(var(--wt) * 14px);
 	filter: saturate(calc(1 - var(--ws) * .45)) sepia(calc(var(--ws) * .3));
 	}
-html.wear-on .article-figure::after {
+html.wear-on .article-figure::after,
+.wear-demo .article-figure::after {
 	content: '';
 	position: absolute;
 	inset: 0;
@@ -1816,7 +1821,8 @@ html.wear-on .article-figure::after {
 	}
 
 /* Photos: fade and yellow in the sun; corners rounded where they are handled. */
-html.wear-on :is(.content, .header) img {
+html.wear-on :is(.content, .header) img,
+.wear-demo img {
 	filter:
 		sepia(calc(var(--ws) * .35 + var(--wa) * .4))
 		saturate(calc(1 - var(--ws) * .3 - var(--wa) * .25))
@@ -1826,21 +1832,25 @@ html.wear-on :is(.content, .header) img {
 
 /* Text: the ink fades toward brown; a thumb mark at the edge where it is held. */
 html.wear-on .content :is(p, h2, h3, li, blockquote),
-html.wear-on .header:not(.cover) h1 {   /* not on a story's coloured cover: its title stays light */
+html.wear-on .header:not(.cover) h1,   /* not on a story's coloured cover: its title stays light */
+.wear-demo :is(p, li) {
 	color: color-mix(in srgb, currentColor calc(100% - var(--ws) * 22% - var(--wa) * 10%), #6B5D4C);
 	}
-html.wear-on .content :is(p, li, blockquote) {
+html.wear-on .content :is(p, li, blockquote),
+.wear-demo :is(p, li) {
 	background-image: radial-gradient(ellipse 3em 4em at 0 calc(50% + var(--wr) * 30%),
 		rgba(160,130,80, calc(var(--ws) * .09)), transparent 70%);
 	}
 
 /* Buttons: pressed in, outline rubbed away, a darker worn middle. */
 html.wear-on :is(.publication, .talk) ul.bullit li:has(a),
-html.wear-on .all-projects > summary {
+html.wear-on .all-projects > summary,
+.wear-demo ul.bullit li:has(a) {
 	translate: 0 calc(var(--wp) * 1px);
 	rotate: calc(var(--wr) * var(--wp) * 1deg);
 	}
-html.wear-on :is(.publication, .talk) ul.bullit li:has(a) {
+html.wear-on :is(.publication, .talk) ul.bullit li:has(a),
+.wear-demo ul.bullit li:has(a) {
 	box-shadow:
 		inset 0 0 0 1px color-mix(in srgb, #D9D4D0 calc(100% - var(--wp) * 60%), transparent),
 		inset 0 calc(var(--wp) * -6px) calc(var(--wp) * 10px) rgba(120,100,70, calc(var(--wp) * .14));
@@ -1851,7 +1861,8 @@ html.wear-on :is(.publication, .talk) ul.bullit li:has(a) {
    something nobody touched for months flickers once as it comes back on.
    Never more than a few flashes, small, and not at all with reduced motion. */
 @media (prefers-reduced-motion: no-preference) {
-	html.wear-on .wear-flicker {
+	html.wear-on .wear-flicker,
+	.wear-demo .wear-flicker {
 		animation: wear-flicker calc(9s + var(--wr) * 4s) steps(1, end) infinite;
 		}
 	html.wear-on .wear-warmup {
@@ -1962,3 +1973,87 @@ html.wear-on :is(.publication, .talk) ul.bullit li:has(a) {
 .wear-scale span:nth-child(2) { left: 25%; translate: -50% 0; }   /* "now" sits a quarter along the slider */
 .wear-scale span:nth-child(3) { right: 0; }
 @media print { .wear-control, .wear-trail { display: none !important; } }
+
+/* The Webartrose page: each sign of use as a pair, new and worn. The worn
+   one has fixed values (--wt, --wp, --ws, --wr set in the page), so it
+   shows also when the layer is switched off. */
+.wear-pair {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	column-gap: calc(3 * var(--u));
+	margin: var(--u) 0 calc(3 * var(--u));
+	}
+	@media only screen and (max-width: 30em) {
+	    .wear-pair { column-gap: var(--u); }
+		}
+.wear-demo {
+	min-height: calc(8 * var(--u));
+	padding: var(--u);
+	background: #FCFAFA;
+	box-shadow: inset 0 0 0 1px #E4E0DC;
+	border-radius: 4px;
+	}
+.wear-demo > .wear-caption {
+	margin: 0 0 var(--u);
+	font-family: 'IBM Plex Mono', ui-monospace, monospace;
+	font-size: 12px;
+	line-height: var(--u);
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	color: #5A5D60;
+	background: none;
+	}
+.wear-demo p { margin: 0; }
+.wear-demo ul { margin: 0; padding: 0; list-style: none; }
+.wear-demo .publication {
+	margin: 0;
+	padding: 0;
+	box-shadow: none;
+	}
+.wear-demo .nav-item {
+	display: block;
+	text-align: center;
+	}
+.wear-demo .nav-item a { border-bottom: 0; }
+.wear-demo a.link-figure {
+	display: block;
+	width: max-content;
+	border-bottom: 0;
+	font-size: 2em;   /* a smaller card than on the Thoughts page */
+	}
+.wear-demo .article-figure {
+	display: block;   /* no baseline gap under the card */
+	margin: 0;        /* not the margin of a figure in a story */
+	width: calc(10 * var(--u));
+	height: calc(10 * var(--u));
+	}
+.wear-demo img {
+	display: block;
+	width: 100%;
+	height: calc(8 * var(--u));
+	object-fit: cover;
+	}
+/* The floor: a patch of grid with a path walked across it. */
+.wear-floor {
+	height: calc(8 * var(--u));
+	background-color: #F4F1EF;
+	background-image:
+		linear-gradient(rgba(37,40,42,.08) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(37,40,42,.08) 1px, transparent 1px);
+	background-size: var(--u) var(--u);
+	position: relative;
+	overflow: hidden;
+	}
+.wear-floor::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	opacity: var(--wt);
+	background:
+		radial-gradient(ellipse 22% 30% at 20% 75%, rgba(232,226,218,.95), transparent 70%),
+		radial-gradient(ellipse 22% 30% at 40% 55%, rgba(232,226,218,.95), transparent 70%),
+		radial-gradient(ellipse 22% 30% at 60% 45%, rgba(232,226,218,.95), transparent 70%),
+		radial-gradient(ellipse 24% 32% at 82% 25%, rgba(232,226,218,.95), transparent 70%);
+	filter: blur(4px);
+	}
+

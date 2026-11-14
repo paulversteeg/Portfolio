@@ -75,6 +75,7 @@
   var byKey = {};
 
   function add(el, kind, key, host) {
+    if (el.closest('.wear-demo')) return;   // the examples on the Webartrose page keep their fixed wear
     if (!key || key.length > 180 || /\s/.test(key.slice(kind.length + 1))) return;
     var full = kind + ' ' + key;
     var t = { key: full, kind: kind, host: host || el, el: el, seed: seed(full) };
@@ -324,6 +325,7 @@
     '<div class="wear-panel" id="wear-panel" role="group" aria-labelledby="wear-title" hidden>' +
       '<p class="wear-title" id="wear-title">Webartrose</p>' +
       '<p class="wear-intro">Everything here wears with use, like the things around you. What visitors touch, press and read leaves a trace on it. Only anonymous counts are kept: no cookies, nothing about you.</p>' +
+      '<p class="wear-more"><a href="/webartrose">What wears, and why</a></p>' +
       '<label class="wear-switch"><input type="checkbox" id="wear-on"> Show signs of use</label>' +
       '<label class="wear-label" for="wear-time">Time <output id="wear-when" for="wear-time"></output></label>' +
       '<input type="range" id="wear-time" min="0" max="100" step="1">' +
