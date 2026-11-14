@@ -22,6 +22,7 @@ last-reviewed:           # YYYY-MM-DD
 
 ## DD-003: Webartrose: the site shows the signs of its use
 - **Date:** 2026-11-14
+- **Status:** Live since 2026-11-14, with the explanation page `/webartrose`.
 - **Context:** Paul's graduation concept (Interaction Design): everything around us wears with use, and that gives it character. Applied to the site as a layer, it is also the "interesting gimmick to discover" the brief asks for.
 - **Decision:** Anonymous counts of how all visitors touch, press and see each element, and where the pointer walks, drawn as wear on the element itself. On by default at the real level; a control to switch it off and a time slider (as new, now, up to 30 years ahead). Details in `features/webartrose/`.
 - **Alternatives considered:** wear per visitor, stored in their own browser; simulated wear without counting; off by default; letting things break at the far end of the slider.
