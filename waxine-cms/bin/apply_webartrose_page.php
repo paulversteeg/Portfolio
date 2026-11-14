@@ -12,6 +12,7 @@
  *
  * APPLY_ON: 'staging' while being reviewed, 'all' once approved for live.
  */
+require_once dirname(__DIR__) . '/lib/db.php';
 require_once dirname(__DIR__) . '/lib/helpers.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
