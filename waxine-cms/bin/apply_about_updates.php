@@ -104,6 +104,29 @@ if (MISSION_ON === 'all' || MISSION_ON === $env) {
     }
 }
 
+// Clients (Nov 2026): the long career paragraph becomes one line on international
+// work and the clients by sector. CLIENTS_ON: 'staging' while reviewed.
+const CLIENTS_ON = 'staging';
+if (CLIENTS_ON === 'all' || CLIENTS_ON === $env) {
+    $clients = <<<'HTML'
+<p>I am at home in international, cross-cultural settings, with hands-on experience on projects in Europe, the Middle East and Asia: from a design language for <span class="clientreference">Etihad Airways</span>, created with studios in Amsterdam, Abu Dhabi and Kolkata across four time zones, to an app for <a class="clientreference" href="https://www.csair.com">China Southern Airlines</a> and an online store for <a class="clientreference" href="https://www.parknshop.com">PARKnSHOP</a> in Hong Kong.</p>
+<ul class="clients">
+<li><strong>Travel and hospitality:</strong> <span class="clientreference">Etihad</span>, <a class="clientreference" href="https://www.csair.com">China Southern Airlines</a>, <a class="clientreference" href="https://www.jumeirah.com/">Jumeirah</a>, <a class="clientreference" href="https://www.eurail.com">Eurail</a>, <span class="clientreference">D-reizen</span>, <span class="clientreference">Prijsvrij</span></li>
+<li><strong>Retail and e-commerce:</strong> A.S. Watson (<a class="clientreference" href="https://www.parknshop.com">PARKnSHOP</a>), Maxeda (<a class="clientreference" href="https://www.praxis.nl">Praxis</a>)</li>
+<li><strong>Industry and agriculture:</strong> <a class="clientreference" href="https://www.frieslandcampina.com">FrieslandCampina</a>, <a class="clientreference" href="https://www.lely.com/">Lely</a>, <span class="clientreference">Philips</span>, <span class="clientreference">Hertek Safety</span>, <span class="clientreference">Rocsys</span></li>
+<li><strong>Finance:</strong> <a class="clientreference" href="https://www.ing.nl">ING</a>, <a class="clientreference" href="https://www.aegon.nl">Aegon</a>, <a class="clientreference" href="https://www.lloydsbank.nl/">Lloyds Bank</a></li>
+<li><strong>Telecom, media and public services:</strong> <a class="clientreference" href="https://www.kpn.com">KPN</a>, <a class="clientreference" href="https://www.nu.nl">nu.nl</a>, <a class="clientreference" href="https://www.bndestem.nl">BN DeStem</a>, <a class="clientreference" href="https://www.bibliotheek.nl">National Library of the Netherlands</a>, <a class="clientreference" href="https://www.consumentenbond.nl">Consumentenbond</a></li>
+<li><strong>Healthcare, work, sport and education:</strong> <a class="clientreference" href="https://www.oogziekenhuis.nl">Rotterdam Eye Hospital</a>, <a class="clientreference" href="https://www.randstad.nl">Randstad</a>, <span class="clientreference">NOC*NSF</span>, <a class="clientreference" href="https://www.hogeschoolrotterdam.nl">Hogeschool Rotterdam</a>, <a class="clientreference" href="https://www.eaie.org">EAIE</a></li>
+</ul>
+HTML;
+    $new = preg_replace('/<p[^>]*>\s*My career started when I became the lead designer.*?<\/p>/s', $clients, $body, 1, $n);
+    if ($n) {
+        $body = $new;
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: clients by sector\n";
+    }
+}
+
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; exit(0); }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
