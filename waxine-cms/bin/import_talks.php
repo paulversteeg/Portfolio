@@ -99,6 +99,15 @@ $talkUpdates = [
         'match' => ['The Power of 10', 'Power of 10', 'The Power of Ten', 'Power of Ten'],
         'set'   => ['published' => '0'],
     ],
+    [
+        'match' => ['Designing for Chaos: UX for dirty hands, ladders, and blaring alarms'],
+        'set'   => [
+            'image'        => '/assets/talks/20261106_enterprise_ux_conference.jpg',
+            'image_width'  => '1086',
+            'image_height' => '724',
+            'image_alt'    => 'Paul Versteeg on stage at Enterprise UX Conference 2026 in front of a full room, presenting the slide ‘Shadowing: let the work flow’',
+        ],
+    ],
 ];
 
 foreach ($talkUpdates as $u) {
