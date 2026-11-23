@@ -144,6 +144,13 @@ $1',
         'new'     => '<li class="time-period">2018 &ndash; present</li>
 <li class="highlight">Drum teacher</li>',
     ],
+    [
+        'what'    => 'work experience: size of the department led as UX Director',
+        'env'     => 'staging',
+        'pattern' => '/(<li class="highlight">UX Director<\/li>\s*<li class="location">Mirabeau[^<]*<\/li>)/',
+        'new'     => '$1' . "\n" . '<li class="description">Led the Concept &amp; Design department of around 50 people: some 20 interaction designers, 10 visual designers, 12 to 15 front-end developers and 6 to 8 creative consultants.</li>',
+        'marker'  => 'Led the Concept &amp; Design department of around 50 people',
+    ],
 ];
 
 // --- Experience records: [title, old description start => new description] --------

@@ -127,6 +127,20 @@ HTML;
     }
 }
 
+// Leadership (Nov 2026): the size of the department led at Mirabeau. LEAD_ON: 'staging' while reviewed.
+const LEAD_ON = 'staging';
+if (LEAD_ON === 'all' || LEAD_ON === $env) {
+    $new = preg_replace(
+        '/I(?:\x{2019}|\'|&rsquo;|&#8217;)ve worked as UX Director leading the Concept &(?:amp;)? Design team at Mirabeau and organise regular meetups/u',
+        'As UX Director at Mirabeau, I led the Concept &amp; Design department of around 50 people: interaction designers, visual designers, front-end developers and creative consultants. I also organise regular meetups',
+        $body, 1, $n);
+    if ($n) {
+        $body = $new;
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: leadership at Mirabeau\n";
+    }
+}
+
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; exit(0); }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
