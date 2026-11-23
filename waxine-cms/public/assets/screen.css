@@ -1581,7 +1581,7 @@ li.listing-result,
 	box-shadow: inset 0 -1px 0 #D2CDC9;
 	}
 .content .talk > p:first-of-type {
-	margin: calc(2 * var(--u)) 0 calc(3 * var(--u));
+	margin: 0 0 calc(3 * var(--u));   /* straight under the subtitles: the same space as between title and subtitle */
 	padding-left: var(--u);
 	border-left: 0;
 	box-shadow: inset 3px 0 0 #25282A;
