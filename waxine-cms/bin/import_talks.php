@@ -101,7 +101,6 @@ $talkUpdates = [
     ],
     [
         'match' => ['Designing for Chaos: UX for dirty hands, ladders, and blaring alarms'],
-        'env'   => 'staging',
         'set'   => [
             'image'        => '/assets/talks/20261106_enterprise_ux_conference.jpg',
             'image_width'  => '1086',
