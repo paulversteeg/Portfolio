@@ -144,10 +144,70 @@ $1',
         'new'     => '<li class="time-period">2018 &ndash; present</li>
 <li class="highlight">Drum teacher</li>',
     ],
+    [
+        // The first version had only a line under UX Director; take it out before the full set.
+        'what'    => 'work experience: remove the first UX Director line',
+        'pattern' => '/\\n?<li class="description">Led the Concept &amp; Design department of around 50 people: some 20 interaction designers[^<]*<\\/li>/u',
+        'new'     => '',
+        'marker'  => '#never-present#',
+    ],
+    [
+        'what'    => 'work experience line: Founder, Head of Design Strategy',
+        'pattern' => '/(<li class="highlight">Founder,\ Head\ of\ Design\ Strategy<\\/li>\\s*<li class="location">fresk\.digital,\ The\ Netherlands<\\/li>)/u',
+        'new'     => '$1' . "\n" . '<li class="description">Co-founded the studio. I set the concept, roadmap and design direction for clients, and led the design team of four until 2025.</li>',
+        'marker'  => 'Co-founded the studio. I set the concept, roadmap and design direction for clients, and led the design team of four until 2025.',
+    ],
+    [
+        'what'    => 'work experience line: Design Lead',
+        'pattern' => '/(<li class="highlight">Design\ Lead<\\/li>\\s*<li class="location">INFO,\ Amsterdam,\ The\ Netherlands<\\/li>)/u',
+        'new'     => '$1' . "\n" . '<li class="description">Responsible for the design direction and quality of projects such as NOC*NSF and Lloyds Bank.</li>',
+        'marker'  => 'Responsible for the design direction and quality of projects such as NOC*NSF and Lloyds Bank.',
+    ],
+    [
+        'what'    => 'work experience line: UX Director',
+        'pattern' => '/(<li class="highlight">UX\ Director<\\/li>\\s*<li class="location">Mirabeau\ (?:–|&ndash;)\ a\ Cognizant\ Digital\ Business,\ Amsterdam,\ The\ Netherlands<\\/li>)/u',
+        'new'     => '$1' . "\n" . '<li class="description">Led the Concept &amp; Design department of around 50 people: interaction designers, visual designers, front-end developers and creative consultants.</li>',
+        'marker'  => 'Led the Concept &amp; Design department of around 50 people: interaction designers, visual designers, front-end developers and creative consultants.',
+    ],
+    [
+        'what'    => 'work experience line: Principal Interaction Designer | Design Lead',
+        'pattern' => '/(<li class="highlight">Principal\ Interaction\ Designer\ \|\ Design\ Lead<\\/li>\\s*<li class="location">Mirabeau,\ Amsterdam,\ The\ Netherlands<\\/li>)/u',
+        'new'     => '$1' . "\n" . '<li class="description">Led the group of some 20 interaction designers, alongside hands-on work for clients such as Etihad and FrieslandCampina.</li>',
+        'marker'  => 'Led the group of some 20 interaction designers, alongside hands-on work for clients such as Etihad and FrieslandCampina.',
+    ],
+    [
+        'what'    => 'work experience line: Principal Interaction Designer',
+        'pattern' => '/(<li class="highlight">Principal\ Interaction\ Designer<\\/li>\\s*<li class="location">Mirabeau,\ Amsterdam,\ The\ Netherlands<\\/li>)/u',
+        'new'     => '$1' . "\n" . '<li class="description">Strategy, concept and interaction design for international clients such as China Southern Airlines and PARKnSHOP.</li>',
+        'marker'  => 'Strategy, concept and interaction design for international clients such as China Southern Airlines and PARKnSHOP.',
+    ],
+    [
+        'what'    => 'work experience line: Senior Interaction Designer',
+        'pattern' => '/(<li class="highlight">Senior\ Interaction\ Designer<\\/li>\\s*<li class="location">Mirabeau,\ Rotterdam,\ The\ Netherlands<\\/li>)/u',
+        'new'     => '$1' . "\n" . '<li class="description">Interaction design for e-commerce and large platforms such as Maxeda, KPN and Bibliotheek.nl.</li>',
+        'marker'  => 'Interaction design for e-commerce and large platforms such as Maxeda, KPN and Bibliotheek.nl.',
+    ],
+    [
+        'what'    => 'work experience line: Senior Concept &amp; Interaction Designer',
+        'pattern' => '/(<li class="highlight">Senior\ Concept\ \&amp;\ Interaction\ Designer<\\/li>\\s*<li class="location">Connect\ Holland,\ Rotterdam,\ The\ Netherlands<\\/li>)/u',
+        'new'     => '$1' . "\n" . '<li class="description">Concepts and interaction design for Randstad and the Rotterdam Eye Hospital.</li>',
+        'marker'  => 'Concepts and interaction design for Randstad and the Rotterdam Eye Hospital.',
+    ],
+    [
+        'what'    => 'work experience line: Interaction Designer',
+        'pattern' => '/(<li class="highlight">Interaction\ Designer<\\/li>\\s*<li class="location">Puurpxl,\ Utrecht,\ The\ Netherlands<\\/li>)/u',
+        'new'     => '$1' . "\n" . '<li class="description">Design for the websites of the Consumentenbond and Televizier.</li>',
+        'marker'  => 'Design for the websites of the Consumentenbond and Televizier.',
+    ],
 ];
 
 // --- Experience records: [title, old description start => new description] --------
 $experienceChanges = [
+    [
+        'title' => 'Consumentenbond',
+        'old'   => 'Lead designer for the website of the Dutch consumer association',
+        'new'   => 'Design for the website of the Dutch consumer association',
+    ],
     [
         'title' => 'Etihad Airways',
         'old'   => 'It should hold up to interpretation both internally, and externally by agencies and vendors.',
