@@ -204,6 +204,12 @@ $1',
 // --- Experience records: [title, old description start => new description] --------
 $experienceChanges = [
     [
+        // The result in public figures (Quote, June 2026; Reisgala, February 2026).
+        'title' => 'Senses',
+        'old'   => 'including some project management.',
+        'new'   => 'including some project management. In its first year, Senses grew to over €5 million in revenue and won the travel industry’s Start-Up of the Year Award in 2026.',
+    ],
+    [
         // The measured result (Nov 2026): rounds through the building and the administration.
         'title' => 'Hertek Safety',
         'old'   => 'which I partly design and strategically guide.',
