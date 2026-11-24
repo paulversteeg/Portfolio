@@ -161,13 +161,13 @@ $stories = [
         'marker'   => 'Hertek’s tools had grown over the years',
         'question' => 'How do you take the administration off a technician’s hands?',
         'short'    => 'A portal for Hertek Safety, the Dutch fire-safety company, that brings a set of separate applications together in one. I laid the foundation of the concept and the product roadmap, and still guide its direction. Technicians now walk a building once instead of three or four times, without entering measurements twice.',
-        'body'     => "<p>A working product for Hertek Safety, the Dutch fire-safety company.</p>\n<p>Hertek’s tools had grown over the years into a set of separate applications with overlapping functions: a maintenance technician worked across several of them, and the information never connected, which held back growth. Bundling them into one portal cut the cost of maintaining each application separately and became a springboard for combining data.</p>\n<p>I laid the foundation of the concept, took part in the research and the concept and design of the portal, and set up the product roadmap. Now the portal grows with new features made possible by its sharpened direction, which I partly design and strategically guide.</p>\n<p>Shadowing a single inspection round showed what the workaround cost: technicians walked the building three or four times instead of once, and wrote down every measurement by hand to enter it again later. The portal guides them through what to measure and records it as they go, so the administration is taken off their hands, a job takes fewer rounds and a technician can help more customers a day.</p>",
+        'body'     => "<p>A working product for Hertek Safety, the Dutch fire-safety company. Hertek’s tools had grown over the years into a set of separate applications with overlapping functions: a maintenance technician worked across several of them, and the information never connected, which held back growth. Bundling them into one portal cut the cost of maintaining each application separately and became a springboard for combining data.</p>\n<p>I laid the foundation of the concept, took part in the research and the concept and design of the portal, and set up the product roadmap. Now the portal grows with new features made possible by its sharpened direction, which I partly design and strategically guide.</p>\n<p>Shadowing a single inspection round showed what the workaround cost: technicians walked the building three or four times instead of once, and wrote down every measurement by hand to enter it again later. The portal guides them through what to measure and records it as they go, so the administration is taken off their hands, a job takes fewer rounds and a technician can help more customers a day.</p>",
     ],
     'Ravlling' => [
         'marker'   => 'Each feature started from a hypothesis',
         'question' => 'How do you inspire people to travel responsibly, and see it in the numbers?',
         'short'    => 'A travel inspiration platform that encourages people to travel responsibly. I helped shape the concept and branding, designed the full design system and set up a feature roadmap built on hypotheses and a KPI model. Ravlling went live at the end of 2022, was featured on PhocusWire’s Startup Stage and was nominated for the Columbus Travel Awards 2024.',
-        'body'     => "<p>A travel inspiration platform that encourages people to travel responsibly.</p>\n<p>I contributed to the concept and branding, set up and designed the full design system, and shaped the feature roadmap: which functionality comes at which point in the development path, why it matters and how it shows in the numbers. Each feature started from a hypothesis and an expected effect in a KPI model, so after release we could measure whether it delivered: some assumptions didn’t hold, and some of the ways people used it surprised us.</p>\n<p>Along the way I built hands-on knowledge of affiliate marketing and of setting up and using graph databases.</p>\n<p>Ravlling went live at the end of 2022, starting with the Nordic countries, was featured on PhocusWire’s Startup Stage and was nominated for the Columbus Travel Awards 2024 as sustainable start-up of the year.</p>",
+        'body'     => "<p>A travel inspiration platform that encourages people to travel responsibly. I contributed to the concept and branding, set up and designed the full design system, and shaped the feature roadmap: which functionality comes at which point in the development path, why it matters and how it shows in the numbers. Each feature started from a hypothesis and an expected effect in a KPI model, so after release we could measure whether it delivered: some assumptions didn’t hold, and some of the ways people used it surprised us.</p>\n<p>Along the way I built hands-on knowledge of affiliate marketing and of setting up and using graph databases.</p>\n<p>Ravlling went live at the end of 2022, starting with the Nordic countries, was featured on PhocusWire’s Startup Stage and was nominated for the Columbus Travel Awards 2024 as sustainable start-up of the year.</p>",
     ],
     'D-Connect' => [
         'marker'   => 'The number of trips booked through D-Connect',
@@ -198,6 +198,15 @@ foreach ($stories as $title => $s) {
     }
     exec_sql('UPDATE experiences SET description = ? WHERE id = ?', [$s['short'], $row['id']]);
     echo "story: $title, short text on the Resume\n";
+}
+// A one-line opening looks bare beside the drop cap: join it with the next paragraph.
+foreach ([
+    ['Hertek Safety', "Dutch fire-safety company.</p>\n<p>Hertek’s tools", 'Dutch fire-safety company. Hertek’s tools'],
+    ['Ravlling',      "travel responsibly.</p>\n<p>I contributed",          'travel responsibly. I contributed'],
+] as [$title, $from, $to]) {
+    if (exec_sql('UPDATE experiences SET work_body = REPLACE(work_body, ?, ?) WHERE title = ? AND work_body LIKE ?', [$from, $to, $title, '%' . $from . '%'])) {
+        echo "story: $title, opening joined\n";
+    }
 }
 } else {
     echo "work page and menu: not on $env yet\n";
