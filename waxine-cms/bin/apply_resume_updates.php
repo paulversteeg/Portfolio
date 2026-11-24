@@ -27,6 +27,13 @@ const FRESK_LEAD_LINE = 'led the design team until January 2026. Building on wha
 // --- Resume page text: [old => new] replacements --------------------------------
 $pageChanges = [
     [
+        // AI in the design process (Nov 2026): a Skills line after UX design.
+        'what'   => 'skills: AI in the design process',
+        'marker' => 'AI in the design process',
+        'old'    => "<li class=\"location\">Concepts, interaction design and design systems</li>\n</ul>",
+        'new'    => "<li class=\"location\">Concepts, interaction design and design systems</li>\n</ul>\n<ul class=\"item\">\n<li class=\"highlight\">AI in the design process</li>\n<li class=\"location\">Concepts, synthesis and living service blueprints with Claude</li>\n</ul>",
+    ],
+    [
         'what' => 'profile: international, cross-cultural experience',
         'old'  => 'independent of who is across the table.</p>',
         'new'  => 'independent of who is across the table. I am at home in international, cross-cultural settings, with hands-on experience on projects in Europe, the Middle East and Asia. Pro-active and outspoken, I take the lead and get stakeholders enthusiastic.</p>',
