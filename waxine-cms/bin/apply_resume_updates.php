@@ -226,15 +226,24 @@ $experienceChanges = [
     ],
     [
         // The result (as told by Paul, Nov 2026): live in all stores, the workaround gone.
-        'title' => 'D-Connect',
-        'old'   => 'created the service blueprints and designed the platform.',
-        'new'   => 'created the service blueprints and designed the platform. D-Connect went live in all D-reizen stores, and advisors stopped falling back on them: it is faster and more intuitive, with search filters that follow their conversations with travellers and layers of information that match an advisor’s expertise.',
+        'title'  => 'D-Connect',
+        'marker' => 'D-Connect went live in all D-reizen stores',
+        'old'    => 'created the service blueprints and designed the platform.',
+        'new'   => 'created the service blueprints and designed the platform. D-Connect went live in all D-reizen stores, and advisors stopped falling back on alternative tools: it is faster and more intuitive, with search filters that follow their conversations with travellers and layers of information that match an advisor’s expertise.',
+    ],
+    [
+        // Undo a double result sentence (Nov 2026): keep one copy.
+        'title'   => 'D-Connect',
+        'cleanup' => true,
+        'old'     => 'advisors stopped falling back on them: it is faster and more intuitive, with search filters that follow their conversations with travellers and layers of information that match an advisor’s expertise. D-Connect went live in all D-reizen stores, and advisors stopped falling back on alternative tools:',
+        'new'     => 'advisors stopped falling back on alternative tools:',
     ],
     [
         // The opening already says "alternative tools"; avoid saying it twice.
-        'title' => 'D-Connect',
-        'old'   => 'advisors stopped falling back on alternative tools:',
-        'new'   => 'advisors stopped falling back on them:',
+        'title'   => 'D-Connect',
+        'cleanup' => true,
+        'old'     => 'advisors stopped falling back on alternative tools:',
+        'new'     => 'advisors stopped falling back on them:',
     ],
     [
         // The result in public figures (Quote, June 2026; Reisgala, February 2026).
@@ -294,7 +303,8 @@ foreach (array_filter($experienceChanges, $applies) as $c) {
     $row = q1('SELECT id, description FROM experiences WHERE title = ? ORDER BY id LIMIT 1', [$c['title']]);
     if (!$row)                                         { echo "experience not found, skipped: {$c['title']}\n"; continue; }
     $desc = str_replace("\r\n", "\n", $row['description']);
-    if (strpos($desc, $c['new']) !== false)            { echo "already done: {$c['title']}\n"; continue; }
+    $done = $c['marker'] ?? (empty($c['cleanup']) ? $c['new'] : null);
+    if ($done !== null && strpos($desc, $done) !== false) { echo "already done: {$c['title']}\n"; continue; }
     if (strpos($desc, $c['old']) === false)            { echo "old text not found, skipped: {$c['title']}\n"; continue; }
     exec_sql('UPDATE experiences SET description = ? WHERE id = ?', [str_replace($c['old'], $c['new'], $desc), $row['id']]);
     echo "updated experience: {$c['title']}\n";
