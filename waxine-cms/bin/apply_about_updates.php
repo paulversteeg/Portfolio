@@ -204,6 +204,14 @@ if ($n) {
     echo "about: 'since co-founding fresk.digital' removed\n";
 }
 
+// Opening without the double "design strategist, Head of Design Strategy" (Nov 2026).
+$body2 = preg_replace('/I(?:\x{2019}|\'|&rsquo;)m a design strategist, <i>Head of Design Strategy<\/i> and one of the founders of fresk\.digital\./u', 'I&rsquo;m a design strategist and one of the founders of fresk.digital.', $body, 1, $n);
+if ($n) {
+    $body = $body2;
+    exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+    echo "about: opening without the double title\n";
+}
+
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; return; }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
