@@ -204,6 +204,12 @@ $1',
 // --- Experience records: [title, old description start => new description] --------
 $experienceChanges = [
     [
+        // The measured result (Nov 2026): rounds through the building and the administration.
+        'title' => 'Hertek Safety',
+        'old'   => 'which I partly design and strategically guide.',
+        'new'   => 'which I partly design and strategically guide. Shadowing a single inspection round showed what the workaround cost: technicians walked the building three or four times instead of once, and wrote down every measurement by hand to enter it again later. The portal guides them through what to measure and records it as they go, so the administration is taken off their hands, a job takes fewer rounds and a technician can help more customers a day.',
+    ],
+    [
         'title' => 'Consumentenbond',
         'old'   => 'Lead designer for the website of the Dutch consumer association',
         'new'   => 'Design for the website of the Dutch consumer association',
