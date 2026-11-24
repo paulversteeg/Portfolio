@@ -245,11 +245,18 @@ $experienceChanges = [
         'new'    => 'Prijsvrij’s idea was that the higher segment wants tailor-made travel that can still be built on a standard package, extended with modules. With them we explored where technology and the existing systems set the limits, and how to meet specific wishes within them. In its first year, Senses',
     ],
     [
+        // The first wording ("jungle") was too blunt towards Hertek; take it out on staging.
+        'title'   => 'Hertek Safety',
+        'cleanup' => true,
+        'old'     => 'Hertek ran on a jungle of applications with overlapping functions: a maintenance technician worked across several of them, and the information never connected, which held back growth. Bundling them into one portal cut the cost of maintaining each application separately and became a springboard for combining data. ',
+        'new'     => '',
+    ],
+    [
         // Key choice with leadership (as told by Paul, Nov 2026).
         'title'  => 'Hertek Safety',
-        'marker' => 'jungle of applications',
+        'marker' => 'grown over the years into a set of separate applications',
         'old'    => 'Shadowing a single inspection round',
-        'new'    => 'Hertek ran on a jungle of applications with overlapping functions: a maintenance technician worked across several of them, and the information never connected, which held back growth. Bundling them into one portal cut the cost of maintaining each application separately and became a springboard for combining data. Shadowing a single inspection round',
+        'new'    => 'Hertek’s tools had grown over the years into a set of separate applications with overlapping functions: a maintenance technician worked across several of them, and the information never connected, which held back growth. Bundling them into one portal cut the cost of maintaining each application separately and became a springboard for combining data. Shadowing a single inspection round',
     ],
     [
         // Key choice with leadership (as told by Paul, Nov 2026).
