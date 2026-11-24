@@ -1732,6 +1732,11 @@ li.listing-result,
 .resume > ul > .description {
 	margin-bottom: calc(2 * var(--u));
 	}
+/* Work experience: the role line follows the employer at the same distance as
+   the employer follows the job title, so each job reads as one section. */
+.resume > ul > .location:has(+ .description) {
+	margin-bottom: 0;
+	}
 .resume:not(:has(.time-period)) {
 	column-gap: calc(3 * var(--u));   /* odd, so both columns are whole squares wide */
 	row-gap: calc(2 * var(--u));
