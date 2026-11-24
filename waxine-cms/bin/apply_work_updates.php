@@ -208,6 +208,16 @@ foreach ([
         echo "story: $title, opening joined\n";
     }
 }
+// Hertek: how AI speeds up the portal's growth (as told by Paul, Nov 2026).
+$hertekAi = '<p>AI now speeds up how the portal grows. A request for a new feature starts with an AI-assisted intake and comes back as a scenario. The design system is fully available to AI, so prototypes are made quickly, and it becomes clear much sooner which solutions work and which don&rsquo;t.</p>';
+$row = q1("SELECT id, work_body FROM experiences WHERE title = 'Hertek Safety' ORDER BY id LIMIT 1");
+if ($row && strpos((string) $row['work_body'], 'AI now speeds up how the portal grows') === false) {
+    $b = preg_replace('/(which I partly design and strategically guide\.<\/p>)/', '$1' . "\n" . $hertekAi, (string) $row['work_body'], 1, $n);
+    if ($n) {
+        exec_sql('UPDATE experiences SET work_body = ? WHERE id = ?', [$b, $row['id']]);
+        echo "story: Hertek, AI in how the portal grows\n";
+    }
+}
 } else {
     echo "work page and menu: not on $env yet\n";
 }
