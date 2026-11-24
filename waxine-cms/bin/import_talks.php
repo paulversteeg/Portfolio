@@ -49,7 +49,6 @@ $talkUpdates = [
         // UX Cocktail Hour talk, so this one is matched on its date too.
         'match' => ['Dynamic Design'],
         'date'  => '2015-01-20',
-        'env'   => 'staging',
         'set'   => [
             'takeaway'    => 'Design systems, not pages.',
             'description' => "Print is far more dynamic than the web: magazine covers change with every issue, while many websites only adapt to the screen size. Customers expect experiences that respond to real user variables, like location, time and how often they use a service. This webinar for Sitecore Wintercamp introduced dynamic design: the design of a context-dependent interface, where user needs lead instead of devices. It takes four steps: set smart goals, add context to the customer journey, design systems instead of pages, and test, learn and improve. Cases for the Van Gogh Museum and a community site showed how it works. And a design is never finished: it is impermanent, incomplete and imperfect.",
@@ -58,7 +57,6 @@ $talkUpdates = [
     ],
     [
         'match' => ['Design Thinking by Doing'],
-        'env'   => 'staging',
         'set'   => [
             'image'        => '/assets/talks/20170713_ixdc_beijing.jpg',
             'image_width'  => '1086',
@@ -73,7 +71,6 @@ $talkUpdates = [
     [
         // Intro from the original invitation e-mail worked into the story.
         'match' => ['Lost in Translation', 'Lost in translation'],
-        'env'   => 'staging',
         'set'   => ['description' => "Together with China Southern Airlines, Mirabeau worked on a new app around service, sales and loyalty: a first project for an Asian client. Our user-centred approach was the starting point, but it was not obvious that it would work in China, and on the way to a really good app the cultural difference turned out to be a real challenge. Culture shows up everywhere, from dragons and zodiac signs to colours. Everything is mobile, WeChat is everything, and the local design scene sets a high bar. What worked best: show instead of explain, design with real content by a native speaker, test more than once to convince stakeholders, and talk to the right person. And have fun while you learn."],
     ],
     [
@@ -83,7 +80,6 @@ $talkUpdates = [
     [
         // From the organisers' e-mails and briefing (Dutch Digital Agencies, Oct 2017).
         'match' => ['Craftsmanship', 'Craftmanship'],
-        'env'   => 'staging',
         'set'   => [
             'venue'       => 'MU, Eindhoven',
             'description' => "A breakfast by Dutch Digital Agencies to meet young talent, at MU during Dutch Design Week. More than fifty students, mostly looking for an internship or a first job, sat at ten tables, and every fifteen minutes the agencies moved on. My theme was craftsmanship, and why in this field you have to specialise. Right after, at the Adobe Creative Jam at SintLucas, I gave a short talk on stage for twelve student teams and joined them as coach and jury member. The talk had three parts. Change: accept that a design is never finished. Challenge: think outside the box that brand, trends and rationale build around you. Hustle: build breadth and depth, work together, test and aim for the wow.",
@@ -111,43 +107,36 @@ $talkUpdates = [
     [
         // Shorter text (Nov 2026): about 100 to 120 words per talk.
         'match' => ["The role of digital design in empowering professionals in mobility operations"],
-        'env'   => 'staging',
         'set'   => ['description' => "Like a concert, a digital experience depends on what happens behind the scenes. When backstage processes fall short, engagement drops, errors creep in and strategy fails. Building on fresk.digital’s shared mobility research, this talk follows a rider from finding a shared bike or moped to ending the ride, and then shadows the people who keep the fleet available. A service blueprint brings both views together, from behaviour and touchpoints to backstage processes and data, and shows what the interface and architecture need to support. A second case puts it into practice: for Rocsys, maker of charging robots for unmanned yard trucks, it turned a spreadsheet into a robust fleet tool for program managers and service engineers."],
     ],
     [
         // Shorter text (Nov 2026): about 100 to 120 words per talk.
         'match' => ["A wall becomes a bridge"],
-        'env'   => 'staging',
         'set'   => ['description' => "A drummer can play by copying what is around: the style, the trends, what the record company wants. Meaningful work asks you to zoom out first. Named after an album by drummer Kendrick Scott, this talk shows how user research can turn a barrier into a bridge. A research framework looks at a service from five perspectives, from customer journey and touchpoints to backstage, support processes and data, before, during and after use. The case is fresk.digital’s shared mobility research: we rode eleven bike services in the Netherlands and Belgium, from OV-fiets and Lime to Blue-bike. For Blue-bike it led to concrete suggestions, such as signing up in the app, seeing the battery level before choosing a bike, and only showing hubs with bikes available."],
     ],
     [
         // Shorter text (Nov 2026): about 100 to 120 words per talk.
         'match' => ["The Pitches Showcase"],
-        'env'   => 'staging',
         'set'   => ['description' => "To win a project, you have to convince the client that you are the right team for the job, with the right quality and an approach that matches their way of thinking. This masterclass took students backstage at a design agency, through real pitches that were won or lost. It starts before the pitch: does the client match your weight class, and what is really being asked? Pitches are often lost on the same pitfalls: missing the real question, not understanding the business, and showing what we like instead of what the client needs. A good pitch is a fight in six rounds: set the stage, make a promise that pinpoints the why, show the plan, be clear on the price, give proof, and make them fall in love with a first design exploration."],
     ],
     [
         // Shorter text (Nov 2026): about 100 to 120 words per talk.
         'match' => ["New Skills"],
-        'env'   => 'staging',
         'set'   => ['description' => "Pixel-perfect design is an illusion, and good tools alone do not make a good designer. This barcamp session presented the skills an effective designer needs as five superpowers. Ultra-mega-vision: understand the context, from the user and their goals to everything you can measure, like time, location or weather. Atomic brain-power: think from the business, from vision and strategy to KPIs. Amorphic flexibility: accept that a design is impermanent, incomplete and imperfect. Work like a scientist: research, run workshops and test. And break the boundaries: dare to be different, because branding is about accentuating differences."],
     ],
     [
         // Shorter text (Nov 2026): about 100 to 120 words per talk.
         'match' => ["Design Thinking by Doing"],
-        'env'   => 'staging',
         'set'   => ['description' => "A three-hour workshop at IXDC, the biggest UX conference in Asia, given together with Lexi Lin of Mirabeau. Large companies tend to jump from a problem straight to a solution. Design thinking first takes time to understand the problem, starting with empathy for someone’s context. In the Wallet Project, participants first drew their own “ideal” wallet. Then they paired up and designed one for their partner, through a full design cycle: interview and empathize, define a point of view, sketch radical ideas, build a prototype by hand and test it. The pitches at the end showed how much observing, prototyping and adjusting to someone’s context changes the result."],
     ],
     [
         // Shorter text (Nov 2026): about 100 to 120 words per talk.
         'match' => ["Unleash the Artificial Smartness"],
-        'env'   => 'staging',
         'set'   => ['description' => "The trend is to take a digital service and add AI, until everything is connected and “intelligent” and people end up overwhelmed. When a Tesla drives into a Tesla sign, that is the designer’s mistake, not the driver’s. Intelligence aims at a machine that thinks for itself; smartness is focused and specific, and tells people more about the world so they can act better themselves. Starting from Don Norman’s questions of how we do, feel and know, this talk shows how layers of context add up to artificial smartness: not a self-driving car, but a car that works with its driver like a horse with its jockey."],
     ],
     [
         // Shorter text (Nov 2026): about 100 to 120 words per talk.
         'match' => ["Defining Interaction"],
-        'env'   => 'staging',
         'set'   => ['description' => "Responsive design, motion and one-page sites are hard to capture on paper, and teams increasingly work agile, side by side with the client. Prototypes tell a good story but take time and go out of date; detailed documents record every agreement but are hardly read. This talk shared a different approach: stay high-level and define the rest by trying. Sketch the concept on big A3 sheets and present the key parts: business goals, user scenarios, flows, a content index and wireframes. Then add detail in iterations, with visual design and front-end development taking the lead. Like a good cocktail: the interaction designer brings the ingredients and leaves the taste to those who master it."],
     ],
 ];
