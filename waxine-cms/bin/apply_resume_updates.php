@@ -205,6 +205,11 @@ $1',
 $experienceChanges = [
     [
         // Public result (Ravlling LinkedIn, PhocusWire, Columbus Travel Awards; Nov 2026).
+        'title' => 'Rocsys',
+        'old'   => 'which key choices to make, discussed at C-level.',
+        'new'   => 'which key choices to make, discussed at C-level. The fleet tool replaced a spreadsheet-like first version that didn’t present the information clearly, and became part of the Rocsys Portal, launched in April 2025 within the first integrated platform for hands-free charging of autonomous vehicles, with partners such as APM Terminals.',
+    ],
+    [
         'title' => 'Ravlling',
         'old'   => 'setting up and using graph databases.',
         'new'   => 'setting up and using graph databases. Ravlling went live at the end of 2022, starting with the Nordic countries, was featured on PhocusWire’s Startup Stage and was nominated for the Columbus Travel Awards 2024 as sustainable start-up of the year.',
