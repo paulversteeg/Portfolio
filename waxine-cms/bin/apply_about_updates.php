@@ -162,6 +162,25 @@ if ($n) {
     echo "about: opening shortened, life outside work added\n";
 }
 
+// Opening, second pass (Nov 2026): more about the work up front; "clear choices" moves
+// from the mission to the opening, and life outside work moves to the end of the page.
+$outside = '<p>Outside of work, I teach drums at Jubal Drum &amp; Bugle Corps in Dordrecht, and as a Dordoloog I dig into the origins of things on the Island of Dordrecht and guide tours.</p>';
+if (strpos($body, 'I turn complex digital challenges into clear choices') === false) {
+    $intro = 'My name is Paul. I&rsquo;m a design strategist, <i>Head of Design Strategy</i> and one of the founders of fresk.digital. I turn complex digital challenges into clear choices: I develop digital strategies and roadmaps for products and platforms, from e-commerce and omnichannel journeys to tools for frontline professionals, and I work with leadership teams from first concept to launch. I write about my work and the things I encounter in <a href="/thoughts">Thoughts</a>.</p>';
+    $b = preg_replace('/My name is Paul and I(?:\x{2019}|\'|&rsquo;)m the <i>Head of Design Strategy<\/i> and one of the founders of fresk\.digital\. I write about my work and the things I encounter in <a href="\/thoughts">Thoughts<\/a>\.<\/p>/u', $intro, $body, 1, $n1);
+    $b = str_replace("\n" . $outside, '', $b, $n2);
+    if (!$n2) $b = str_replace($outside, '', $b, $n2);
+    $b = preg_replace('/<p>My mission is to turn complex digital challenges into clear choices\. I start from/', '<p>I start from', $b, 1, $n3);
+    $b = preg_replace('/(<p[^>]*>\s*Please check my full)/', $outside . "\n" . '$1', $b, 1, $n4);
+    if ($n1 && $n4) {
+        $body = $b;
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: opening about the work, life outside work at the end\n";
+    } else {
+        echo "about: opening second pass skipped (intro $n1, outside $n2, mission $n3, resume link $n4)\n";
+    }
+}
+
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; return; }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
