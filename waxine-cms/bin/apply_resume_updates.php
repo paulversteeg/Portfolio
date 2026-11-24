@@ -164,8 +164,13 @@ $1',
     [
         'what'    => 'work experience line: Founder, Head of Design Strategy',
         'pattern' => '/(<li class="highlight">Founder,\ Head\ of\ Design\ Strategy<\\/li>\\s*<li class="location">fresk\.digital,\ The\ Netherlands<\\/li>)/u',
-        'new'     => '$1' . "\n" . '<li class="description">Co-founded the studio. I set the concept, roadmap and design direction for clients, and ' . FRESK_LEAD_LINE . '</li>',
+        'new'     => '$1' . "\n" . '<li class="description">Co-founded the digital agency. I set the concept, roadmap and design direction for clients, and ' . FRESK_LEAD_LINE . '</li>',
         'marker'  => FRESK_LEAD_LINE,
+    ],
+    [
+        'what'    => 'work experience line: fresk is a digital agency, not a studio',
+        'old'     => 'Co-founded the studio.',
+        'new'     => 'Co-founded the digital agency.',
     ],
     [
         'what'    => 'work experience line: Design Lead',
