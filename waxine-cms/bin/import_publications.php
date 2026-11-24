@@ -5,7 +5,7 @@
  * Runs from deploy.sh and can be run by hand: php bin/import_publications.php.
  * Does nothing once done.
  *
- * IMPORT_ON says where the import runs: 'staging' while being reviewed,
+ * IMPORT_PUBLICATIONS_ON says where the import runs: 'staging' while being reviewed,
  * 'all' once approved for live. Updates marked 'env' => 'staging' are a
  * preview too.
  */
@@ -14,10 +14,10 @@ require_once dirname(__DIR__) . '/lib/helpers.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const IMPORT_ON = 'all';
+const IMPORT_PUBLICATIONS_ON = 'all';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
-if (IMPORT_ON !== 'all' && IMPORT_ON !== $env) { echo "import_publications: not on $env yet\n"; exit(0); }
+if (IMPORT_PUBLICATIONS_ON !== 'all' && IMPORT_PUBLICATIONS_ON !== $env) { echo "import_publications: not on $env yet\n"; return; }
 ensure_publications_table();
 
 $n = import_publications_from_page();

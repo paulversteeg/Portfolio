@@ -5,7 +5,7 @@
  * php bin/import_talks.php. Does nothing once the Talks page has its
  * data-talks="all" placeholder.
  *
- * IMPORT_ON says where it runs: 'staging' while the change is being
+ * IMPORT_TALKS_ON says where it runs: 'staging' while the change is being
  * reviewed (staging gets a fresh copy of live every night, so it imports
  * again on its next deploy), 'all' once approved for live.
  */
@@ -14,10 +14,10 @@ require_once dirname(__DIR__) . '/lib/helpers.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const IMPORT_ON = 'all';
+const IMPORT_TALKS_ON = 'all';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
-if (IMPORT_ON !== 'all' && IMPORT_ON !== $env) { echo "import_talks: not on $env yet\n"; exit(0); }
+if (IMPORT_TALKS_ON !== 'all' && IMPORT_TALKS_ON !== $env) { echo "import_talks: not on $env yet\n"; return; }
 ensure_talks_table();
 
 $n = import_talks_from_page();

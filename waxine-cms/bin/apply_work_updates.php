@@ -10,7 +10,7 @@
  * run by hand: php bin/apply_work_updates.php. Safe to run again: every
  * step checks first and does nothing once done.
  *
- * APPLY_ON: 'staging' while being reviewed, 'all' once approved for live.
+ * WORK_DATA_ON: 'staging' while being reviewed, 'all' once approved for live.
  * WORK_ON: the same for the Work page and the new menu, which stay on staging
  * while the Work content is refined; the resume data below already goes live.
  */
@@ -19,11 +19,11 @@ require_once dirname(__DIR__) . '/lib/helpers.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const APPLY_ON = 'all';
+const WORK_DATA_ON = 'all';
 const WORK_ON  = 'staging';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
-if (APPLY_ON !== 'all' && APPLY_ON !== $env) { echo "apply_work_updates: not on $env yet\n"; exit(0); }
+if (WORK_DATA_ON !== 'all' && WORK_DATA_ON !== $env) { echo "apply_work_updates: not on $env yet\n"; return; }
 
 ensure_experiences_table();
 

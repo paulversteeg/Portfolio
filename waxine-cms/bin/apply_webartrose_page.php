@@ -14,14 +14,14 @@
  * it leans, and so on), styled by "Webartrose" in screen.css; the scuffs,
  * staples and routes are drawn by assets/wear.js from data attributes.
  *
- * APPLY_ON: 'staging' while being reviewed, 'all' once approved for live.
+ * WEBARTROSE_ON: 'staging' while being reviewed, 'all' once approved for live.
  */
 require_once dirname(__DIR__) . '/lib/db.php';
 require_once dirname(__DIR__) . '/lib/helpers.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const APPLY_ON = 'all';
+const WEBARTROSE_ON = 'all';
 
 /** md5 of the page text as earlier versions of this script wrote it. */
 const EARLIER_BODIES = [
@@ -30,7 +30,7 @@ const EARLIER_BODIES = [
 ];
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
-if (APPLY_ON !== 'all' && APPLY_ON !== $env) { echo "apply_webartrose_page: not on $env yet\n"; exit(0); }
+if (WEBARTROSE_ON !== 'all' && WEBARTROSE_ON !== $env) { echo "apply_webartrose_page: not on $env yet\n"; return; }
 
 /** A pair of examples: the same thing new, and worn ($wornInner when the worn one differs). */
 function pair(string $inner, string $worn, ?string $wornInner = null, string $wornAttrs = ''): string

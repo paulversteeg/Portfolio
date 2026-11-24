@@ -85,6 +85,16 @@ echo 'Staging refreshed from live: ' . count($tables) . " tables, $total rows, "
 foreach (['import_talks', 'import_publications', 'apply_resume_updates', 'apply_about_updates', 'apply_work_updates', 'apply_post_updates', 'apply_webartrose_page'] as $step) {
     $file = __DIR__ . "/$step.php";
     if (!is_file($file)) continue;
-    passthru(escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($file), $code);
-    if ($code !== 0) echo "$step failed (exit $code); staging content otherwise refreshed\n";
+    if (function_exists('passthru')) {
+        passthru(escapeshellarg(PHP_BINARY) . ' ' . escapeshellarg($file), $code);
+        if ($code !== 0) echo "$step failed (exit $code); staging content otherwise refreshed\n";
+        continue;
+    }
+    // The hosting switches passthru() off: run the step in this process instead,
+    // in its own scope. A failing step is reported and the others still run.
+    try {
+        (function (string $file) { include $file; })($file);
+    } catch (Throwable $e) {
+        echo "$step failed: " . $e->getMessage() . "; staging content otherwise refreshed\n";
+    }
 }

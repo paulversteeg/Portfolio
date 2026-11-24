@@ -7,20 +7,20 @@
  * New order: intro · Contact details · "My work" (the rest of the story) ·
  * the "full resume" line as a call-out block · Other channels.
  *
- * APPLY_ON: 'staging' while being reviewed, 'all' once approved for live.
+ * ABOUT_ON: 'staging' while being reviewed, 'all' once approved for live.
  */
 require_once dirname(__DIR__) . '/lib/db.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const APPLY_ON = 'all';
+const ABOUT_ON = 'all';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
-if (APPLY_ON !== 'all' && APPLY_ON !== $env) { echo "apply_about_updates: not on $env yet\n"; exit(0); }
+if (ABOUT_ON !== 'all' && ABOUT_ON !== $env) { echo "apply_about_updates: not on $env yet\n"; return; }
 
 // --- Menu: About after every other page ------------------------------------------
 $about = q1("SELECT id, nav_order, body_html FROM pages WHERE slug = 'about'");
-if (!$about) { echo "apply_about_updates: no About page\n"; exit(0); }
+if (!$about) { echo "apply_about_updates: no About page\n"; return; }
 $max = q1("SELECT MAX(nav_order) AS m FROM pages WHERE in_nav = 1 AND slug <> 'about'");
 $last = (int) ($max['m'] ?? 0) + 10;
 if ((int) $about['nav_order'] < $last - 9) {
@@ -141,7 +141,7 @@ if (LEAD_ON === 'all' || LEAD_ON === $env) {
     }
 }
 
-if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; exit(0); }
+if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; return; }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
 $posChannels = strpos($body, '<h2>Other channels:</h2>');
@@ -150,7 +150,7 @@ $introEnd    = strpos($body, '</p>');
 if ($posContact === false || $posChannels === false || $posResume === false || $introEnd === false
     || !($introEnd < $posResume && $posResume < $posContact && $posContact < $posChannels)) {
     echo "about: page text is not as expected, left unchanged\n";
-    exit(0);
+    return;
 }
 $introEnd += 4;
 
