@@ -224,6 +224,41 @@ $1',
 // --- Experience records: [title, old description start => new description] --------
 $experienceChanges = [
     [
+        // Key choice with leadership (as told by Paul, Nov 2026).
+        'title'  => 'FrieslandCampina',
+        'marker' => 'print costs were rising',
+        'old'    => 'extending functionality the target group already knew.',
+        'new'    => 'extending functionality the target group already knew. The cooperative was moving its member dairy farmers from paper administration and mailings to digital: print costs were rising, fewer farmers read them, and increasingly complex regulation no longer fitted the old form. The key choice we made with FrieslandCampina was which channel to use for which message, how often and with which purpose, so communication became clearer and more personal while costs went down.',
+    ],
+    [
+        // Key insight (as told by Paul, Nov 2026).
+        'title'  => 'KPN',
+        'marker' => 'springboard for additional services',
+        'old'    => 'As a device-independent hub,',
+        'new'    => 'The insight: KPN’s connection is the key to every digital service, Netflix and HBO included, which makes KPN the springboard for additional services rather than one more provider. So it became a device-independent hub,',
+    ],
+    [
+        // Key choice with leadership (as told by Paul, Nov 2026).
+        'title'  => 'Senses',
+        'marker' => 'standard package, extended with modules',
+        'old'    => 'In its first year, Senses',
+        'new'    => 'Prijsvrij’s idea was that the higher segment wants tailor-made travel that can still be built on a standard package, extended with modules. With them we explored where technology and the existing systems set the limits, and how to meet specific wishes within them. In its first year, Senses',
+    ],
+    [
+        // Key choice with leadership (as told by Paul, Nov 2026).
+        'title'  => 'Hertek Safety',
+        'marker' => 'jungle of applications',
+        'old'    => 'Shadowing a single inspection round',
+        'new'    => 'Hertek ran on a jungle of applications with overlapping functions: a maintenance technician worked across several of them, and the information never connected, which held back growth. Bundling them into one portal cut the cost of maintaining each application separately and became a springboard for combining data. Shadowing a single inspection round',
+    ],
+    [
+        // Key choice with leadership (as told by Paul, Nov 2026).
+        'title'  => 'Rocsys',
+        'marker' => 'make that reliability tangible',
+        'old'    => 'The fleet tool replaced',
+        'new'    => 'For customers only one thing counts: the robot does its job, reliably. The strategic question was how to make that reliability tangible: showing how Rocsys meets the contract, and tracing deviations it didn’t cause, for instance when an operator worked outside the terms of the contract. The fleet tool replaced',
+    ],
+    [
         // Public result (Ravlling LinkedIn, PhocusWire, Columbus Travel Awards; Nov 2026).
         'title' => 'D-Connect',
         'old'   => 'bypassing the existing tool for a German application.',
