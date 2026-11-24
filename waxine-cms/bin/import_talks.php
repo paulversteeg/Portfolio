@@ -139,6 +139,12 @@ $talkUpdates = [
         'match' => ["Defining Interaction"],
         'set'   => ['description' => "Responsive design, motion and one-page sites are hard to capture on paper, and teams increasingly work agile, side by side with the client. Prototypes tell a good story but take time and go out of date; detailed documents record every agreement but are hardly read. This talk shared a different approach: stay high-level and define the rest by trying. Sketch the concept on big A3 sheets and present the key parts: business goals, user scenarios, flows, a content index and wireframes. Then add detail in iterations, with visual design and front-end development taking the lead. Like a good cocktail: the interaction designer brings the ingredients and leaves the taste to those who master it."],
     ],
+    [
+        // Shorter text (Nov 2026). The UX Cocktail Hour talk; the webinar has the same title.
+        'match' => ['Dynamic Design'],
+        'date'  => '2014-11-25',
+        'set'   => ['description' => "Dynamic design is the design of a context-dependent interface: user needs lead, not devices. Almost anything we can measure can be context, from time, location and weather to earlier use or the light around the screen. That gives designers a lot of power, but data only adds value when it makes the experience personal and relevant. And since nothing we build lasts much longer than two years, a design is never finished: leave room to grow, like a campus that lets people walk their own paths before laying the pavement. In the design thinking workshop that followed, groups picked the most important user goal, mapped the journey and looked for moments where context could enrich the experience."],
+    ],
 ];
 
 foreach ($talkUpdates as $u) {
