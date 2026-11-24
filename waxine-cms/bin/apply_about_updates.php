@@ -181,6 +181,21 @@ if (strpos($body, 'I turn complex digital challenges into clear choices') === fa
     }
 }
 
+// Background and work in one paragraph (Nov 2026): education, how I work now,
+// and the broad view that leads into the clients by sector.
+if (strpos($body, 'I hold a Bachelor of Science degree in Interaction Design and have years of experience as a designer and consultant. My work combines') === false) {
+    $combined = '<p>I hold a Bachelor of Science degree in Interaction Design and have years of experience as a designer and consultant. My work combines strategy with hands-on design. Since co-founding fresk.digital in 2022, I mostly set up the concept and the roadmap, guide the design direction and discuss the key choices with leadership, for clients ranging from tailor-made travel to fire safety and robotics. I still enjoy designing myself, from a visual style and a complete design system to tools that support professionals in their daily work. Working for clients in many sectors gives me a broad view of the craft.</p>';
+    $b = preg_replace('/<p[^>]*>\s*I hold a Bachelor of Science degree in Interaction Design.*?<\/p>/s', $combined, $body, 1, $n1);
+    $b = preg_replace('/\n?<p[^>]*>\s*My work combines strategy with hands-on design\..*?<\/p>/s', '', $b, 1, $n2);
+    if ($n1 && $n2) {
+        $body = $b;
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: background and work in one paragraph\n";
+    } else {
+        echo "about: background and work skipped (education $n1, work $n2)\n";
+    }
+}
+
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; return; }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
