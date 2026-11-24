@@ -204,6 +204,12 @@ $1',
 // --- Experience records: [title, old description start => new description] --------
 $experienceChanges = [
     [
+        // Public result (Ravlling LinkedIn, PhocusWire, Columbus Travel Awards; Nov 2026).
+        'title' => 'Ravlling',
+        'old'   => 'setting up and using graph databases.',
+        'new'   => 'setting up and using graph databases. Ravlling went live at the end of 2022, starting with the Nordic countries, was featured on PhocusWire’s Startup Stage and was nominated for the Columbus Travel Awards 2024 as sustainable start-up of the year.',
+    ],
+    [
         'title' => 'D-Connect',
         'old'   => 'advisors stopped falling back on the German tool:',
         'new'   => 'advisors stopped falling back on alternative tools:',
