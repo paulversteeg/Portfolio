@@ -204,6 +204,12 @@ $1',
 // --- Experience records: [title, old description start => new description] --------
 $experienceChanges = [
     [
+        // The result (as told by Paul, Nov 2026): live in all stores, the workaround gone.
+        'title' => 'D-Connect',
+        'old'   => 'created the service blueprints and designed the platform.',
+        'new'   => 'created the service blueprints and designed the platform. D-Connect went live in all D-reizen stores, and advisors stopped falling back on the German tool: it is faster and more intuitive, with search filters that follow their conversations with travellers and layers of information that match an advisor’s expertise.',
+    ],
+    [
         // The result in public figures (Quote, June 2026; Reisgala, February 2026).
         'title' => 'Senses',
         'old'   => 'including some project management.',
