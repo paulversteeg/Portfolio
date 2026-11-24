@@ -159,7 +159,7 @@ $1',
         // Must run before the line below, which checks for the new text.
         'what'    => 'work experience line: fresk, how I led the team',
         'old'     => 'and led the design team of four until 2025.',
-        'new'     => FRESK_LEAD_LINE,
+        'new'     => 'and ' . FRESK_LEAD_LINE,
     ],
     [
         'what'    => 'work experience line: Founder, Head of Design Strategy',
@@ -171,6 +171,11 @@ $1',
         'what'    => 'work experience line: fresk is a digital agency, not a studio',
         'old'     => 'Co-founded the studio.',
         'new'     => 'Co-founded the digital agency.',
+    ],
+    [
+        'what'    => 'work experience line: fresk, restore the lost "and"',
+        'old'     => 'for clients, led the design team until January 2026.',
+        'new'     => 'for clients, and led the design team until January 2026.',
     ],
     [
         'what'    => 'work experience line: Design Lead',
