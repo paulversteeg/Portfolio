@@ -216,7 +216,7 @@ if (exec_sql("UPDATE experiences SET description = ? WHERE title = 'KPN' AND des
 }
 
 // --- Project periods (as told by Paul, Nov 2026) -------------------------------------
-foreach ([['Senses', 'May 2023 – October 2025'], ['D-Connect', 'January 2023 – January 2025']] as [$title, $period]) {
+foreach ([['Senses', 'May 2023 – October 2025'], ['D-Connect', 'January 2023 – January 2025'], ['Ravlling', 'October 2021 – September 2023']] as [$title, $period]) {
     if (exec_sql("UPDATE experiences SET period = ? WHERE title = ? AND period <> ?", [$period, $title, $period])) {
         echo "period: $title now $period\n";
     }
