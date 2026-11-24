@@ -1821,6 +1821,15 @@ li.listing-result,
 		.article-nav { --edge: calc(mod(50% + var(--u) / 2, var(--u)) + var(--u)); }
 		}
 }
+/* Previous / next in the page column, like the header and the text, so the
+   Webartrose button in the bottom right corner never covers them. On phones
+   the column is nearly as wide as the screen: there they also keep clear of
+   the button's height. */
+.article-nav {
+	padding-left: var(--side);
+	padding-right: var(--side);
+	}
+	@media only screen and (max-width: 40em) { .article-nav { --edge-y: calc(4 * var(--u)); } }
 .previous-article,
 .next-article {
 	line-height: var(--u);
