@@ -212,8 +212,16 @@ if ($n) {
     echo "about: opening without the double title\n";
 }
 
+// AI paragraph: a looser time frame than the first wording (Nov 2026).
+$body2 = str_replace('Over the past two years, and especially the last one, Claude became my go-to partner', 'In recent years, Claude has become my go-to partner', $body, $n);
+if ($n) {
+    $body = $body2;
+    exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+    echo "about: AI paragraph with a looser time frame\n";
+}
+
 // AI in how I work (Nov 2026): a paragraph after the one on the work itself.
-$ai = '<p>AI has become a big part of how I work. Over the past two years, and especially the last one, Claude became my go-to partner to work out concepts, bring insights together, challenge a direction and present it, from a shared product brain that holds the context of a product. I believe in a living service blueprint: processes, the user&rsquo;s perspective and technology brought together, as-is and to-be, and mapped to hypotheses and data. AI is what makes it possible to keep all of that connected. It shows most in recent work, such as the inspection portal for NOC*NSF and the Hertek portal.</p>';
+$ai = '<p>AI has become a big part of how I work. In recent years, Claude has become my go-to partner to work out concepts, bring insights together, challenge a direction and present it, from a shared product brain that holds the context of a product. I believe in a living service blueprint: processes, the user&rsquo;s perspective and technology brought together, as-is and to-be, and mapped to hypotheses and data. AI is what makes it possible to keep all of that connected. It shows most in recent work, such as the inspection portal for NOC*NSF and the Hertek portal.</p>';
 if (strpos($body, 'AI has become a big part of how I work') === false) {
     $new = preg_replace('/(gives me a broad view of the craft\.<\/p>)/', '$1' . "\n" . $ai, $body, 1, $n);
     if ($n) {
