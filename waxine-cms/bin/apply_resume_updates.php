@@ -355,6 +355,27 @@ $experienceChanges = [
         'old'    => 'It should hold up to interpretation both internally, and externally by agencies and vendors.',
         'new'   => 'It should hold up to interpretation both internally, and externally by agencies and vendors. The work involved dozens of internal stakeholders and external vendors, across 4 time zones and 3 design studios in Amsterdam, Abu Dhabi and Kolkata.',
     ],
+    [
+        // Working with data (as told by Paul, Nov 2026).
+        'title'  => 'FrieslandCampina',
+        'marker' => 'extensive KPI model',
+        'old'    => 'while costs went down.',
+        'new'    => 'while costs went down. We set up an extensive KPI model, linked to analytics, to measure whether farmers were satisfied with the platform and used it, and whether that matched the strategic goals.',
+    ],
+    [
+        // Working with data (as told by Paul, Nov 2026).
+        'title'  => 'Ravlling',
+        'marker' => 'started from a hypothesis',
+        'old'    => 'how it shows in the numbers.',
+        'new'    => 'how it shows in the numbers. Each feature started from a hypothesis and an expected effect in a KPI model, so after release we could measure whether it delivered: some assumptions didn’t hold, and some of the ways people used it surprised us.',
+    ],
+    [
+        // Working with data (as told by Paul, Nov 2026).
+        'title'  => 'D-Connect',
+        'marker' => 'leading measure',
+        'old'    => 'that match an advisor’s expertise.',
+        'new'    => 'that match an advisor’s expertise. The number of trips booked through D-Connect was the leading measure. We worked from hypotheses and tracked which functions advisors used most, so a popular filter moved higher up in the interface.',
+    ],
 ];
 
 // --- Apply ----------------------------------------------------------------------
