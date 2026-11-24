@@ -151,6 +151,17 @@ if ($n) {
     echo "about: work paragraphs combined\n";
 }
 
+// Opening (Nov 2026): the blog origin in one sentence, without names or date,
+// and a line about life outside work, fitting the subtitle "who I am".
+$open = ' I write about my work and the things I encounter in <a href="/thoughts">Thoughts</a>.</p>' . "\n"
+      . '<p>Outside of work, I teach drums at Jubal Drum &amp; Bugle Corps in Dordrecht, and as a Dordoloog I dig into the origins of things on the Island of Dordrecht and guide tours.</p>';
+$new = preg_replace('/<br\s*\/?>\s*As a means to focus my thoughts I started to write.*?User Experience\.<\/p>/s', $open, $body, 1, $n);
+if ($n) {
+    $body = $new;
+    exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+    echo "about: opening shortened, life outside work added\n";
+}
+
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; return; }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
