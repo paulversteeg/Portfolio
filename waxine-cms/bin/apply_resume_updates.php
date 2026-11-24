@@ -205,6 +205,16 @@ $1',
 $experienceChanges = [
     [
         // Public result (Ravlling LinkedIn, PhocusWire, Columbus Travel Awards; Nov 2026).
+        'title' => 'D-Connect',
+        'old'   => 'bypassing the existing tool for a German application.',
+        'new'   => 'bypassing the existing tool for alternative tools.',
+    ],
+    [
+        'title' => 'Rocsys',
+        'old'   => 'which key choices to make, discussed at C-level.',
+        'new'   => 'which key choices to make, discussed at C-level. The fleet tool replaced a spreadsheet-like first version that didn’t present the information clearly, and became part of the Rocsys Portal, launched in April 2025 within the first integrated platform for hands-free charging of autonomous vehicles, with partners such as APM Terminals.',
+    ],
+    [
         'title' => 'Ravlling',
         'old'   => 'setting up and using graph databases.',
         'new'   => 'setting up and using graph databases. Ravlling went live at the end of 2022, starting with the Nordic countries, was featured on PhocusWire’s Startup Stage and was nominated for the Columbus Travel Awards 2024 as sustainable start-up of the year.',
@@ -212,13 +222,19 @@ $experienceChanges = [
     [
         'title' => 'D-Connect',
         'old'   => 'advisors stopped falling back on the German tool:',
-        'new'   => 'advisors stopped falling back on alternative tools:',
+        'new'   => 'advisors stopped falling back on them:',
     ],
     [
         // The result (as told by Paul, Nov 2026): live in all stores, the workaround gone.
         'title' => 'D-Connect',
         'old'   => 'created the service blueprints and designed the platform.',
-        'new'   => 'created the service blueprints and designed the platform. D-Connect went live in all D-reizen stores, and advisors stopped falling back on alternative tools: it is faster and more intuitive, with search filters that follow their conversations with travellers and layers of information that match an advisor’s expertise.',
+        'new'   => 'created the service blueprints and designed the platform. D-Connect went live in all D-reizen stores, and advisors stopped falling back on them: it is faster and more intuitive, with search filters that follow their conversations with travellers and layers of information that match an advisor’s expertise.',
+    ],
+    [
+        // The opening already says "alternative tools"; avoid saying it twice.
+        'title' => 'D-Connect',
+        'old'   => 'advisors stopped falling back on alternative tools:',
+        'new'   => 'advisors stopped falling back on them:',
     ],
     [
         // The result in public figures (Quote, June 2026; Reisgala, February 2026).
