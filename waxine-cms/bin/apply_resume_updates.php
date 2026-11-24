@@ -21,6 +21,9 @@ $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
 echo "Environment: $env\n";
 $applies = fn ($c) => ($c['env'] ?? 'all') === 'all' || $c['env'] === $env;
 
+// The fresk work-experience line on how Paul led the team (follows "and ").
+const FRESK_LEAD_LINE = 'led the design team until January 2026. Building on what we learned at Mirabeau, we defined the human-centred designer we needed: a mix of service designer, creative consultant, interaction and visual designer, with its competencies, a growth matrix, a design vision for the discipline, regular critique sessions and our own review system. Coaching the team this way let it run itself within our direction, so a colleague could take over the lead.';
+
 // --- Resume page text: [old => new] replacements --------------------------------
 $pageChanges = [
     [
@@ -152,10 +155,17 @@ $1',
         'marker'  => '#never-present#',
     ],
     [
+        // Paul led the fresk team until January 2026; and how he led it (Nov 2026).
+        // Must run before the line below, which checks for the new text.
+        'what'    => 'work experience line: fresk, how I led the team',
+        'old'     => 'and led the design team of four until 2025.',
+        'new'     => FRESK_LEAD_LINE,
+    ],
+    [
         'what'    => 'work experience line: Founder, Head of Design Strategy',
         'pattern' => '/(<li class="highlight">Founder,\ Head\ of\ Design\ Strategy<\\/li>\\s*<li class="location">fresk\.digital,\ The\ Netherlands<\\/li>)/u',
-        'new'     => '$1' . "\n" . '<li class="description">Co-founded the studio. I set the concept, roadmap and design direction for clients, and led the design team of four until 2025.</li>',
-        'marker'  => 'Co-founded the studio. I set the concept, roadmap and design direction for clients, and led the design team of four until 2025.',
+        'new'     => '$1' . "\n" . '<li class="description">Co-founded the studio. I set the concept, roadmap and design direction for clients, and ' . FRESK_LEAD_LINE . '</li>',
+        'marker'  => FRESK_LEAD_LINE,
     ],
     [
         'what'    => 'work experience line: Design Lead',
