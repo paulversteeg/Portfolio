@@ -196,6 +196,14 @@ if (strpos($body, 'I hold a Bachelor of Science degree in Interaction Design and
     }
 }
 
+// How I work, without the company history (Nov 2026).
+$body2 = str_replace('Since co-founding fresk.digital in 2022, I mostly set up the concept', 'I mostly set up the concept', $body, $n);
+if ($n) {
+    $body = $body2;
+    exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+    echo "about: 'since co-founding fresk.digital' removed\n";
+}
+
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; return; }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
