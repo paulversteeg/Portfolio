@@ -20,7 +20,7 @@ require_once dirname(__DIR__) . '/lib/helpers.php';
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
 const WORK_DATA_ON = 'all';
-const WORK_ON  = 'staging';
+const WORK_ON  = 'all';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
 if (WORK_DATA_ON !== 'all' && WORK_DATA_ON !== $env) { echo "apply_work_updates: not on $env yet\n"; return; }
@@ -80,15 +80,33 @@ foreach ($order as $slug => $n) {
 // the selection is still the first automatic one (the Career highlights);
 // once the choice is made in the CMS on live, that choice stays. The order
 // is the Experience order, newest first.
+// Since Nov 2026 also the five career highlights, whose full story now lives
+// on their case page (see "Full stories on Work" below).
 $workPicks = [
+    ['Senses',           null],
     ['Hertek%',          null],
+    ['D-Connect',        null],
+    ['Rocsys',           null],
+    ['Ravlling',         null],
     ['NOC*NSF%',         'fresk.digital'],
     ['Etihad%',          null],
     ['China Southern%',  null],
 ];
-$onWork     = array_column(q('SELECT id FROM experiences WHERE on_work = 1 ORDER BY id'), 'id');
-$highlights = array_column(q('SELECT id FROM experiences WHERE is_highlight = 1 ORDER BY id'), 'id');
-if (!$onWork || $onWork == $highlights) {
+$firstPicks = ['Hertek%' => null, 'NOC*NSF%' => 'fresk.digital', 'Etihad%' => null, 'China Southern%' => null];
+$pickIds = function (array $picks): array {
+    $ids = [];
+    foreach ($picks as [$like, $employer]) {
+        $sql = 'SELECT id FROM experiences WHERE title LIKE ?' . ($employer !== null ? ' AND employer = ?' : '') . ' ORDER BY sort_order LIMIT 1';
+        $row = q1($sql, $employer !== null ? [$like, $employer] : [$like]);
+        if ($row) $ids[] = (int) $row['id'];
+    }
+    sort($ids);
+    return $ids;
+};
+$onWork     = array_map('intval', array_column(q('SELECT id FROM experiences WHERE on_work = 1 ORDER BY id'), 'id'));
+$highlights = array_map('intval', array_column(q('SELECT id FROM experiences WHERE is_highlight = 1 ORDER BY id'), 'id'));
+$firstSet   = $pickIds(array_map(null, array_keys($firstPicks), array_values($firstPicks)));
+if (!$onWork || $onWork == $highlights || $onWork == $firstSet) {
     $ids = [];
     foreach ($workPicks as [$like, $employer]) {
         $sql = 'SELECT id, title FROM experiences WHERE title LIKE ?' . ($employer !== null ? ' AND employer = ?' : '') . ' ORDER BY sort_order LIMIT 1';
@@ -123,6 +141,63 @@ foreach ($questions as [$like, $employer, $q]) {
     $args = [$q, $like];
     if ($employer !== null) { $sql .= ' AND employer = ?'; $args[] = $employer; }
     if (exec_sql($sql, $args)) echo "work question: $like" . ($employer ? " ($employer)" : '') . "\n";
+}
+
+// --- Full stories on Work, short highlights on Resume (Paul, Nov 2026) ---------------
+// The five career highlights had grown into full case texts. The full story
+// moves to the case page (work_body); the Resume keeps three sentences: what
+// it is, my role, the strongest result. Runs only while the description still
+// holds the long text (its marker), so a later edit in the CMS stays.
+// The short texts avoid the anchors of apply_resume_updates.php, so its
+// additions never land in them again.
+$stories = [
+    'Senses' => [
+        'marker'   => 'Prijsvrij’s idea',
+        'question' => 'Can tailor-made travel in the higher segment be built on a standard package?',
+        'short'    => 'A B2C e-commerce platform for tailor-made travel in the higher segment, built on a standard package with modules and connected to Amadeus. I guided the overall style, coached the designers and safeguarded the concept and scope during implementation. Senses grew to over €5 million in revenue in its first year and won the travel industry’s Start-Up of the Year Award in 2026.',
+        'body'     => "<p>A launched B2C e-commerce platform to configure and book tailor-made travel in the higher segment: premium hotels, flights and options beyond the standard package, connected to Amadeus.</p>\n<p>Prijsvrij’s idea was that the higher segment wants tailor-made travel that can still be built on a standard package, extended with modules. With them we explored where technology and the existing systems set the limits, and how to meet specific wishes within them.</p>\n<p>I guided the overall style and coached the designers strategically, realised part of the UI, and safeguarded the concept and scope during implementation, including some project management.</p>\n<p>In its first year, Senses grew to over €5 million in revenue and won the travel industry’s Start-Up of the Year Award in 2026.</p>",
+    ],
+    'Hertek Safety' => [
+        'marker'   => 'Hertek’s tools had grown over the years',
+        'question' => 'How do you take the administration off a technician’s hands?',
+        'short'    => 'A portal for Hertek Safety, the Dutch fire-safety company, that brings a set of separate applications together in one. I laid the foundation of the concept and the product roadmap, and still guide its direction. Technicians now walk a building once instead of three or four times, without entering measurements twice.',
+        'body'     => "<p>A working product for Hertek Safety, the Dutch fire-safety company.</p>\n<p>Hertek’s tools had grown over the years into a set of separate applications with overlapping functions: a maintenance technician worked across several of them, and the information never connected, which held back growth. Bundling them into one portal cut the cost of maintaining each application separately and became a springboard for combining data.</p>\n<p>I laid the foundation of the concept, took part in the research and the concept and design of the portal, and set up the product roadmap. Now the portal grows with new features made possible by its sharpened direction, which I partly design and strategically guide.</p>\n<p>Shadowing a single inspection round showed what the workaround cost: technicians walked the building three or four times instead of once, and wrote down every measurement by hand to enter it again later. The portal guides them through what to measure and records it as they go, so the administration is taken off their hands, a job takes fewer rounds and a technician can help more customers a day.</p>",
+    ],
+    'Ravlling' => [
+        'marker'   => 'Each feature started from a hypothesis',
+        'question' => 'How do you inspire people to travel responsibly, and see it in the numbers?',
+        'short'    => 'A travel inspiration platform that encourages people to travel responsibly. I helped shape the concept and branding, designed the full design system and set up a feature roadmap built on hypotheses and a KPI model. Ravlling went live at the end of 2022, was featured on PhocusWire’s Startup Stage and was nominated for the Columbus Travel Awards 2024.',
+        'body'     => "<p>A travel inspiration platform that encourages people to travel responsibly.</p>\n<p>I contributed to the concept and branding, set up and designed the full design system, and shaped the feature roadmap: which functionality comes at which point in the development path, why it matters and how it shows in the numbers. Each feature started from a hypothesis and an expected effect in a KPI model, so after release we could measure whether it delivered: some assumptions didn’t hold, and some of the ways people used it surprised us.</p>\n<p>Along the way I built hands-on knowledge of affiliate marketing and of setting up and using graph databases.</p>\n<p>Ravlling went live at the end of 2022, starting with the Nordic countries, was featured on PhocusWire’s Startup Stage and was nominated for the Columbus Travel Awards 2024 as sustainable start-up of the year.</p>",
+    ],
+    'D-Connect' => [
+        'marker'   => 'The number of trips booked through D-Connect',
+        'question' => 'Why were travel advisors bypassing their own tool?',
+        'short'    => 'A platform for the travel advisors of D-reizen, built around their conversation with the traveller, after advisors had been bypassing the existing tool. I did the research with a colleague, made the service blueprints and designed the platform. It went live in all D-reizen stores, advisors stopped using other tools, and the filters they use most moved up in the interface.',
+        'body'     => "<p>Travel advisors were bypassing the existing tool for alternative tools. The new platform offers layered information, using the conversation between advisor and traveller at the travel agency as its guiding principle.</p>\n<p>I did the research together with a colleague, created the service blueprints and designed the platform.</p>\n<p>The number of trips booked through D-Connect was the leading measure. We worked from hypotheses and tracked which functions advisors used most, so a popular filter moved higher up in the interface.</p>\n<p>D-Connect went live in all D-reizen stores, and advisors stopped falling back on other tools: it is faster and more intuitive, with search filters that follow their conversations with travellers and layers of information that match an advisor’s expertise.</p>",
+    ],
+    'Rocsys' => [
+        'marker'   => 'make that reliability tangible',
+        'question' => 'How do you make the reliability of a charging robot tangible?',
+        'short'    => 'An interface system for the charging robots of Rocsys that makes their reliability tangible: how they meet the contract, and where deviations came from. I designed it and discussed the market launch and key choices at C-level. It replaced a spreadsheet-like first version and became part of the Rocsys Portal, launched in April 2025.',
+        'body'     => "<p>An interface system that gives insight into the performance of a robotic arm that charges electric cars and trucks, and the bigger picture around it: how to bring it to market and which key choices to make, discussed at C-level.</p>\n<p>For customers only one thing counts: the robot does its job, reliably. The strategic question was how to make that reliability tangible: showing how Rocsys meets the contract, and tracing deviations it didn’t cause, for instance when an operator worked outside the terms of the contract.</p>\n<p>The fleet tool replaced a spreadsheet-like first version that didn’t present the information clearly, and became part of the Rocsys Portal, launched in April 2025 within the first integrated platform for hands-free charging of autonomous vehicles, with partners such as APM Terminals.</p>",
+    ],
+];
+foreach ($stories as $title => $s) {
+    $row = q1('SELECT id, description, work_body, work_question FROM experiences WHERE title = ? ORDER BY id LIMIT 1', [$title]);
+    if (!$row) { echo "story: $title not found, skipped\n"; continue; }
+    if (trim((string) $row['work_question']) === '') {
+        exec_sql('UPDATE experiences SET work_question = ? WHERE id = ?', [$s['question'], $row['id']]);
+        echo "work question: $title\n";
+    }
+    if (strpos(str_replace("\r\n", "\n", (string) $row['description']), $s['marker']) === false) continue;
+    if (trim((string) $row['work_body']) === '') {
+        exec_sql('UPDATE experiences SET work_body = ? WHERE id = ?', [$s['body'], $row['id']]);
+        echo "story: $title, full text on its case page\n";
+    } else {
+        echo "story: $title already has a case text, kept\n";
+    }
+    exec_sql('UPDATE experiences SET description = ? WHERE id = ?', [$s['short'], $row['id']]);
+    echo "story: $title, short text on the Resume\n";
 }
 } else {
     echo "work page and menu: not on $env yet\n";

@@ -171,8 +171,12 @@ function experience_item_html(array $e): string
     $sub = $e['subtitle'] !== ''
         ? ' <span class="highlight-addon">' . esc($e['subtitle']) . '</span>'
         : '';
+    // A project on Work links to its case, where the full story is.
+    $case = !empty($e['on_work']) && trim((string) ($e['slug'] ?? '')) !== ''
+        ? ' <a class="case-link" href="' . esc(experience_url($e)) . '">Read the case</a>'
+        : '';
     $desc = trim($e['description']) !== ''
-        ? "\n  <li class=\"description\">" . nl2br(esc($e['description']), false) . '</li>'
+        ? "\n  <li class=\"description\">" . nl2br(esc($e['description']), false) . $case . '</li>'
         : '';
     return "<ul class=\"item\">\n"
          . '  <li class="time-period">' . experience_when_html($e) . "</li>\n"
