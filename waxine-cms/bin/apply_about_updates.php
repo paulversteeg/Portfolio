@@ -93,7 +93,7 @@ if (TEXT_ON === 'all' || TEXT_ON === $env) {
 
 // Mission (Nov 2026): from the 2015 Dynamic Design wording to the design
 // strategist of today, keeping its roots. MISSION_ON: 'staging' while reviewed.
-const MISSION_ON = 'staging';
+const MISSION_ON = 'all';
 if (MISSION_ON === 'all' || MISSION_ON === $env) {
     $mission = '<p>My mission is to turn complex digital challenges into clear choices. I start from the people who use a service and the context they use it in, whether that is a traveller at the counter or a technician on a ladder, and connect that to what the business needs. That way of thinking grew from my early work on dynamic design: interfaces that adapt to someone&rsquo;s personal context. I like to get real as quickly as possible: research, a first concept and testing with real users, so that decisions rest on what people actually do, and strategy stays connected to what can be built.</p>';
     $new = preg_replace('/<p[^>]*>\s*My mission is to challenge user centered design.*?<\/p>/s', $mission, $body, 1, $n);
@@ -106,7 +106,7 @@ if (MISSION_ON === 'all' || MISSION_ON === $env) {
 
 // Clients (Nov 2026): the long career paragraph becomes one line on international
 // work and the clients by sector. CLIENTS_ON: 'staging' while reviewed.
-const CLIENTS_ON = 'staging';
+const CLIENTS_ON = 'all';
 if (CLIENTS_ON === 'all' || CLIENTS_ON === $env) {
     $clients = <<<'HTML'
 <p>I am at home in international, cross-cultural settings, with hands-on experience on projects in Europe, the Middle East and Asia: from a design language for <span class="clientreference">Etihad Airways</span>, created with studios in Amsterdam, Abu Dhabi and Kolkata across four time zones, to an app for <a class="clientreference" href="https://www.csair.com">China Southern Airlines</a> and an online store for <a class="clientreference" href="https://www.parknshop.com">PARKnSHOP</a> in Hong Kong.</p>
@@ -128,7 +128,7 @@ HTML;
 }
 
 // Leadership (Nov 2026): the size of the department led at Mirabeau. LEAD_ON: 'staging' while reviewed.
-const LEAD_ON = 'staging';
+const LEAD_ON = 'all';
 if (LEAD_ON === 'all' || LEAD_ON === $env) {
     $new = preg_replace(
         '/I(?:\x{2019}|\'|&rsquo;|&#8217;)ve worked as UX Director leading the Concept &(?:amp;)? Design team at Mirabeau and organise regular meetups/u',
@@ -139,6 +139,16 @@ if (LEAD_ON === 'all' || LEAD_ON === $env) {
         exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
         echo "about: leadership at Mirabeau\n";
     }
+}
+
+// Work (Nov 2026): the hands-on and strategy paragraphs become one, strategy first,
+// without project lists (those are on the Resume) and without "in the last four years".
+$work = '<p>My work combines strategy with hands-on design. Since co-founding fresk.digital in 2022, I mostly set up the concept and the roadmap, guide the design direction and discuss the key choices with leadership, for clients ranging from tailor-made travel to fire safety and robotics. I still enjoy designing myself, from a visual style and a complete design system to tools that support professionals in their daily work.</p>';
+$new = preg_replace('/<p[^>]*>\s*Part of my work is hands-on visual, UX and product design\..*?<\/p>\s*<p[^>]*>\s*In the last four years my work moved more towards strategy\..*?<\/p>/s', $work, $body, 1, $n);
+if ($n) {
+    $body = $new;
+    exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+    echo "about: work paragraphs combined\n";
 }
 
 if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; return; }
