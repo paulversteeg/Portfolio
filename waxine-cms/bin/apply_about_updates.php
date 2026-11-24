@@ -171,7 +171,7 @@ if (strpos($body, 'I turn complex digital challenges into clear choices') === fa
     $b = str_replace("\n" . $outside, '', $b, $n2);
     if (!$n2) $b = str_replace($outside, '', $b, $n2);
     $b = preg_replace('/<p>My mission is to turn complex digital challenges into clear choices\. I start from/', '<p>I start from', $b, 1, $n3);
-    $b = preg_replace('/(<p[^>]*>\s*Please check my full)/', $outside . "\n" . '$1', $b, 1, $n4);
+    $b = preg_replace('/(<p[^>]*>\s*Please check my)/', $outside . "\n" . '$1', $b, 1, $n4);
     if ($n1 && $n4) {
         $body = $b;
         exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
