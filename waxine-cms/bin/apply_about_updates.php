@@ -7,20 +7,20 @@
  * New order: intro · Contact details · "My work" (the rest of the story) ·
  * the "full resume" line as a call-out block · Other channels.
  *
- * APPLY_ON: 'staging' while being reviewed, 'all' once approved for live.
+ * ABOUT_ON: 'staging' while being reviewed, 'all' once approved for live.
  */
 require_once dirname(__DIR__) . '/lib/db.php';
 
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 
-const APPLY_ON = 'all';
+const ABOUT_ON = 'all';
 
 $env = (config()['site']['env'] ?? 'live') === 'staging' ? 'staging' : 'live';
-if (APPLY_ON !== 'all' && APPLY_ON !== $env) { echo "apply_about_updates: not on $env yet\n"; exit(0); }
+if (ABOUT_ON !== 'all' && ABOUT_ON !== $env) { echo "apply_about_updates: not on $env yet\n"; return; }
 
 // --- Menu: About after every other page ------------------------------------------
 $about = q1("SELECT id, nav_order, body_html FROM pages WHERE slug = 'about'");
-if (!$about) { echo "apply_about_updates: no About page\n"; exit(0); }
+if (!$about) { echo "apply_about_updates: no About page\n"; return; }
 $max = q1("SELECT MAX(nav_order) AS m FROM pages WHERE in_nav = 1 AND slug <> 'about'");
 $last = (int) ($max['m'] ?? 0) + 10;
 if ((int) $about['nav_order'] < $last - 9) {
@@ -91,7 +91,67 @@ if (TEXT_ON === 'all' || TEXT_ON === $env) {
     }
 }
 
-if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; exit(0); }
+// Mission (Nov 2026): from the 2015 Dynamic Design wording to the design
+// strategist of today, keeping its roots. MISSION_ON: 'staging' while reviewed.
+const MISSION_ON = 'all';
+if (MISSION_ON === 'all' || MISSION_ON === $env) {
+    $mission = '<p>My mission is to turn complex digital challenges into clear choices. I start from the people who use a service and the context they use it in, whether that is a traveller at the counter or a technician on a ladder, and connect that to what the business needs. That way of thinking grew from my early work on dynamic design: interfaces that adapt to someone&rsquo;s personal context. I like to get real as quickly as possible: research, a first concept and testing with real users, so that decisions rest on what people actually do, and strategy stays connected to what can be built.</p>';
+    $new = preg_replace('/<p[^>]*>\s*My mission is to challenge user centered design.*?<\/p>/s', $mission, $body, 1, $n);
+    if ($n) {
+        $body = $new;
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: mission rewritten\n";
+    }
+}
+
+// Clients (Nov 2026): the long career paragraph becomes one line on international
+// work and the clients by sector. CLIENTS_ON: 'staging' while reviewed.
+const CLIENTS_ON = 'all';
+if (CLIENTS_ON === 'all' || CLIENTS_ON === $env) {
+    $clients = <<<'HTML'
+<p>I am at home in international, cross-cultural settings, with hands-on experience on projects in Europe, the Middle East and Asia: from a design language for <span class="clientreference">Etihad Airways</span>, created with studios in Amsterdam, Abu Dhabi and Kolkata across four time zones, to an app for <a class="clientreference" href="https://www.csair.com">China Southern Airlines</a> and an online store for <a class="clientreference" href="https://www.parknshop.com">PARKnSHOP</a> in Hong Kong.</p>
+<ul class="clients">
+<li><strong>Travel and hospitality:</strong> <span class="clientreference">Etihad</span>, <a class="clientreference" href="https://www.csair.com">China Southern Airlines</a>, <a class="clientreference" href="https://www.jumeirah.com/">Jumeirah</a>, <a class="clientreference" href="https://www.eurail.com">Eurail</a>, <span class="clientreference">D-reizen</span>, <span class="clientreference">Prijsvrij</span></li>
+<li><strong>Retail and e-commerce:</strong> A.S. Watson (<a class="clientreference" href="https://www.parknshop.com">PARKnSHOP</a>), Maxeda (<a class="clientreference" href="https://www.praxis.nl">Praxis</a>)</li>
+<li><strong>Industry and agriculture:</strong> <a class="clientreference" href="https://www.frieslandcampina.com">FrieslandCampina</a>, <a class="clientreference" href="https://www.lely.com/">Lely</a>, <span class="clientreference">Philips</span>, <span class="clientreference">Hertek Safety</span>, <span class="clientreference">Rocsys</span></li>
+<li><strong>Finance:</strong> <a class="clientreference" href="https://www.ing.nl">ING</a>, <a class="clientreference" href="https://www.aegon.nl">Aegon</a>, <a class="clientreference" href="https://www.lloydsbank.nl/">Lloyds Bank</a></li>
+<li><strong>Telecom, media and public services:</strong> <a class="clientreference" href="https://www.kpn.com">KPN</a>, <a class="clientreference" href="https://www.nu.nl">nu.nl</a>, <a class="clientreference" href="https://www.bndestem.nl">BN DeStem</a>, <a class="clientreference" href="https://www.bibliotheek.nl">National Library of the Netherlands</a>, <a class="clientreference" href="https://www.consumentenbond.nl">Consumentenbond</a></li>
+<li><strong>Healthcare, work, sport and education:</strong> <a class="clientreference" href="https://www.oogziekenhuis.nl">Rotterdam Eye Hospital</a>, <a class="clientreference" href="https://www.randstad.nl">Randstad</a>, <span class="clientreference">NOC*NSF</span>, <a class="clientreference" href="https://www.hogeschoolrotterdam.nl">Hogeschool Rotterdam</a>, <a class="clientreference" href="https://www.eaie.org">EAIE</a></li>
+</ul>
+HTML;
+    $new = preg_replace('/<p[^>]*>\s*My career started when I became the lead designer.*?<\/p>/s', $clients, $body, 1, $n);
+    if ($n) {
+        $body = $new;
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: clients by sector\n";
+    }
+}
+
+// Leadership (Nov 2026): the size of the department led at Mirabeau. LEAD_ON: 'staging' while reviewed.
+const LEAD_ON = 'all';
+if (LEAD_ON === 'all' || LEAD_ON === $env) {
+    $new = preg_replace(
+        '/I(?:\x{2019}|\'|&rsquo;|&#8217;)ve worked as UX Director leading the Concept &(?:amp;)? Design team at Mirabeau and organise regular meetups/u',
+        'As UX Director at Mirabeau, I led the Concept &amp; Design department of around 50 people: interaction designers, visual designers, front-end developers and creative consultants. I also organise regular meetups',
+        $body, 1, $n);
+    if ($n) {
+        $body = $new;
+        exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+        echo "about: leadership at Mirabeau\n";
+    }
+}
+
+// Work (Nov 2026): the hands-on and strategy paragraphs become one, strategy first,
+// without project lists (those are on the Resume) and without "in the last four years".
+$work = '<p>My work combines strategy with hands-on design. Since co-founding fresk.digital in 2022, I mostly set up the concept and the roadmap, guide the design direction and discuss the key choices with leadership, for clients ranging from tailor-made travel to fire safety and robotics. I still enjoy designing myself, from a visual style and a complete design system to tools that support professionals in their daily work.</p>';
+$new = preg_replace('/<p[^>]*>\s*Part of my work is hands-on visual, UX and product design\..*?<\/p>\s*<p[^>]*>\s*In the last four years my work moved more towards strategy\..*?<\/p>/s', $work, $body, 1, $n);
+if ($n) {
+    $body = $new;
+    exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+    echo "about: work paragraphs combined\n";
+}
+
+if (strpos($body, 'class="callout"') !== false) { echo "about: page already has its new layout\n"; return; }
 
 $posContact  = strpos($body, '<h2>Contact details:</h2>');
 $posChannels = strpos($body, '<h2>Other channels:</h2>');
@@ -100,7 +160,7 @@ $introEnd    = strpos($body, '</p>');
 if ($posContact === false || $posChannels === false || $posResume === false || $introEnd === false
     || !($introEnd < $posResume && $posResume < $posContact && $posContact < $posChannels)) {
     echo "about: page text is not as expected, left unchanged\n";
-    exit(0);
+    return;
 }
 $introEnd += 4;
 
