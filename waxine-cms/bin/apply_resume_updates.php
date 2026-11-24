@@ -224,6 +224,27 @@ $1',
 // --- Experience records: [title, old description start => new description] --------
 $experienceChanges = [
     [
+        // Undo a doubled result (Nov 2026), from before the done-markers.
+        'title'   => 'Senses',
+        'cleanup' => true,
+        'old'     => 'including some project management. In its first year, Senses grew to over €5 million in revenue and won the travel industry’s Start-Up of the Year Award in 2026. Prijsvrij’s idea',
+        'new'     => 'including some project management. Prijsvrij’s idea',
+    ],
+    [
+        // Undo a doubled result (Nov 2026), from before the done-markers.
+        'title'   => 'Hertek Safety',
+        'cleanup' => true,
+        'old'     => 'strategically guide. Shadowing a single inspection round showed what the workaround cost: technicians walked the building three or four times instead of once, and wrote down every measurement by hand to enter it again later. The portal guides them through what to measure and records it as they go, so the administration is taken off their hands, a job takes fewer rounds and a technician can help more customers a day. Hertek’s tools',
+        'new'     => 'strategically guide. Hertek’s tools',
+    ],
+    [
+        // Undo a doubled result (Nov 2026), from before the done-markers.
+        'title'   => 'Rocsys',
+        'cleanup' => true,
+        'old'     => 'discussed at C-level. The fleet tool replaced a spreadsheet-like first version that didn’t present the information clearly, and became part of the Rocsys Portal, launched in April 2025 within the first integrated platform for hands-free charging of autonomous vehicles, with partners such as APM Terminals. For customers',
+        'new'     => 'discussed at C-level. For customers',
+    ],
+    [
         // Key choice with leadership (as told by Paul, Nov 2026).
         'title'  => 'FrieslandCampina',
         'marker' => 'print costs were rising',
@@ -272,13 +293,15 @@ $experienceChanges = [
         'new'   => 'bypassing the existing tool for alternative tools.',
     ],
     [
-        'title' => 'Rocsys',
-        'old'   => 'which key choices to make, discussed at C-level.',
+        'title'  => 'Rocsys',
+        'marker' => 'Rocsys Portal',
+        'old'    => 'which key choices to make, discussed at C-level.',
         'new'   => 'which key choices to make, discussed at C-level. The fleet tool replaced a spreadsheet-like first version that didn’t present the information clearly, and became part of the Rocsys Portal, launched in April 2025 within the first integrated platform for hands-free charging of autonomous vehicles, with partners such as APM Terminals.',
     ],
     [
-        'title' => 'Ravlling',
-        'old'   => 'setting up and using graph databases.',
+        'title'  => 'Ravlling',
+        'marker' => 'Ravlling went live',
+        'old'    => 'setting up and using graph databases.',
         'new'   => 'setting up and using graph databases. Ravlling went live at the end of 2022, starting with the Nordic countries, was featured on PhocusWire’s Startup Stage and was nominated for the Columbus Travel Awards 2024 as sustainable start-up of the year.',
     ],
     [
@@ -309,14 +332,16 @@ $experienceChanges = [
     ],
     [
         // The result in public figures (Quote, June 2026; Reisgala, February 2026).
-        'title' => 'Senses',
-        'old'   => 'including some project management.',
+        'title'  => 'Senses',
+        'marker' => 'Senses grew to over',
+        'old'    => 'including some project management.',
         'new'   => 'including some project management. In its first year, Senses grew to over €5 million in revenue and won the travel industry’s Start-Up of the Year Award in 2026.',
     ],
     [
         // The measured result (Nov 2026): rounds through the building and the administration.
-        'title' => 'Hertek Safety',
-        'old'   => 'which I partly design and strategically guide.',
+        'title'  => 'Hertek Safety',
+        'marker' => 'Shadowing a single inspection round',
+        'old'    => 'which I partly design and strategically guide.',
         'new'   => 'which I partly design and strategically guide. Shadowing a single inspection round showed what the workaround cost: technicians walked the building three or four times instead of once, and wrote down every measurement by hand to enter it again later. The portal guides them through what to measure and records it as they go, so the administration is taken off their hands, a job takes fewer rounds and a technician can help more customers a day.',
     ],
     [
@@ -325,8 +350,9 @@ $experienceChanges = [
         'new'   => 'Design for the website of the Dutch consumer association',
     ],
     [
-        'title' => 'Etihad Airways',
-        'old'   => 'It should hold up to interpretation both internally, and externally by agencies and vendors.',
+        'title'  => 'Etihad Airways',
+        'marker' => 'dozens of internal stakeholders',
+        'old'    => 'It should hold up to interpretation both internally, and externally by agencies and vendors.',
         'new'   => 'It should hold up to interpretation both internally, and externally by agencies and vendors. The work involved dozens of internal stakeholders and external vendors, across 4 time zones and 3 design studios in Amsterdam, Abu Dhabi and Kolkata.',
     ],
 ];
