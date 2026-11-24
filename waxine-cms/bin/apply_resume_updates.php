@@ -205,6 +205,11 @@ $1',
 $experienceChanges = [
     [
         // Public result (Ravlling LinkedIn, PhocusWire, Columbus Travel Awards; Nov 2026).
+        'title' => 'D-Connect',
+        'old'   => 'bypassing the existing tool for a German application.',
+        'new'   => 'bypassing the existing tool for alternative tools.',
+    ],
+    [
         'title' => 'Rocsys',
         'old'   => 'which key choices to make, discussed at C-level.',
         'new'   => 'which key choices to make, discussed at C-level. The fleet tool replaced a spreadsheet-like first version that didn’t present the information clearly, and became part of the Rocsys Portal, launched in April 2025 within the first integrated platform for hands-free charging of autonomous vehicles, with partners such as APM Terminals.',
