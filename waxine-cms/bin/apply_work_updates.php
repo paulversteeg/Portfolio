@@ -218,6 +218,27 @@ if ($row && strpos((string) $row['work_body'], 'AI now speeds up how the portal 
         echo "story: Hertek, AI in how the portal grows\n";
     }
 }
+// FASt: fresk's product and design system for frontline work (Paul's draft, Nov 2026).
+// Added once, at the top of Work and of the projects; later edits in the CMS stay.
+if (!q1("SELECT id FROM experiences WHERE title = 'FASt'")) {
+    $top = (int) (q1('SELECT COALESCE(MIN(sort_order), 0) AS m FROM experiences')['m']) - 1;
+    exec_sql('INSERT INTO experiences (period, employer, title, subtitle, slug, description, work_question, work_body, sort_order, is_highlight, on_work)
+              VALUES (?,?,?,?,?,?,?,?,?,0,1)', [
+        '2026 – present',
+        'fresk.digital',
+        'FASt',
+        'Product and design system for frontline work',
+        'fast',
+        'A product and design system for frontline professionals, grown from what we kept designing for Hertek Safety, Rocsys and NOC*NSF: a technician at an installation who needs to know what to do, do it safely and record it. I shaped the concept, the module structure and the design system, where one Figma file serves every client through modes for brand, content, settings and size. Onboarding a new client means filling in modes rather than redesigning screens, and a prospect sees its own product in the first conversation.',
+        'What does a technician at an installation need, whatever the client?',
+        "<p>In projects for Hertek Safety, Rocsys and NOC*NSF we kept designing for the same moment: a technician standing at an installation who needs to know what to do, do it safely and record it. FASt brings that moment together in one product for frontline professionals. It is not SaaS and not off-the-shelf: it is a semi-finished product, with a custom element for every client. The Cockpit is always the starting point. Clients add the modules they need: Guided Workflow, Knowledge Centre and Object Overview.</p>\n"
+      . "<p>I shaped the concept, the module structure and the FASt design system. One Figma file drives every client through four sets of variables: brand, content, settings and size. A client’s colours, typeface and corner radius live in its brand mode, its terminology in content, and its modules in settings. The token system itself never changes per client, and every colour combination is checked against WCAG AA. With AI I turn the Figma tokens, text styles and components one to one into a clickable front-end prototype.</p>\n"
+      . "<p>So onboarding a new client is a matter of filling in modes rather than redesigning screens, and we can show a prospect its own product, in its own brand and language, in the first conversation.</p>\n"
+      . "<p>Design decisions start in the field: gloves, poor signal, a colleague taking over halfway through a job. That is why work is split into chapters with visible progress, steps you tick off, values that can come in through IoT, and team knowledge that shows up at the exact step where it is needed. Red is reserved for deviations, so no brand gets it as an action colour.</p>",
+        $top,
+    ]);
+    echo "fast: added at the top of Work\n";
+}
 } else {
     echo "work page and menu: not on $env yet\n";
 }
