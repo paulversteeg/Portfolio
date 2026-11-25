@@ -230,7 +230,7 @@ if (!q1("SELECT id FROM experiences WHERE title = 'FASt'")) {
         'Product and design system for frontline work',
         'fast',
         'A product and design system for frontline professionals, grown from what we kept designing for Hertek Safety, Rocsys and NOC*NSF: a technician at an installation who needs to know what to do, do it safely and record it. I shaped the concept, the module structure and the design system, where one Figma file serves every client through modes for brand, content, settings and size. Onboarding a new client means filling in modes rather than redesigning screens, and a prospect sees its own product in the first conversation.',
-        'What does a technician at an installation need, whatever the client?',
+        'What does a frontline professional at an installation need?',
         "<p>In projects for Hertek Safety, Rocsys and NOC*NSF we kept designing for the same moment: a technician standing at an installation who needs to know what to do, do it safely and record it. FASt brings that moment together in one product for frontline professionals. It is not SaaS and not off-the-shelf: it is a semi-finished product, with a custom element for every client. The Cockpit is always the starting point. Clients add the modules they need: Guided Workflow, Knowledge Centre and Object Overview.</p>\n"
       . "<p>I shaped the concept, the module structure and the FASt design system. One Figma file drives every client through four sets of variables: brand, content, settings and size. A client’s colours, typeface and corner radius live in its brand mode, its terminology in content, and its modules in settings. The token system itself never changes per client, and every colour combination is checked against WCAG AA. With AI I turn the Figma tokens, text styles and components one to one into a clickable front-end prototype.</p>\n"
       . "<p>So onboarding a new client is a matter of filling in modes rather than redesigning screens, and we can show a prospect its own product, in its own brand and language, in the first conversation.</p>\n"
@@ -238,6 +238,9 @@ if (!q1("SELECT id FROM experiences WHERE title = 'FASt'")) {
         $top,
     ]);
     echo "fast: added at the top of Work\n";
+}
+if (exec_sql("UPDATE experiences SET work_question = ? WHERE title = 'FASt' AND work_question = ?", ['What does a frontline professional at an installation need?', 'What does a technician at an installation need, whatever the client?'])) {
+    echo "fast: question about the frontline professional\n";
 }
 } else {
     echo "work page and menu: not on $env yet\n";
