@@ -228,6 +228,15 @@ if ($n) {
     echo "about: AI paragraph without the double 'has become'\n";
 }
 
+// New portrait (Nov 2026): a larger, more recent photo in place of the 250px one.
+// PHOTO_ON: 'staging' while being reviewed, 'all' once approved for live.
+const PHOTO_ON = 'staging';
+if ((PHOTO_ON === 'all' || PHOTO_ON === $env) && strpos($body, '/assets/paulversteeg.png') !== false) {
+    $body = str_replace('/assets/paulversteeg.png', '/assets/paulversteeg_portrait.jpg', $body);
+    exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+    echo "about: new portrait\n";
+}
+
 // AI in how I work (Nov 2026): a paragraph after the one on the work itself.
 $ai = '<p>AI has become a big part of how I work. In recent years, Claude turned into my go-to partner to work out concepts, bring insights together, challenge a direction and present it, from a shared product brain that holds the context of a product. I believe in a living service blueprint: processes, the user&rsquo;s perspective and technology brought together, as-is and to-be, and mapped to hypotheses and data. AI is what makes it possible to keep all of that connected. It shows most in recent work, such as the inspection portal for NOC*NSF and the Hertek portal.</p>';
 if (strpos($body, 'AI has become a big part of how I work') === false) {
