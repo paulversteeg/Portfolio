@@ -226,6 +226,17 @@ $1',
         'new'     => '$1' . "\n" . '<li class="description">Design for the websites of the Consumentenbond and Televizier.</li>',
         'marker'  => 'Design for the websites of the Consumentenbond and Televizier.',
     ],
+    [
+        // Tools are tools (Paul, Nov 2026): no separate AI group; Claude first.
+        'what'    => 'tools: Claude first, AI group folded into Design & presenting',
+        'old'     => "<li class=\"highlight\">Design &amp; presenting</li>\n<li class=\"location\">Figma, Keynote</li>\n</ul>\n<ul class=\"item\">\n<li class=\"highlight\">AI</li>\n<li class=\"location\">Claude, Gemini, Midjourney, ElevenLabs</li>\n</ul>\n",
+        'new'     => "<li class=\"highlight\">Design &amp; presenting</li>\n<li class=\"location\">Claude, Figma, Keynote, Gemini, Midjourney</li>\n</ul>\n",
+    ],
+    [
+        'what'    => 'tools: ElevenLabs with audio & video',
+        'old'     => '<li class="location">Logic Pro, Final Cut Pro</li>',
+        'new'     => '<li class="location">Logic Pro, Final Cut Pro, ElevenLabs</li>',
+    ],
 ];
 
 // --- Experience records: [title, old description start => new description] --------
