@@ -246,7 +246,7 @@ if (exec_sql("UPDATE experiences SET work_question = ? WHERE title = 'FASt' AND 
 // A case on Work, second after FASt, and a career highlight on the Resume.
 // Added once; later edits in the CMS stay. $designPracticeOn: 'staging' while
 // being reviewed, 'all' once approved for live.
-$designPracticeOn = 'staging';
+$designPracticeOn = 'all';
 if (($designPracticeOn === 'all' || $designPracticeOn === $env)
     && !q1("SELECT id FROM experiences WHERE slug = 'design-practice'")) {
     $fast = q1("SELECT sort_order FROM experiences WHERE title = 'FASt' ORDER BY id LIMIT 1");

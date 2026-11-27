@@ -230,7 +230,7 @@ if ($n) {
 
 // New portrait (Nov 2026): a larger, more recent photo in place of the 250px one.
 // PHOTO_ON: 'staging' while being reviewed, 'all' once approved for live.
-const PHOTO_ON = 'staging';
+const PHOTO_ON = 'all';
 if ((PHOTO_ON === 'all' || PHOTO_ON === $env) && strpos($body, '/assets/paulversteeg.png') !== false) {
     $body = str_replace('/assets/paulversteeg.png', '/assets/paulversteeg_portrait.jpg', $body);
     exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
