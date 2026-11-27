@@ -242,6 +242,15 @@ if (!q1("SELECT id FROM experiences WHERE title = 'FASt'")) {
 if (exec_sql("UPDATE experiences SET work_question = ? WHERE title = 'FASt' AND work_question = ?", ['What does a frontline professional at an installation need?', 'What does a technician at an installation need, whatever the client?'])) {
     echo "fast: question about the frontline professional\n";
 }
+// Senses last on Work and among the Resume's career highlights (Paul, Nov 2026):
+// a good case, but not the most important. Keeps it after every other case on
+// Work; to put it elsewhere later, remove this block first.
+$sen = q1("SELECT id, sort_order FROM experiences WHERE title = 'Senses' AND on_work = 1 ORDER BY id LIMIT 1");
+$last = q1("SELECT MAX(sort_order) AS m FROM experiences WHERE (on_work = 1 OR is_highlight = 1) AND title <> 'Senses'");
+if ($sen && $last && (int) $sen['sort_order'] <= (int) $last['m']) {
+    exec_sql('UPDATE experiences SET sort_order = ? WHERE id = ?', [(int) $last['m'] + 1, $sen['id']]);
+    echo "senses: moved to the end of Work and the career highlights\n";
+}
 } else {
     echo "work page and menu: not on $env yet\n";
 }
