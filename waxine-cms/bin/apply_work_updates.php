@@ -242,6 +242,33 @@ if (!q1("SELECT id FROM experiences WHERE title = 'FASt'")) {
 if (exec_sql("UPDATE experiences SET work_question = ? WHERE title = 'FASt' AND work_question = ?", ['What does a frontline professional at an installation need?', 'What does a technician at an installation need, whatever the client?'])) {
     echo "fast: question about the frontline professional\n";
 }
+// Design practice: building and leading the fresk design team (Paul, Nov 2026).
+// A case on Work, second after FASt, and a career highlight on the Resume.
+// Added once; later edits in the CMS stay. $designPracticeOn: 'staging' while
+// being reviewed, 'all' once approved for live.
+$designPracticeOn = 'staging';
+if (($designPracticeOn === 'all' || $designPracticeOn === $env)
+    && !q1("SELECT id FROM experiences WHERE slug = 'design-practice'")) {
+    $fast = q1("SELECT sort_order FROM experiences WHERE title = 'FASt' ORDER BY id LIMIT 1");
+    $base = $fast ? (int) $fast['sort_order'] : (int) (q1('SELECT COALESCE(MIN(sort_order), 0) AS m FROM experiences')['m']) - 1;
+    exec_sql('UPDATE experiences SET sort_order = sort_order + 1 WHERE sort_order > ?', [$base]);
+    exec_sql('INSERT INTO experiences (period, employer, title, subtitle, slug, description, work_question, work_body, sort_order, is_highlight, on_work)
+              VALUES (?,?,?,?,?,?,?,?,?,1,1)', [
+        '2022 – January 2026',
+        'fresk.digital',
+        'Design practice',
+        'Building and leading the fresk design team',
+        'design-practice',
+        'Building the design team of fresk.digital and its practice from scratch. We defined the human-centred designer we needed, with its competencies, a growth matrix, a design vision, critique sessions and our own review system. I led the team with questions rather than instructions, until it ran the practice itself and a colleague took over the lead in January 2026.',
+        'How do you build a design team that can lead itself?',
+        "<p>fresk.digital started as entrepreneurship in its purest form: taking on everything and doing everything ourselves. Slowly a design team grew around it, first from our own network and later with people from outside it. Each of them had to be taken along in the way fresk looks at its work, and find their own place in it.</p>\n"
+      . "<p>Building on what we learned at Mirabeau, we defined the designer we needed: the human-centred designer, a mix of service designer, creative consultant, interaction designer and visual designer. Around that role we set out competencies, a growth matrix and a design vision for the discipline, with regular critique sessions and our own review system.</p>\n"
+      . "<p>The way I led changed with the team. At first I led mostly through inspiration: taking people along in how I saw things and what was possible, and giving them a stage and room to take initiative. With designers who could already do a lot themselves, that asked for a different style, and it differed per person. I learned to ask more questions. Up front we agree on the frame, or the team sets it. After that, my job is to hold them to it, and to ask how something was thought up and what the idea behind it is. It is not about what I think, but about whether the work fits the principles we agreed on.</p>\n"
+      . "<p>Handing over the lead happened in small steps. A colleague first took over the organisation of our meetings and knowledge-transfer sessions, which I had always planned and filled myself. That gave her ownership and gave me more calm. The setup proved itself: since January 2026 she leads the team, and it runs the practice by itself.</p>",
+        $base + 1,
+    ]);
+    echo "design practice: added second on Work and as a career highlight\n";
+}
 // Senses last on Work and among the Resume's career highlights (Paul, Nov 2026):
 // a good case, but not the most important. Keeps it after every other case on
 // Work; to put it elsewhere later, remove this block first.
