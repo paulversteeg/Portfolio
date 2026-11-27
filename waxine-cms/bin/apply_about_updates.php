@@ -228,6 +228,14 @@ if ($n) {
     echo "about: AI paragraph without the double 'has become'\n";
 }
 
+// Design leader in the opening sentence (Nov 2026).
+$body2 = str_replace('I&rsquo;m a design strategist and one of the founders', 'I&rsquo;m a design strategist and design leader, and one of the founders', $body, $n);
+if ($n) {
+    $body = $body2;
+    exec_sql('UPDATE pages SET body_html = ? WHERE id = ?', [$crlf ? str_replace("\n", "\r\n", $body) : $body, $about['id']]);
+    echo "about: design leader in the opening sentence\n";
+}
+
 // New portrait (Nov 2026): a larger, more recent photo in place of the 250px one.
 // PHOTO_ON: 'staging' while being reviewed, 'all' once approved for live.
 const PHOTO_ON = 'all';
