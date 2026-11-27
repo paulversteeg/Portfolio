@@ -242,6 +242,13 @@ if (!q1("SELECT id FROM experiences WHERE title = 'FASt'")) {
 if (exec_sql("UPDATE experiences SET work_question = ? WHERE title = 'FASt' AND work_question = ?", ['What does a frontline professional at an installation need?', 'What does a technician at an installation need, whatever the client?'])) {
     echo "fast: question about the frontline professional\n";
 }
+// Rocsys without 'tangible' on Work and its case page (Nov 2026).
+if (exec_sql("UPDATE experiences SET work_question = ? WHERE title = 'Rocsys' AND work_question = ?", ['How do you show that a charging robot can be relied on?', 'How do you make the reliability of a charging robot tangible?'])) {
+    echo "rocsys: question without 'tangible'\n";
+}
+if (exec_sql("UPDATE experiences SET work_body = REPLACE(work_body, ?, ?) WHERE title = 'Rocsys' AND work_body LIKE ?", ['how to make that reliability tangible: showing how Rocsys meets the contract', 'how to show that reliability: how Rocsys meets the contract', '%make that reliability tangible%'])) {
+    echo "rocsys: case text without 'tangible'\n";
+}
 // Design practice: building and leading the fresk design team (Paul, Nov 2026).
 // A case on Work, second after FASt, and a career highlight on the Resume.
 // Added once; later edits in the CMS stay. $designPracticeOn: 'staging' while

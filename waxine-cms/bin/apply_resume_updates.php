@@ -36,7 +36,18 @@ $pageChanges = [
     [
         'what' => 'profile: international, cross-cultural experience',
         'old'  => 'independent of who is across the table.</p>',
-        'new'  => 'independent of who is across the table. I am at home in international, cross-cultural settings, with hands-on experience on projects in Europe, the Middle East and Asia. Pro-active and outspoken, I take the lead and get stakeholders enthusiastic.</p>',
+        'new'  => 'independent of who is across the table. I am at home in international, cross-cultural settings, with hands-on experience on projects in Europe, the Middle East and Asia.</p>',
+        'marker' => 'I am at home in international, cross-cultural settings',
+    ],
+    [
+        'what' => 'profile: without the borrowed "pro-active and outspoken" line (Nov 2026)',
+        'old'  => 'the Middle East and Asia. Pro-active and outspoken, I take the lead and get stakeholders enthusiastic.</p>',
+        'new'  => 'the Middle East and Asia.</p>',
+    ],
+    [
+        'what' => 'profile: design leader in the opening sentence (Nov 2026)',
+        'old'  => '<p class="lead">Design strategist with',
+        'new'  => '<p class="lead">Design strategist and design leader with',
     ],
     [
         'what' => 'contact details: LinkedIn and location',
@@ -241,6 +252,12 @@ $1',
 
 // --- Experience records: [title, old description start => new description] --------
 $experienceChanges = [
+    [
+        // Rocsys without 'tangible' (Nov 2026).
+        'title' => 'Rocsys',
+        'old'   => 'that makes their reliability tangible: how they meet the contract',
+        'new'   => 'that shows how reliable they are: whether they meet the contract',
+    ],
     [
         // Undo a doubled result (Nov 2026), from before the done-markers.
         'title'   => 'Senses',
